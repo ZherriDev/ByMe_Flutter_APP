@@ -1,4 +1,4 @@
-import 'package:byme_flutter_app/pages/lading_page.dart';
+import 'package:byme_flutter_app/pages/landing_page.dart';
 import 'package:byme_flutter_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -14,10 +14,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'ByMe',
       theme: ThemeData(
+        fontFamily: 'Lato',
         brightness: Brightness.light,
         useMaterial3: true,
       ),
-      home: const LoginPage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const LandingPage(),
+        '/register': (context) => const RegisterPage(),
+        '/login': (context) => const LoginPage(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }
