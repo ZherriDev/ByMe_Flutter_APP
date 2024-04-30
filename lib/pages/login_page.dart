@@ -56,9 +56,14 @@ class LoginPage extends StatelessWidget {
                 ),
                 Container(
                   alignment: Alignment.centerRight,
-                  child: const Text(
-                    'Esqueceu a Palavra-passe?',
-                    style: TextStyle(decoration: TextDecoration.underline),
+                  child: GestureDetector(
+                    onTap: (){
+                      Navigator.of(context).pushReplacementNamed('/forgot_password');
+                    },
+                    child: const Text(
+                      'Esqueceu a Palavra-passe?',
+                      style: TextStyle(decoration: TextDecoration.underline),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -78,18 +83,22 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: const Text('Acessar', style: TextStyle(fontSize: 18),),
+                  child: const Text(
+                    'Acessar',
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ),
-                const SizedBox(height: 8,),
+                const SizedBox(
+                  height: 8,
+                ),
                 Container(
                   alignment: Alignment.center,
                   child: GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).pushNamed('/register');
                     },
                     child: const Text(
                       'Ainda não tem uma conta? Criar conta',
-                      
                       style: TextStyle(decoration: TextDecoration.underline),
                     ),
                   ),
