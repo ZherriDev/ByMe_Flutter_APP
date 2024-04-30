@@ -58,7 +58,7 @@ class LoginPage extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
                     onTap: (){
-                      Navigator.of(context).pushReplacementNamed('/forgot_password');
+                      Navigator.of(context).pushNamed('/forgot_password');
                     },
                     child: const Text(
                       'Esqueceu a Palavra-passe?',
