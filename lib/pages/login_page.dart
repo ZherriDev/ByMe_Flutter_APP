@@ -36,7 +36,7 @@ class LoginPage extends StatelessWidget {
                     hintText: 'exemplo@gmail.com',
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(10),                
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
@@ -47,7 +47,7 @@ class LoginPage extends StatelessWidget {
                     fillColor: Colors.grey[200],
                     prefixIcon: const Icon(Icons.lock),
                     label: const Text('Palavra-Passe'),
-                    hintText: 'Digite sua Palavra-Passe',
+                    hintText: 'Digite sua palavra-passe',
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10),
@@ -85,7 +85,7 @@ class LoginPage extends StatelessWidget {
                   alignment: Alignment.center,
                   child: GestureDetector(
                     onTap: (){
-                      Navigator.of(context).pushReplacementNamed('/register');
+                      Navigator.of(context).pushNamed('/register');
                     },
                     child: const Text(
                       'Ainda não tem uma conta? Criar conta',
