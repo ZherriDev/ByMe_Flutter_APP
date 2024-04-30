@@ -13,10 +13,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'ByMe',
       theme: ThemeData(
+        fontFamily: 'Lato',
         brightness: Brightness.light,
         useMaterial3: true,
       ),
-      home: const LandingPage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const LandingPage(),
+        '/register': (context) => const RegisterPage(),
+        '/login': (context) => const LoginPage(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }
