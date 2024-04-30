@@ -1,4 +1,5 @@
 import 'package:byme_flutter_app/pages/lading_page.dart';
+import 'package:byme_flutter_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         useMaterial3: true,
       ),
-      home: const LandingPage(),
+      home: const LoginPage(),
       debugShowCheckedModeBanner: false,
     );
   }
