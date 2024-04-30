@@ -5,8 +5,10 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
-      child: Text("LandingPage"),
+    return Column(
+      children: [
+        Image.asset("assets/images/byme_logo.jpg"),
+      ]
     );
   }
 }

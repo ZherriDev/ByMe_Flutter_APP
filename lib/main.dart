@@ -13,10 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'ByMe',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true, 
+        brightness: Brightness.light,
+        useMaterial3: true,
       ),
       home: const LandingPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
