@@ -1,4 +1,4 @@
-import 'package:byme_flutter_app/lading_page.dart';
+import 'package:byme_flutter_app/pages/lading_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'ByMe',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        useMaterial3: true, 
       ),
       home: const LandingPage(),
     );
