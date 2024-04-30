@@ -6,8 +6,8 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Center(
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -31,16 +31,51 @@ class LandingPage extends StatelessWidget {
                 Container(
                   height: 70,
                 ),
-                SizedBox(child: Row(
-                  children: [
-                    ElevatedButton(
-                    onPressed: () => Navigator.of(context).pushNamed('/register'), 
-                    child: const Text("Registar-me")),
-                    ElevatedButton(
-                    onPressed: () => Navigator.of(context).pushNamed('/login'), 
-                    child: const Text("Iniciar Sessão")),
-                  ],
-                ),)
+                SizedBox(
+                  child: Row(
+                    children: [
+                      ElevatedButton(
+                          onPressed: () =>
+                              Navigator.of(context).pushNamed('/register'),
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                const EdgeInsets.symmetric(
+                                    vertical: 20, horizontal: 16)),
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                const Color(0xff672D6F)),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                            ),
+                          ),
+                          child: const Text("Registar-me")),
+                      Container(width: 50,),
+                      ElevatedButton(
+                          onPressed: () =>
+                              Navigator.of(context).pushNamed('/login'),
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                const EdgeInsets.symmetric(
+                                    vertical: 20, horizontal: 16)),
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                const Color(0xff672D6F)),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                            ),
+                          ),
+                          child: const Text("Iniciar sessão")),
+                    ],
+                  ),
+                )
               ]),
         ),
       ),
