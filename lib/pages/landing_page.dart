@@ -55,7 +55,7 @@ class LandingPage extends StatelessWidget {
                 children: [
                   ElevatedButton(
                       onPressed: () =>
-                          Navigator.of(context).pushReplacementNamed('/register'),
+                          Navigator.of(context).pushNamed('/register'),
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all<EdgeInsets>(
                             const EdgeInsets.symmetric(
@@ -80,7 +80,7 @@ class LandingPage extends StatelessWidget {
                   ),
                   ElevatedButton(
                       onPressed: () =>
-                          Navigator.of(context).pushReplacementNamed('/login'),
+                          Navigator.of(context).pushNamed('/login'),
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all<EdgeInsets>(
                             const EdgeInsets.symmetric(
