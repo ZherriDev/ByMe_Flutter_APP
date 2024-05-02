@@ -219,70 +219,66 @@ class _LoginPageState extends State<LoginPage> {
         headers: header,
       );
 
-      if (response.statusCode == 200) {
-        //Future
-      } else {
-        switch (response.statusCode) {
-          case 200:
-            setState(() {
-              _errorMessage = 'Login realizado com sucesso';
-            });
-            break;
-          case 400:
-            setState(() {
-              _errorMessage = 'Requisição inválida';
-            });
-            break;
-          case 401:
-            setState(() {
-              _errorMessage = 'Credenciais Inválidas';
-            });
-            break;
-          case 403:
-            print('Forbidden');
-            break;
-          case 404:
-            print('Not Found');
-            break;
-          case 429:
-            setState(() {
-              _errorMessage = 'Muitas requisições, tente novamente dentro de 1 minuto';
-            });
-            break;
-          case 500:
-            setState(() {
-              _errorMessage = 'Algo correu mal';
-            });
-            break;
-          case 501:
-            print('Not Implemented');
-            break;
-          case 502:
-            print('Bad Gateway');
-            break;
-          case 503:
-            print('Service Unavailable');
-            break;
-          case 504:
-            print('Gateway Timeout');
-            break;
-          case 505:
-            print('HTTP Version Not Supported');
-            break;
-          case 506:
-            print('Variant Also Negotiates');
-            break;
-          case 507:
-            print('Insufficient Storage');
-            break;
-        }
-
-        print(response.statusCode);
-        print(response.body);
+      switch (response.statusCode) {
+        case 200:
+          setState(() {
+            _errorMessage = 'Login realizado com sucesso';
+          });
+          break;
+        case 400:
+          setState(() {
+            _errorMessage = 'Requisição inválida';
+          });
+          break;
+        case 401:
+          setState(() {
+            _errorMessage = 'Credenciais Inválidas';
+          });
+          break;
+        case 403:
+          print('Forbidden');
+          break;
+        case 404:
+          print('Not Found');
+          break;
+        case 429:
+          setState(() {
+            _errorMessage =
+                'Muitas requisições, tente novamente dentro de 1 minuto';
+          });
+          break;
+        case 500:
+          setState(() {
+            _errorMessage = 'Algo correu mal';
+          });
+          break;
+        case 501:
+          print('Not Implemented');
+          break;
+        case 502:
+          print('Bad Gateway');
+          break;
+        case 503:
+          print('Service Unavailable');
+          break;
+        case 504:
+          print('Gateway Timeout');
+          break;
+        case 505:
+          print('HTTP Version Not Supported');
+          break;
+        case 506:
+          print('Variant Also Negotiates');
+          break;
+        case 507:
+          print('Insufficient Storage');
+          break;
       }
+
+      print(response.statusCode);
+      print(response.body);
     } catch (error) {
-      _errorMessage =
-          'Erro de Conexão';
+      _errorMessage = 'Erro de Conexão';
     } finally {
       print('Terminado');
       setState(() {
