@@ -16,7 +16,6 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _success = false;
   bool _passwordVisible = true;
   bool _isLoading = false;
   String _errorMessage = '';
@@ -57,8 +56,7 @@ class _LoginPageState extends State<LoginPage> {
             String token = jsonDecode(response.body)['token'];
             await storage.write(key: 'token', value: token);
             setState(() {
-              _success = true;
-              _errorMessage = 'Login Realizado com sucesso';
+              _errorMessage = '';
               successLogin = true;
             });
           } catch (error) {
@@ -217,10 +215,8 @@ class _LoginPageState extends State<LoginPage> {
                         _errorMessage = "";
                         login().then((loggedIn) {
                           if (loggedIn) {
-                            Future.delayed(const Duration(seconds: 2), () {
-                              Navigator.of(context)
-                                  .pushReplacementNamed('/homepage');
-                            });
+                            Navigator.of(context)
+                                .pushReplacementNamed('/homepage');
                           }
                         });
                       }
@@ -271,21 +267,32 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Visibility(
-                    visible: _errorMessage.isNotEmpty,
-                    child: Container(
-                      padding: const EdgeInsets.all(15),
-                      decoration: BoxDecoration(
+                  AnimatedContainer(
+                    duration: const Duration(
+                        milliseconds:
+                            300), // Duração da animação, em milissegundos
+                    curve: Curves.easeInOut, // Curva de animação
+                    height: _errorMessage.isNotEmpty
+                        ? 50
+                        : 0, // Altura do contêiner dependendo se há uma mensagem de erro ou não
+                    child: Visibility(
+                      visible: _errorMessage.isNotEmpty,
+                      child: Container(
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: _success ? Colors.green : Colors.red),
-                      child: Text(
-                        _errorMessage,
-                        textAlign: TextAlign.center,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 14),
+                          color: Colors.red,
+                        ),
+                        child: Text(
+                          _errorMessage,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 14),
+                        ),
                       ),
                     ),
                   ),
+
                 ],
               ),
             ),
