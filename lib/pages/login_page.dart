@@ -81,6 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                       } else if (password.length < 6) {
                         return 'A Palavra-Passe deve conter no minimo 6 caracteres';
                       }
+                      return null;
                     },
                     decoration: InputDecoration(
                       filled: true,
