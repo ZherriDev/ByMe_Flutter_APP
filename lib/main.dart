@@ -2,6 +2,7 @@ import 'package:byme_flutter_app/pages/landing_page.dart';
 import 'package:byme_flutter_app/pages/register_page.dart';
 import 'package:byme_flutter_app/pages/login_page.dart';
 import 'package:byme_flutter_app/pages/forgot_pass_page.dart';
+import 'package:byme_flutter_app/pages/homepage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegisterPage(),
         '/login': (context) => const LoginPage(),
         '/forgot_password': (context) => const ForgotPasswordPage(),
+        '/homepage': (context) => const HomePage(),
       },
       debugShowCheckedModeBanner: false,
     );

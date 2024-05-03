@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
@@ -12,14 +12,102 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final backgroundColor = const Color(0xFF672D6F);
-  bool _passwordVisible = true;
+  final colorPurple = const Color(0xFF672D6F);
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _isLoading = false;
   bool _success = false;
+  bool _passwordVisible = true;
+  bool _isLoading = false;
   String _errorMessage = '';
+
+  Future<bool> login() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    bool successLogin = false;
+
+    const Map<String, String> header = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    var url = Uri.parse('https://api-py-byme.onrender.com/auth/login');
+    var body = {
+      "email": _emailController.text,
+      "password": _passwordController.text,
+      "ip_address": "192.168.1.1",
+      "device": "Linux",
+      "operational_system": "Android",
+      "location": "Portugal",
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        body: jsonEncode(body),
+        headers: header,
+      );
+
+      switch (response.statusCode) {
+        case 200:
+          try {
+            final storage = FlutterSecureStorage();
+            String token = jsonDecode(response.body)['token'];
+            await storage.write(key: 'token', value: token);
+            setState(() {
+              _success = true;
+              _errorMessage = 'Login Realizado com sucesso';
+              successLogin = true;
+            });
+          } catch (error) {
+            setState(() {
+              _errorMessage = 'Erro ao salver JWT. Error: $error';
+              successLogin = false;
+            });
+          }
+          break;
+        case 400:
+          setState(() {
+            _errorMessage = 'Requisição inválida';
+            successLogin = false;
+          });
+
+          break;
+        case 401:
+          setState(() {
+            _errorMessage = 'Credenciais Inválidas';
+            successLogin = false;
+          });
+          break;
+        case 429:
+          setState(() {
+            _errorMessage =
+                'Muitas requisições, tente novamente dentro de 1 minuto';
+            successLogin = false;
+          });
+          break;
+        case 500:
+          setState(() {
+            _errorMessage = 'Algo correu mal';
+            successLogin = false;
+          });
+          break;
+      }
+
+      print(response.statusCode);
+      print(response.body);
+    } catch (error) {
+      _errorMessage = 'Erro de Conexão. Verifique sua conexão com a internet.';
+      successLogin = false;
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+    return successLogin;
+  }
 
   @override
   void _toggleObscured() {
@@ -63,12 +151,15 @@ class _LoginPageState extends State<LoginPage> {
                       filled: true,
                       fillColor: Colors.grey[200],
                       prefixIcon: const Icon(Icons.email),
-                      label: const Text('E-mail'),
+                      label: const Text(
+                        'E-mail',
+                      ),
                       hintText: 'exemplo@gmail.com',
                       border: OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(10),
                       ),
+                      focusColor: colorPurple,
                     ),
                   ),
                   const SizedBox(height: 15),
@@ -87,7 +178,10 @@ class _LoginPageState extends State<LoginPage> {
                       filled: true,
                       fillColor: Colors.grey[200],
                       prefixIcon: const Icon(Icons.lock),
-                      label: const Text('Palavra-Passe'),
+                      label: Text(
+                        'Palavra-Passe',
+                        style: TextStyle(color: colorPurple),
+                      ),
                       hintText: 'Digite sua Palavra-Passe',
                       suffixIcon: IconButton(
                         onPressed: _toggleObscured,
@@ -120,11 +214,15 @@ class _LoginPageState extends State<LoginPage> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          _isLoading = true;
-                        });
                         _errorMessage = "";
-                        login();
+                        login().then((loggedIn) {
+                          if (loggedIn) {
+                            Future.delayed(const Duration(seconds: 2), () {
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/homepage');
+                            });
+                          }
+                        });
                       }
                     },
                     style: ButtonStyle(
@@ -133,8 +231,8 @@ class _LoginPageState extends State<LoginPage> {
                               vertical: 15, horizontal: 25)),
                       foregroundColor:
                           MaterialStateProperty.all<Color>(Colors.white),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          const Color(0xff672D6F)),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(colorPurple),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.0),
@@ -195,96 +293,5 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-  }
-
-  Future<void> login() async {
-    const Map<String, String> header = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-    };
-
-    var url = Uri.parse('https://api-py-byme.onrender.com/auth/login');
-    var body = {
-      "email": _emailController.text,
-      "password": _passwordController.text,
-      "ip_address": "192.168.1.1",
-      "device": "Linux",
-      "operational_system": "Android",
-      "location": "Portugal",
-    };
-
-    try {
-      final response = await http.post(
-        url,
-        body: jsonEncode(body),
-        headers: header,
-      );
-
-      switch (response.statusCode) {
-        case 200:
-          setState(() {
-            _errorMessage = 'Login realizado com sucesso';
-          });
-          break;
-        case 400:
-          setState(() {
-            _errorMessage = 'Requisição inválida';
-          });
-          break;
-        case 401:
-          setState(() {
-            _errorMessage = 'Credenciais Inválidas';
-          });
-          break;
-        case 403:
-          print('Forbidden');
-          break;
-        case 404:
-          print('Not Found');
-          break;
-        case 429:
-          setState(() {
-            _errorMessage =
-                'Muitas requisições, tente novamente dentro de 1 minuto';
-          });
-          break;
-        case 500:
-          setState(() {
-            _errorMessage = 'Algo correu mal';
-          });
-          break;
-        case 501:
-          print('Not Implemented');
-          break;
-        case 502:
-          print('Bad Gateway');
-          break;
-        case 503:
-          print('Service Unavailable');
-          break;
-        case 504:
-          print('Gateway Timeout');
-          break;
-        case 505:
-          print('HTTP Version Not Supported');
-          break;
-        case 506:
-          print('Variant Also Negotiates');
-          break;
-        case 507:
-          print('Insufficient Storage');
-          break;
-      }
-
-      print(response.statusCode);
-      print(response.body);
-    } catch (error) {
-      _errorMessage = 'Erro de Conexão';
-    } finally {
-      print('Terminado');
-      setState(() {
-        _isLoading = false;
-      });
-    }
   }
 }
