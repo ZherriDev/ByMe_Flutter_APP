@@ -16,17 +16,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     verifyUser().then((loggedIn) {
       if (!loggedIn) {
-        print('Nao esta logado');
         Navigator.of(context).pushReplacementNamed('/');
       }
     });
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
+          padding: EdgeInsets.all(16),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             ElevatedButton(
               onPressed: () {
                 clearToken();
@@ -38,8 +36,7 @@ class _HomePageState extends State<HomePage> {
               },
               child: const Text('Limpar Token'),
             ),
-            ]
-          ),
+          ]),
         ),
       ),
     );

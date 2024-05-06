@@ -8,7 +8,6 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     verifyUser().then((loggedIn) {
       if (loggedIn) {
-        print('logado');
         Navigator.of(context).pushReplacementNamed('/homepage');
       } else {
         

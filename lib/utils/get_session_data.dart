@@ -13,7 +13,6 @@ Future<Map<String, dynamic>> getDeviceInfo() async {
   };
 
   try {
-  
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
@@ -26,7 +25,6 @@ Future<Map<String, dynamic>> getDeviceInfo() async {
     }
 
     deviceData['ipAddress'] = await getPublicIpAddress();
-
   } catch (e) {
     print('Erro ao obter informações: $e');
   }
