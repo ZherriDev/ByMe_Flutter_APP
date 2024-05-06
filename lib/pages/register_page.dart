@@ -1,34 +1,26 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(RegisterApp());
-}
-
-class RegisterApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Registro de Usuário',
-      home: RegisterPage(),
-    );
-  }
-}
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key});
+  const RegisterPage({super.key});
 
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
-  late final _usernameController = TextEditingController();
-  late final _emailController = TextEditingController();
-  late final _passwordController = TextEditingController();
-  late final _confirmPasswordController = TextEditingController();
-  String? _selectedSpecialty;
-  bool _acceptTerms = false;
+  final name = TextEditingController();
+  String? speciality;
+  final email = TextEditingController();
+  final pass = TextEditingController();
+  final confirmPass = TextEditingController();
+  bool passVisible = true;
+  bool confirmPassVisible = true;
+  bool acceptTerms = false;
+  bool isLoading = false;
+  String message = '';
 
   final List<String> _specialties = [
     'Clínico Geral',
@@ -43,198 +35,361 @@ class _RegisterPageState extends State<RegisterPage> {
     'Psiquiatra',
   ];
 
-  @override
-  void dispose() {
-    _usernameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    super.dispose();
+  void _showSuccessPopUp(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: SizedBox(
+            width: 150,
+            height: 150,
+            child: Image.asset('assets/images/success.png'),
+          ),
+          content: Text(
+            message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/login');
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> register(name, speciality, email, password) async {
+    var url = Uri.parse('https://api-py-byme.onrender.com/auth/register');
+    var body = {
+      "name": name,
+      "speciality": speciality,
+      "email": email,
+      "password": password,
+    };
+    const Map<String, String> header = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        body: jsonEncode(body),
+        headers: header,
+      );
+      switch (response.statusCode) {
+        case 201:
+          _showSuccessPopUp(
+              'Conta criada com sucesso! Por favor confirme o seu email antes de iniciar sessão.');
+          break;
+        case 400:
+          setState(() {
+            message =
+                'Os tipos de dados introduzidos não correspondem aos que foram pedidos';
+          });
+          break;
+        case 429:
+          setState(() {
+            message = 'Muitas requisições, tente novamente em 1 minuto.';
+          });
+          break;
+        case 500:
+          setState(() {
+            message = 'Algo correu mal.';
+          });
+          break;
+      }
+    } catch (error) {
+      setState(() {
+        message = 'Erro de conexão. Verifique sua conexão com a internet.';
+      });
+    } finally {
+      isLoading = false;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Registro'),
-      ),
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildBox(
-                labelText: 'Nome de Usuário',
-                controller: _usernameController,
-                icon: Icons.person,
-              ),
-              const SizedBox(height: 10.0),
-              DropdownButtonFormField<String>(
-                decoration: const InputDecoration(
-                  labelText: 'Especialidade',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.category),
-                ),
-                value: _selectedSpecialty,
-                items: _specialties.map((String specialty) {
-                  return DropdownMenuItem<String>(
-                    value: specialty,
-                    child: Text(specialty),
-                  );
-                }).toList(),
-                onChanged: (newValue) {
-                  setState(() {
-                    _selectedSpecialty = newValue!;
-                  });
-                },
-                validator: (value) {
-                  if (value == null) {
-                    return 'Por favor, selecione uma especialidade';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 10.0),
-              _buildBox(
-                labelText: 'E-mail',
-                controller: _emailController,
-                icon: Icons.email,
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Por favor, insira o e-mail';
-                  } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                    return 'Por favor, insira um e-mail válido';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 10.0),
-              _buildBox(
-                labelText: 'Senha',
-                controller: _passwordController,
-                icon: Icons.lock,
-                obscureText: true,
-              ),
-              const SizedBox(height: 10.0),
-              _buildBox(
-                labelText: 'Confirmar Senha',
-                controller: _confirmPasswordController,
-                icon: Icons.lock,
-                obscureText: true,
-              ),
-              const SizedBox(height: 20.0),
-              Row(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Checkbox(
-                    value: _acceptTerms,
-                    onChanged: (value) {
-                      setState(() {
-                        _acceptTerms = value!;
-                      });
-                    },
+                  Container(
+                    height: 30,
                   ),
-                  const Text('Aceitar Termos e Condições'),
-                ],
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_acceptTerms) {
-                      if (_formKey.currentState!.validate()) {
-                        if (_passwordController.text == _confirmPasswordController.text) {
-                          _formKey.currentState!.save();
-                          registerUser(
-                            _usernameController.text,
-                            _emailController.text,
-                            _passwordController.text,
-                            _selectedSpecialty ?? '',
-                          );
-                        } else {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text('Erro'),
-                                content: const Text('As senhas não coincidem.'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
+                  SizedBox(
+                    width: 160,
+                    height: 160,
+                    child: Image.asset('assets/images/byme_symbol.png'),
+                  ),
+                  Container(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    controller: name,
+                    validator: (name) {
+                      if (name == null || name.isEmpty) {
+                        return 'Insira o seu nome';
                       }
-                    } else {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('Erro'),
-                            content: const Text('Por favor, aceite os termos e condições.'),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('OK'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                    backgroundColor: const Color(0xff672D6F),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      prefixIcon: const Icon(Icons.person),
+                      label: const Text('Nome Completo'),
+                      hintText: 'Digite seu nome completo',
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                   ),
-                  child: const Text('Registrar', style: TextStyle(color: Colors.white)),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+                  Container(
+                    height: 15,
+                  ),
+                  DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      prefixIcon: const Icon(Icons.badge_rounded),
+                      label: const Text('Especialidade'),
+                      hintText: 'Escolha sua especialidade',
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    value: speciality,
+                    items: _specialties.map((String specialty) {
+                      return DropdownMenuItem<String>(
+                        value: specialty,
+                        child: Text(specialty),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        speciality = newValue!;
+                      });
+                    },
+                    validator: (speciality) {
+                      if (speciality == null) {
+                        return 'Por favor, selecione uma especialidade';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 15,
+                  ),
+                  TextFormField(
+                    controller: email,
+                    validator: (email) {
+                      if (email == null || email.isEmpty) {
+                        return 'Insira o seu email';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      prefixIcon: const Icon(Icons.email),
+                      label: const Text('Email'),
+                      hintText: 'exemplo@gmail.com',
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 15,
+                  ),
+                  TextFormField(
+                    obscureText: passVisible,
+                    controller: pass,
+                    validator: (password) {
+                      if (password == null || password.isEmpty) {
+                        return 'Insira uma palavra-passe';
+                      } else if (password.length < 8) {
+                        return 'A Palavra-Passe deve conter no minimo 8 caracteres';
+                      } else if (!RegExp(r'[a-z]').hasMatch(password)) {
+                        return 'A Palavra-Passe deve conter pelo menos 1 letra minúscula';
+                      } else if (!RegExp(r'[A-Z]').hasMatch(password)) {
+                        return 'A Palavra-Passe deve conter pelo menos 1 letra maiúscula';
+                      } else if (!RegExp(r'\d').hasMatch(password)) {
+                        return 'A Palavra-Passe deve conter pelo menos 1 número';
+                      } else if (!RegExp(r'[^\w\s]').hasMatch(password)) {
+                        return 'A Palavra-Passe deve conter pelo menos 1 símbolo';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      prefixIcon: const Icon(Icons.lock),
+                      label: const Text('Palavra-passe'),
+                      hintText: 'Digite sua Palavra-Passe',
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            passVisible = !passVisible;
+                          });
+                        },
+                        icon: Icon(
+                          passVisible ? Icons.visibility_off : Icons.visibility,
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 15,
+                  ),
+                  TextFormField(
+                    obscureText: confirmPassVisible,
+                    controller: confirmPass,
+                    validator: (confirmPass) {
+                      if (confirmPass == null || confirmPass.isEmpty) {
+                        return 'É preciso confirmar a palavra-passe';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      prefixIcon: const Icon(Icons.lock),
+                      label: const Text('Confirmação da palavra-passe'),
+                      hintText: 'Confirme sua palavra-passe',
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            confirmPassVisible = !confirmPassVisible;
+                          });
+                        },
+                        icon: Icon(
+                          confirmPassVisible
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      RichText(
+                          text: const TextSpan(
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                              children: [
+                            TextSpan(
+                                text: "Concordo com os ",
+                                style:
+                                    TextStyle(fontWeight: FontWeight.normal)),
+                            TextSpan(
+                                text: "Termos de Serviço",
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    decoration: TextDecoration.underline)),
+                          ])),
+                      Checkbox(
+                        value: acceptTerms,
+                        onChanged: (value) {
+                          setState(() {
+                            acceptTerms = value!;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        message = "";
+                        if (pass.text != confirmPass.text) {
+                          message = "As palavras-passe não coincidem-se";
+                          setState(() {
+                            isLoading = false;
+                          });
+                        } else if (acceptTerms == false) {
+                          message = "Os termos de serviço precisam ser aceitos";
+                          setState(() {
+                            isLoading = false;
+                          });
+                        } else {
+                          register(
+                              name.text, speciality, email.text, pass.text);
+                        }
+                      }
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsets>(
+                          const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 25)),
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color(0xff672D6F)),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                      ),
+                    ),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            isLoading ? '' : 'Criar conta',
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          if (isLoading)
+                            const CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                        ]),
+                  ),
+                  Container(
+                    height: 10,
+                  ),
+                  Visibility(
+                    visible: message.isNotEmpty,
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.red),
+                      child: Text(
+                        message,
+                        textAlign: TextAlign.center,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+        ));
   }
-
-  Widget _buildBox({
-    required String labelText,
-    required TextEditingController controller,
-    required IconData icon,
-    TextInputType? keyboardType,
-    bool obscureText = false,
-    String? Function(String?)? validator,
-  }) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10.0),
-      child: TextFormField(
-        decoration: InputDecoration(
-          labelText: labelText,
-          border: const OutlineInputBorder(),
-          prefixIcon: Icon(icon),
-        ),
-        controller: controller,
-        keyboardType: keyboardType,
-        obscureText: obscureText,
-        validator: validator,
-      ),
-    );
-  }
-}
-
-void registerUser(String username, String email, String password, String especialidade) {
-  // Implemente sua lógica de registro de usuário aqui
 }
