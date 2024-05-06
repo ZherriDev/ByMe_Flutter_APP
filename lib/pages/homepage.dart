@@ -10,7 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
   @override
   Widget build(BuildContext context) {
     verifyUser().then((loggedIn){
@@ -21,6 +20,28 @@ class _HomePageState extends State<HomePage> {
         Navigator.of(context).pushReplacementNamed('/');
       }
     });
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+            ElevatedButton(
+              onPressed: () {
+                clearToken();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => HomePage()),
+                );
+              },
+              child: const Text('Limpar Token'),
+            ),
+            ]
+          ),
+        ),
+      ),
+    );
   }
 }
