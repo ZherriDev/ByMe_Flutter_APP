@@ -97,8 +97,12 @@ class _LoginPageState extends State<LoginPage> {
       print(response.statusCode);
       print(response.body);
     } catch (error) {
-      _errorMessage = 'Erro de Conexão. Verifique sua conexão com a internet.';
-      successLogin = false;
+      setState(() {
+        successLogin = false;
+         _errorMessage =
+            'Erro de Conexão. Verifique sua conexão com a internet.';
+      });
+      
     } finally {
       setState(() {
         _isLoading = false;
@@ -138,6 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 35),
                   TextFormField(
+                    enabled: !_isLoading,
                     controller: _emailController,
                     validator: (email) {
                       if (email == null || email.isEmpty) {
@@ -152,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                       label: const Text(
                         'E-mail',
                       ),
-                      hintText: 'exemplo@gmail.com',
+                      hintText: 'Digite seu e-mail',
                       border: OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(10),
@@ -162,6 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 15),
                   TextFormField(
+                    enabled: !_isLoading,
                     obscureText: _passwordVisible,
                     controller: _passwordController,
                     validator: (password) {
@@ -176,9 +182,8 @@ class _LoginPageState extends State<LoginPage> {
                       filled: true,
                       fillColor: Colors.grey[200],
                       prefixIcon: const Icon(Icons.lock),
-                      label: Text(
+                      label: const Text(
                         'Palavra-Passe',
-                        style: TextStyle(color: colorPurple),
                       ),
                       hintText: 'Digite sua Palavra-Passe',
                       suffixIcon: IconButton(
@@ -267,28 +272,19 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  AnimatedContainer(
-                    duration: const Duration(
-                        milliseconds:
-                            300), // Duração da animação, em milissegundos
-                    curve: Curves.easeInOut, // Curva de animação
-                    height: _errorMessage.isNotEmpty
-                        ? 50
-                        : 0, // Altura do contêiner dependendo se há uma mensagem de erro ou não
-                    child: Visibility(
-                      visible: _errorMessage.isNotEmpty,
-                      child: Container(
-                        padding: const EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.red,
-                        ),
-                        child: Text(
-                          _errorMessage,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 14),
-                        ),
+                  Visibility(
+                    visible: _errorMessage.isNotEmpty,
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.red,
+                      ),
+                      child: Text(
+                        _errorMessage,
+                        textAlign: TextAlign.center,
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 14),
                       ),
                     ),
                   ),
