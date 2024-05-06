@@ -1,7 +1,12 @@
 import 'dart:convert';
+import 'dart:ffi';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:byme_flutter_app/utils/get_session_data.dart';
+import 'package:byme_flutter_app/utils/write_token.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -19,12 +24,17 @@ class _LoginPageState extends State<LoginPage> {
   bool _passwordVisible = true;
   bool _isLoading = false;
   String _errorMessage = '';
-
+  
   Future<bool> login() async {
     setState(() {
       _isLoading = true;
     });
+    Map<String, dynamic> deviceInfo = await getDeviceInfo();
 
+    // Extrai os valores do mapa e armazena-os em variáveis
+    String deviceModel = deviceInfo['deviceModel'];
+    String osName = deviceInfo['osName'];
+    String ipAddress = deviceInfo['ipAddress'];
     bool successLogin = false;
 
     const Map<String, String> header = {
@@ -36,9 +46,9 @@ class _LoginPageState extends State<LoginPage> {
     var body = {
       "email": _emailController.text,
       "password": _passwordController.text,
-      "ip_address": "192.168.1.1",
-      "device": "Linux",
-      "operational_system": "Android",
+      "ip_address": ipAddress,
+      "device": deviceModel,
+      "operational_system": osName,
       "location": "Portugal",
     };
 
@@ -52,9 +62,10 @@ class _LoginPageState extends State<LoginPage> {
       switch (response.statusCode) {
         case 200:
           try {
-            final storage = FlutterSecureStorage();
+            
             String token = jsonDecode(response.body)['token'];
-            await storage.write(key: 'token', value: token);
+            Int doctorId = jsonDecode(response.body)['doctor_id'];
+            writeToken(token, doctorId.toString());
             setState(() {
               _errorMessage = '';
               successLogin = true;

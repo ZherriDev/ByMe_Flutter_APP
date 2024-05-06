@@ -22,10 +22,27 @@ class _HomePageState extends State<HomePage> {
       }
     });
     return Scaffold(
-      body: Column(children: [
-        HeaderPageBar(),
-        BottomNavigatorBar()
-      ],),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+            ElevatedButton(
+              onPressed: () {
+                clearToken();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => HomePage()),
+                );
+              },
+              child: const Text('Limpar Token'),
+            ),
+            ]
+          ),
+        ),
+      ),
     );
   }
 }
