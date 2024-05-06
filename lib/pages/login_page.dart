@@ -97,8 +97,12 @@ class _LoginPageState extends State<LoginPage> {
       print(response.statusCode);
       print(response.body);
     } catch (error) {
-      _errorMessage = 'Erro de Conexão. Verifique sua conexão com a internet.';
-      successLogin = false;
+      setState(() {
+        successLogin = false;
+         _errorMessage =
+            'Erro de Conexão. Verifique sua conexão com a internet.';
+      });
+      
     } finally {
       setState(() {
         _isLoading = false;
