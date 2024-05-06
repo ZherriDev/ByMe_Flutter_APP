@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:byme_flutter_app/utils/verify_user.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    verifyUser().then((loggedIn) {
+      if (loggedIn) {
+        print('logado');
+        Navigator.of(context).pushReplacementNamed('/homepage');
+      } else {
+        
+      }
+    });
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
