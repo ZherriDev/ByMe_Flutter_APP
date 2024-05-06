@@ -62,7 +62,6 @@ class _LoginPageState extends State<LoginPage> {
       switch (response.statusCode) {
         case 200:
           try {
-            
             String token = jsonDecode(response.body)['token'];
             Int doctorId = jsonDecode(response.body)['doctor_id'];
             writeToken(token, doctorId.toString());
