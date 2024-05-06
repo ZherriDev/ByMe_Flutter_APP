@@ -186,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: GestureDetector(
                     onTap: () {
                       Navigator.of(context)
-                          .pushReplacementNamed('/forgot_password');
+                          .pushNamed('/forgot_password');
                     },
                     child: const Text(
                       'Esqueceu a Palavra-passe?',
@@ -240,7 +240,7 @@ class _LoginPageState extends State<LoginPage> {
                   alignment: Alignment.center,
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushReplacementNamed('/register');
+                      Navigator.of(context).pushNamed('/register');
                     },
                     child: const Text(
                       'Ainda não tem uma conta? Criar conta',
@@ -257,7 +257,7 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: _success ? Colors.green : Colors.red),
+                        color: Colors.red),
                     child: Text(
                       _errorMessage,
                       textAlign: TextAlign.center,
