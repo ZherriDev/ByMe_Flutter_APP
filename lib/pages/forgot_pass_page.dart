@@ -64,7 +64,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       switch (response.statusCode) {
         case 200:
           setState(() {
-            _showSuccessPopUp('Um e-mail de redefinição de palavra-passe foi enviado. Por favor verifique sua caixa de entrada.');
+            _showSuccessPopUp(
+                'Um e-mail de redefinição de palavra-passe foi enviado. Por favor verifique sua caixa de entrada.');
           });
           break;
         case 400:
@@ -136,6 +137,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 height: 20,
               ),
               TextFormField(
+                enabled: isLoading == false,
                 controller: email,
                 validator: (email) {
                   if (email == null || email.isEmpty) {

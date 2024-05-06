@@ -136,6 +136,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 30,
                   ),
                   TextFormField(
+                    enabled: isLoading == false,
                     controller: name,
                     validator: (name) {
                       if (name == null || name.isEmpty) {
@@ -193,6 +194,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 15,
                   ),
                   TextFormField(
+                    enabled: isLoading == false,
                     controller: email,
                     validator: (email) {
                       if (email == null || email.isEmpty) {
@@ -216,6 +218,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 15,
                   ),
                   TextFormField(
+                    enabled: isLoading == false,
                     obscureText: passVisible,
                     controller: pass,
                     validator: (password) {
@@ -260,6 +263,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 15,
                   ),
                   TextFormField(
+                    enabled: isLoading == false,
                     obscureText: confirmPassVisible,
                     controller: confirmPass,
                     validator: (confirmPass) {
