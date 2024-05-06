@@ -10,12 +10,41 @@ class ForgotPasswordPage extends StatefulWidget {
 }
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
-  String email = '';
+  final _formKey = GlobalKey<FormState>();
+  final email = TextEditingController();
   String message = '';
   bool success = false;
   bool isLoading = false;
 
-  Future<void> _fetchUserData(email) async {
+  void _showSuccessPopUp(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: SizedBox(
+            width: 150,
+            height: 150,
+            child: Image.asset('assets/images/success.png'),
+          ),
+          content: Text(
+            message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/login');
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> forgotPass(email) async {
     var url =
         Uri.parse('https://api-py-byme.onrender.com/auth/request_reset_pass');
     var body = {
@@ -35,8 +64,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       switch (response.statusCode) {
         case 200:
           setState(() {
-            message = 'Um e-mail de redefinição de palavra-passe foi enviado.';
-            success = true;
+            _showSuccessPopUp('Um e-mail de redefinição de palavra-passe foi enviado. Por favor verifique sua caixa de entrada.');
           });
           break;
         case 400:
@@ -60,16 +88,20 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         message = 'Erro de conexão. Verifique sua conexão com a internet.';
       });
     } finally {
-      isLoading = false;
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Form(
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -104,8 +136,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 height: 20,
               ),
               TextFormField(
-                onChanged: (text) {
-                  email = text;
+                controller: email,
+                validator: (email) {
+                  if (email == null || email.isEmpty) {
+                    return 'Insira o seu email';
+                  }
+                  return null;
                 },
                 decoration: InputDecoration(
                   filled: true,
@@ -124,10 +160,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  setState(() {
-                    isLoading = true;
-                  });
-                  _fetchUserData(email);
+                  if (_formKey.currentState!.validate()) {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    message = "";
+                    forgotPass(email.text);
+                  }
                 },
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all<EdgeInsets>(
