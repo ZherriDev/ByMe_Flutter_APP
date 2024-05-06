@@ -15,8 +15,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     verifyUser().then((loggedIn) {
-      if (loggedIn) {
-      } else {
+      if (!loggedIn) {
         print('Nao esta logado');
         Navigator.of(context).pushReplacementNamed('/');
       }

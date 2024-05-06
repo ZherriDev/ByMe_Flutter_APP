@@ -1,12 +1,9 @@
 import 'dart:convert';
 import 'dart:ffi';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:byme_flutter_app/utils/get_session_data.dart';
 import 'package:byme_flutter_app/utils/write_token.dart';
-
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _passwordVisible = true;
   bool _isLoading = false;
   String _errorMessage = '';
-  
+
   Future<bool> login() async {
     setState(() {
       _isLoading = true;
@@ -63,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
         case 200:
           try {
             String token = jsonDecode(response.body)['token'];
-            Int doctorId = jsonDecode(response.body)['doctor_id'];
+            int doctorId = jsonDecode(response.body)['doctor_id'];
             writeToken(token, doctorId.toString());
             setState(() {
               _errorMessage = '';
@@ -71,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
             });
           } catch (error) {
             setState(() {
-              _errorMessage = 'Erro ao salver JWT. Error: $error';
+              _errorMessage = 'Erro ao salvar JWT. Error: $error';
               successLogin = false;
             });
           }
@@ -142,6 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 35),
                 TextFormField(
+                  enabled: _isLoading == false,
                   controller: _emailController,
                   validator: (email) {
                     if (email == null || email.isEmpty) {
@@ -163,6 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 15),
                 TextFormField(
+                  enabled: _isLoading == false,
                   obscureText: _passwordVisible,
                   controller: _passwordController,
                   validator: (password) {
@@ -207,11 +206,12 @@ class _LoginPageState extends State<LoginPage> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      setState(() {
-                        _isLoading = true;
-                      });
                       _errorMessage = "";
-                      login();
+                      login().then((loggedIn) {
+                        if (loggedIn) {
+                          Navigator.of(context).pushReplacementNamed('/homepage');
+                        }
+                      });
                     }
                   },
                   style: ButtonStyle(
