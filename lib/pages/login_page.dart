@@ -93,16 +93,12 @@ class _LoginPageState extends State<LoginPage> {
           });
           break;
       }
-
-      print(response.statusCode);
-      print(response.body);
     } catch (error) {
       setState(() {
         successLogin = false;
-         _errorMessage =
+        _errorMessage =
             'Erro de Conexão. Verifique sua conexão com a internet.';
       });
-      
     } finally {
       setState(() {
         _isLoading = false;
@@ -189,8 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed('/forgot_password');
+                      Navigator.of(context).pushNamed('/forgot_password');
                     },
                     child: const Text(
                       'Esqueceu a Palavra-passe?',

@@ -371,6 +371,21 @@ class _RegisterPageState extends State<RegisterPage> {
                         ]),
                   ),
                   Container(
+                    height: 8,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/login');
+                      },
+                      child: const Text(
+                        'Já possui uma conta? Iniciar sessão',
+                        style: TextStyle(decoration: TextDecoration.underline),
+                      ),
+                    ),
+                  ),
+                  Container(
                     height: 10,
                   ),
                   Visibility(
