@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:byme_flutter_app/utils/verify_user.dart';
-import 'package:byme_flutter_app/utils/clear_token.dart';
+import 'package:byme_flutter_app/utils/read_token.dart';
 import 'package:byme_flutter_app/utils/get_user_data.dart';
-import 'package:byme_flutter_app/utils/header_page_bar.dart';
-import 'package:byme_flutter_app/utils/bottom_navigator_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,15 +18,11 @@ class _HomePageState extends State<HomePage> {
         Navigator.of(context).pushReplacementNamed('/');
       }
     });
-
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: HeaderPageBar(
-        text: 'Página Inicial',
-        image: '',
-      ),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: []),
-    bottomNavigationBar: MyWidget(),
-    );
+    readToken().then((userStorage) {
+      String token = userStorage?['token'];
+      int doctorId = userStorage?['doctor_id'];
+      getUserData(token, doctorId).then((userData) {});
+    });
+    return Container();
   }
 }

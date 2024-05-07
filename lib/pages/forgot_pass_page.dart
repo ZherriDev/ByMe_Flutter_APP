@@ -63,10 +63,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       );
       switch (response.statusCode) {
         case 200:
-          setState(() {
-            _showSuccessPopUp(
-                'Um e-mail de redefinição de palavra-passe foi enviado. Por favor verifique sua caixa de entrada.');
-          });
+          _showSuccessPopUp(
+              'Um e-mail de redefinição de palavra-passe foi enviado. Por favor verifique sua caixa de entrada.');
           break;
         case 400:
           setState(() {
