@@ -29,7 +29,10 @@ class _HomePageState extends State<HomePage> {
               text: 'Página Inicial',
               image: '',
             ),
-          ],
-        ));
+          ]),
+        ),
+      ),
+      bottomNavigationBar: MyWidget(),
+    );
   }
 }

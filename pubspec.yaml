@@ -19,12 +19,17 @@ dependencies:
   wifi_info_flutter: ^2.0.2
   geolocator: ^11.0.0
   country_provider: ^1.0.2
+  flutter_icons_null_safety: ^1.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.12.0
 
-  flutter_lints: ^3.0.0
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/byme_symbol.png"
 
 flutter:
   uses-material-design: true
