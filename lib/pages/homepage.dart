@@ -18,9 +18,11 @@ class _HomePageState extends State<HomePage> {
         Navigator.of(context).pushReplacementNamed('/');
       }
     });
-
-    return Scaffold(
-      body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: []),
-    );
+    readToken().then((userStorage) {
+      String token = userStorage?['token'];
+      int doctorId = userStorage?['doctor_id'];
+      getUserData(token, doctorId).then((userData) {});
+    });
+    return Container();
   }
 }
