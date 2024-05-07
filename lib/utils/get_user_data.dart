@@ -20,6 +20,9 @@ Future<Map<String, dynamic>?> getUserData(String token, int doctorId) async {
       case 400:
         print('Dados Incorretos');
         break;
+      case 401:
+        print('Token Inválido');
+        break;
       case 500:
         print('Erro no servidor');
         break;
