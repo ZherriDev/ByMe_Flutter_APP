@@ -13,13 +13,27 @@ class InsideApp extends StatefulWidget {
 }
 
 class _InsideAppState extends State<InsideApp> {
-  int _currentIndex = 0;
+  int _currentIndex = 3;
   late PageController _pageController;
+
+  final List<String> appBarTexts = [
+    'Página Inicial',
+    'Calendário',
+    'Pacientes',
+    'Perfil',
+    'Definições',
+  ];
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: _currentIndex);
+  }
+
+  setCurrentPage(value) {
+    setState(() {
+      _currentIndex = value;
+    });
   }
 
   @override
@@ -33,7 +47,7 @@ class _InsideAppState extends State<InsideApp> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: HeaderPageBar(
-        text: 'Página Inicial',
+        text: appBarTexts[_currentIndex],
         image: '',
       ),
       body: PageView(
@@ -45,13 +59,19 @@ class _InsideAppState extends State<InsideApp> {
           // ProfilePage(),
           // SettingsPage(),
         ],
+        onPageChanged: setCurrentPage,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
         currentIndex: _currentIndex,
-        onTap: (value) {
-          _pageController.animateToPage(value,
-              duration: Duration(milliseconds: 400), curve: Curves.ease);
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+            _pageController.animateToPage(
+              index,
+              duration: Duration(milliseconds: 300),
+              curve: Curves.ease,
+            );
+          });
         },
         unselectedIconTheme: IconThemeData(color: Colors.black),
         items: const [
@@ -62,7 +82,7 @@ class _InsideAppState extends State<InsideApp> {
           BottomNavigationBarItem(
               backgroundColor: Color(0xff672D6F),
               icon: Icon(FlutterIcons.calendar_ant),
-              label: 'Calendar'),
+              label: 'Calendário'),
           BottomNavigationBarItem(
               icon: Icon(Icons.healing),
               backgroundColor: Color(0xff672D6F),
