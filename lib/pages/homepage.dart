@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
         image: '',
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: []),
-      bottomNavigationBar: MyWidget(),
+    bottomNavigationBar: MyWidget(),
     );
   }
 }
