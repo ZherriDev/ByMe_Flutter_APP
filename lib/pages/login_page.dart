@@ -208,7 +208,7 @@ class _LoginPageState extends State<LoginPage> {
                       _errorMessage = "";
                       login().then((loggedIn) {
                         if (loggedIn) {
-                          Navigator.of(context).pushReplacementNamed('/homepage');
+                          Navigator.of(context).pushReplacementNamed('/inside_app');
                         }
                       });
                     }
