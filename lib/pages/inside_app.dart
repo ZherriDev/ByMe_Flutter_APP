@@ -13,15 +13,29 @@ class InsideApp extends StatefulWidget {
 }
 
 class _InsideAppState extends State<InsideApp> {
-  int _currentIndex = 0;
+  int _currentIndex = 3;
   late PageController _pageController;
   late Future<Map<String, dynamic>?> userData;
+
+  final List<String> appBarTexts = [
+    'Página Inicial',
+    'Calendário',
+    'Pacientes',
+    'Perfil',
+    'Definições',
+  ];
 
   @override
   void initState() {
     super.initState();
     userData = fetchUserData(context);
     _pageController = PageController(initialPage: _currentIndex);
+  }
+
+  setCurrentPage(value) {
+    setState(() {
+      _currentIndex = value;
+    });
   }
 
   @override
