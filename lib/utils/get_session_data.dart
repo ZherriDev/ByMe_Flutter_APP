@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'package:geolocator/geolocator.dart';
 import 'package:device_info/device_info.dart';
-import 'package:country_provider/country_provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
