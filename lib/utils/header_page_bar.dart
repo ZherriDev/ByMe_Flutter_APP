@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class HeaderPageBar extends StatelessWidget {
+class HeaderPageBar extends StatelessWidget implements PreferredSizeWidget {
   final String text;
   final String image;
 
@@ -46,4 +46,6 @@ class HeaderPageBar extends StatelessWidget {
       ]),
     );
   }
+
+  Size get preferredSize => const Size.fromHeight(220);
 }
