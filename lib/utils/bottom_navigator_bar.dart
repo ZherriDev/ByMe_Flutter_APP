@@ -16,21 +16,17 @@ class _MyWidgetState extends State<MyWidget> {
   late PageController pc;
 
   @override
-  void initState() {
-    super.initState();
-    pc = PageController(initialPage: myIndex);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-  
+
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
         currentIndex: myIndex,
-        onTap: (page) {
-          pc.animateToPage(page,
-              duration: Duration(milliseconds: 400), curve: Curves.ease);
+        onTap: (value) {
+          myIndex = value;
+          setState(() {
+            
+          });
         },
         selectedIconTheme: IconThemeData(color: Colors.black),
         unselectedIconTheme: IconThemeData(color: Colors.blue),
