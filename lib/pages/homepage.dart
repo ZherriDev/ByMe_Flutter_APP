@@ -20,12 +20,14 @@ class _HomePageState extends State<HomePage> {
         Navigator.of(context).pushReplacementNamed('/');
       }
     });
-    return const Scaffold(
+
+    return Scaffold(
       backgroundColor: Colors.white,
-    
-      body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      
-      ]),
+      appBar: HeaderPageBar(
+        text: 'Página Inicial',
+        image: '',
+      ),
+      body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: []),
       bottomNavigationBar: MyWidget(),
     );
   }
