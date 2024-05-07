@@ -22,12 +22,11 @@ class _HomePageState extends State<HomePage> {
     });
     return const Scaffold(
       backgroundColor: Colors.white,
+    
       body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        HeaderPageBar(
-          text: 'Página Inicial',
-          image: '',
-        ),
+      
       ]),
+      bottomNavigationBar: MyWidget(),
     );
   }
 }
