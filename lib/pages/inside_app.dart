@@ -60,7 +60,7 @@ class _InsideAppState extends State<InsideApp> {
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: HeaderPageBar(
-              text: 'Página Inicial',
+              text: appBarTexts[_currentIndex],
               image: userData['doctor']['photo'],
             ),
             body: PageView(
