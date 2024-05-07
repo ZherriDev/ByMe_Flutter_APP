@@ -13,7 +13,7 @@ class InsideApp extends StatefulWidget {
 }
 
 class _InsideAppState extends State<InsideApp> {
-  int _currentIndex = 3;
+  int _currentIndex = 0;
   late PageController _pageController;
   late Future<Map<String, dynamic>?> userData;
 
@@ -64,6 +64,7 @@ class _InsideAppState extends State<InsideApp> {
               image: userData['doctor']['photo'],
             ),
             body: PageView(
+              onPageChanged: setCurrentPage,
               controller: _pageController,
               children: [
                 HomePage(),
