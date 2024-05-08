@@ -45,12 +45,14 @@ class _InsideAppState extends State<InsideApp> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
+            backgroundColor: Colors.white,
             body: Center(
               child: CircularProgressIndicator(),
             ),
           );
         } else if (snapshot.hasError || snapshot.data == null) {
           return Scaffold(
+            backgroundColor: Colors.white,
             body: Center(
               child: Text('Erro ao carregar dados do utilizador'),
             ),
