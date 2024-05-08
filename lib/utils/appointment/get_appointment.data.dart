@@ -1,7 +1,8 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future<Map<String, dynamic>?> getAppointmentsData(String token, int doctorId, String query, DateTime date) async {
+Future<Map<String, dynamic>?> getAppointmentsData(
+    String token, int doctorId, String query, String date) async {
   var url = Uri.parse(
       'https://api-py-byme.onrender.com/appointments/select_appointments/$query/$date');
   Map<String, String> header = {

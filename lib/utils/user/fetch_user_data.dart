@@ -4,7 +4,7 @@ import 'package:byme_flutter_app/utils/user/verify_user.dart';
 import 'package:byme_flutter_app/utils/token/read_token.dart';
 import 'package:byme_flutter_app/utils/user/get_user_data.dart';
 
-Future<Map<String, dynamic>?> fetchUserData(BuildContext context, String query, DateTime date) async {
+Future<Map<String, dynamic>?> fetchUserData(BuildContext context, String query, String date) async {
   try {
     final loggedIn = await verifyUser();
     if (!loggedIn) {
