@@ -19,7 +19,6 @@ class _InsideAppState extends State<InsideApp> {
   int _currentIndex = 0;
   late PageController _pageController;
   late Future<Map<String, dynamic>?> userData;
-  DateTime today = DateTime.now();
 
   final List<String> appBarTexts = [
     'Página Inicial',
@@ -29,10 +28,20 @@ class _InsideAppState extends State<InsideApp> {
     'Definições',
   ];
 
+  String getDate() {
+    DateTime now = DateTime.now();
+    int year = now.year;
+    int month = now.month;
+    int day = now.day;
+
+    String todayDate = '$year-$month-$day';
+    return todayDate;
+  }
+
   @override
   void initState() {
     super.initState();
-    userData = fetchUserData(context, 'one', today);
+    userData = fetchUserData(context, 'one', getDate());
     _pageController = PageController(initialPage: _currentIndex);
   }
 

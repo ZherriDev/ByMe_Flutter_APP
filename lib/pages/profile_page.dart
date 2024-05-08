@@ -9,12 +9,20 @@ class DoctorProfile extends StatefulWidget {
 }
 
 class _DoctorProfileState extends State<DoctorProfile> {
-  DateTime today = DateTime.now();
+  String getDate() {
+    DateTime now = DateTime.now();
+    int year = now.year;
+    int month = now.month;
+    int day = now.day;
+
+    String todayDate = '$year-$month-$day';
+    return todayDate;
+  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>?>(
-        future: fetchUserData(context, 'all', today),
+        future: fetchUserData(context, 'all', getDate()),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(

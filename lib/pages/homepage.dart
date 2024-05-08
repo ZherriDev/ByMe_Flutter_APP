@@ -11,12 +11,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  DateTime today = DateTime.now();
+  String getDate() {
+    DateTime now = DateTime.now();
+    int year = now.year;
+    int month = now.month;
+    int day = now.day;
+
+    String todayDate = '$year-$month-$day';
+    return todayDate;
+  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>?>(
-      future: fetchUserData(context, 'one', today),
+      future: fetchUserData(context, 'one', getDate()),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -27,6 +35,10 @@ class _HomePageState extends State<HomePage> {
             child: Text('Erro ao carregar dados'),
           );
         } else {
+          List<dynamic> appointments =
+              snapshot.data?['appointments']['appointments'];
+          final appointmentsToday = appointments.length;
+
           return Column(
             children: [
               Container(
@@ -95,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width: 5,
                         ),
-                        Text('3',
+                        Text('$appointmentsToday',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
@@ -104,7 +116,9 @@ class _HomePageState extends State<HomePage> {
                           width: 20,
                         ),
                         Text(
-                          'Consultas para hoje',
+                          appointmentsToday > 1
+                              ? 'Consultas para hoje'
+                              : 'Consulta para hoje',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
