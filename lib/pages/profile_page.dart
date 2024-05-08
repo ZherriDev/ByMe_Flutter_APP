@@ -32,7 +32,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      snapshot.data?['doctor']['fullname'],
+                      snapshot.data?['user']['doctor']['fullname'],
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 17,
@@ -43,7 +43,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.business_rounded),
-                        Text(snapshot.data?['doctor']['hospital']),
+                        Text(snapshot.data?['user']['doctor']['hospital']),
                       ],
                     ),
                   ],
@@ -66,7 +66,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                             style: TextStyle(color: Colors.white),
                           ),
                           Text(
-                           'a',
+                           snapshot.data?['appointments']['appointments'],
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.white),
                           ),
