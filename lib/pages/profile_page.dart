@@ -66,7 +66,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                             style: TextStyle(color: Colors.white),
                           ),
                           Text(
-                            'a',
+                           'a',
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.white),
                           ),
@@ -80,10 +80,19 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           borderRadius: BorderRadius.circular(12)),
                       width: 80,
                       height: 80,
-                      child: Text(
-                        'Pacientes',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Pacientes',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Text(
+                            'a',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
                       ),
                     ),
                   ],
