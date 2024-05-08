@@ -3,9 +3,9 @@ import 'package:byme_flutter_app/pages/homepage.dart';
 import 'package:byme_flutter_app/pages/patients_page.dart';
 import 'package:byme_flutter_app/pages/profile_page.dart';
 import 'package:byme_flutter_app/pages/settings_page.dart';
-import 'package:byme_flutter_app/utils/header_page_bar.dart';
+import 'package:byme_flutter_app/utils/widgets/header_page_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:byme_flutter_app/utils/fetch_user_data.dart';
+import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
 import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 
 class InsideApp extends StatefulWidget {
@@ -72,7 +72,7 @@ class _InsideAppState extends State<InsideApp> {
               onPageChanged: setCurrentPage,
               controller: _pageController,
               children: [
-                HomePage(),
+                HomePage(pageController: _pageController,),
                 Calendar(),
                 PatientsPage(),
                 DoctorProfile(),
@@ -85,7 +85,7 @@ class _InsideAppState extends State<InsideApp> {
                 currentIndex: _currentIndex,
                 onTap: (value) {
                   _pageController.jumpToPage(
-                      value); // Use jumpToPage para uma transição instantânea
+                      value);
                 },
                 unselectedItemColor: Colors.black54,
                 items: const [

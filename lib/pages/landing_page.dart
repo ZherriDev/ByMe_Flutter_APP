@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:byme_flutter_app/utils/verify_user.dart';
+import 'package:byme_flutter_app/utils/user/verify_user.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});

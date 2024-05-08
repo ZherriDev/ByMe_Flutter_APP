@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:byme_flutter_app/utils/verify_user.dart';
-import 'package:byme_flutter_app/utils/read_token.dart';
-import 'package:byme_flutter_app/utils/get_user_data.dart';
+import 'package:byme_flutter_app/utils/user/verify_user.dart';
+import 'package:byme_flutter_app/utils/token/read_token.dart';
+import 'package:byme_flutter_app/utils/user/get_user_data.dart';
 
 Future<Map<String, dynamic>?> fetchUserData(BuildContext context) async {
   try {

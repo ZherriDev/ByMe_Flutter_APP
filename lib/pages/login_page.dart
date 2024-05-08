@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:byme_flutter_app/utils/get_session_data.dart';
-import 'package:byme_flutter_app/utils/write_token.dart';
+import 'package:byme_flutter_app/utils/user/get_session_data.dart';
+import 'package:byme_flutter_app/utils/token/write_token.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
