@@ -19,6 +19,7 @@ class _InsideAppState extends State<InsideApp> {
   int _currentIndex = 0;
   late PageController _pageController;
   late Future<Map<String, dynamic>?> userData;
+  DateTime today = DateTime.now();
 
   final List<String> appBarTexts = [
     'Página Inicial',
@@ -31,7 +32,7 @@ class _InsideAppState extends State<InsideApp> {
   @override
   void initState() {
     super.initState();
-    userData = fetchUserData(context);
+    userData = fetchUserData(context, 'one', today);
     _pageController = PageController(initialPage: _currentIndex);
   }
 
@@ -66,13 +67,15 @@ class _InsideAppState extends State<InsideApp> {
             backgroundColor: Colors.white,
             appBar: HeaderPageBar(
               text: appBarTexts[_currentIndex],
-              image: userData['doctor']['photo'],
+              image: userData['user']['doctor']['photo'],
             ),
             body: PageView(
               onPageChanged: setCurrentPage,
               controller: _pageController,
               children: [
-                HomePage(pageController: _pageController,),
+                HomePage(
+                  pageController: _pageController,
+                ),
                 Calendar(),
                 PatientsPage(),
                 DoctorProfile(),
@@ -84,8 +87,7 @@ class _InsideAppState extends State<InsideApp> {
                 backgroundColor: Colors.black,
                 currentIndex: _currentIndex,
                 onTap: (value) {
-                  _pageController.jumpToPage(
-                      value);
+                  _pageController.jumpToPage(value);
                 },
                 unselectedItemColor: Colors.black54,
                 items: const [

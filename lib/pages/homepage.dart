@@ -11,10 +11,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  DateTime today = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>?>(
-      future: fetchUserData(context),
+      future: fetchUserData(context, 'one', today),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -44,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                           color: Color(0xff672D6F),
                           borderRadius: BorderRadius.circular(12)),
                       child: Text(
-                        snapshot.data?['doctor']['fullname'],
+                        snapshot.data?['user']['doctor']['fullname'],
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.white,
@@ -61,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                           width: 10,
                         ),
                         Text(
-                          snapshot.data?['doctor']['speciality'],
+                          snapshot.data?['user']['doctor']['speciality'],
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
@@ -78,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                           width: 10,
                         ),
                         Text(
-                          snapshot.data?['doctor']['hospital'],
+                          snapshot.data?['user']['doctor']['hospital'],
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
