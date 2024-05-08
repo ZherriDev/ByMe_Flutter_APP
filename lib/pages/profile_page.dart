@@ -1,4 +1,4 @@
-import 'package:byme_flutter_app/utils/fetch_user_data.dart';
+import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -58,7 +58,6 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           borderRadius: BorderRadius.circular(12)),
                       width: 80,
                       height: 80,
-                      
                       child: Column(
                         children: [
                           Text(
@@ -67,13 +66,12 @@ class _DoctorProfileState extends State<DoctorProfile> {
                             style: TextStyle(color: Colors.white),
                           ),
                           Text(
-                            snapshot.data?['doctor'][''],
+                            'a',
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.white),
                           ),
                         ],
                       ),
-                      
                     ),
                     SizedBox(width: 60),
                     Container(
