@@ -1,5 +1,8 @@
 import 'package:byme_flutter_app/pages/calendar_page.dart';
 import 'package:byme_flutter_app/pages/homepage.dart';
+import 'package:byme_flutter_app/pages/patients_page.dart';
+import 'package:byme_flutter_app/pages/profile_page.dart';
+import 'package:byme_flutter_app/pages/settings_page.dart';
 import 'package:byme_flutter_app/utils/header_page_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:byme_flutter_app/utils/fetch_user_data.dart';
@@ -69,41 +72,43 @@ class _InsideAppState extends State<InsideApp> {
               children: [
                 HomePage(),
                 Calendar(),
-                // PatientListPage(),
-                // ProfilePage(),
-                // SettingsPage(),
+                PatientsPage(),
+                DoctorProfile(),
+                SettingsPage(),
               ],
             ),
-            bottomNavigationBar: BottomNavigationBar(
-              backgroundColor: Colors.black,
-              currentIndex: _currentIndex,
-              onTap: (value) {
-                _pageController.animateToPage(value,
-                    duration: Duration(milliseconds: 400), curve: Curves.ease);
-              },
-              unselectedIconTheme: IconThemeData(color: Colors.black),
-              items: const [
-                BottomNavigationBarItem(
-                    backgroundColor: Color(0xff672D6F),
-                    icon: Icon(Icons.home),
-                    label: 'Início'),
-                BottomNavigationBarItem(
-                    backgroundColor: Color(0xff672D6F),
-                    icon: Icon(FlutterIcons.calendar_ant),
-                    label: 'Calendário'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.healing),
-                    backgroundColor: Color(0xff672D6F),
-                    label: 'Pacientes'),
-                BottomNavigationBarItem(
-                    backgroundColor: Color(0xff672D6F),
-                    icon: Icon(Icons.medical_services),
-                    label: 'Perfil'),
-                BottomNavigationBarItem(
-                    backgroundColor: Color(0xff672D6F),
-                    icon: Icon(Icons.settings),
-                    label: 'Definições'),
-              ],
+            bottomNavigationBar: Container(
+              child: BottomNavigationBar(
+                backgroundColor: Colors.black,
+                currentIndex: _currentIndex,
+                onTap: (value) {
+                  _pageController.jumpToPage(
+                      value); // Use jumpToPage para uma transição instantânea
+                },
+                unselectedItemColor: Colors.black54,
+                items: const [
+                  BottomNavigationBarItem(
+                      backgroundColor: Color(0xff672D6F),
+                      icon: Icon(Icons.home),
+                      label: ''),
+                  BottomNavigationBarItem(
+                      backgroundColor: Color(0xff672D6F),
+                      icon: Icon(FlutterIcons.calendar_ant),
+                      label: ''),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.healing),
+                      backgroundColor: Color(0xff672D6F),
+                      label: ''),
+                  BottomNavigationBarItem(
+                      backgroundColor: Color(0xff672D6F),
+                      icon: Icon(Icons.medical_services),
+                      label: ''),
+                  BottomNavigationBarItem(
+                      backgroundColor: Color(0xff672D6F),
+                      icon: Icon(Icons.settings),
+                      label: ''),
+                ],
+              ),
             ),
           );
         }

@@ -1,8 +1,12 @@
+import 'package:byme_flutter_app/pages/calendar_page.dart';
 import 'package:byme_flutter_app/pages/landing_page.dart';
+import 'package:byme_flutter_app/pages/patients_page.dart';
+import 'package:byme_flutter_app/pages/profile_page.dart';
 import 'package:byme_flutter_app/pages/register_page.dart';
 import 'package:byme_flutter_app/pages/login_page.dart';
 import 'package:byme_flutter_app/pages/forgot_pass_page.dart';
 import 'package:byme_flutter_app/pages/inside_app.dart';
+import 'package:byme_flutter_app/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,6 +32,11 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/forgot_password': (context) => const ForgotPasswordPage(),
         '/inside_app': (context) => const InsideApp(),
+        '/calendar': (context) => const Calendar(),
+        '/patients': (context) => const PatientsPage(),
+        '/doctor_profile': (context) => const DoctorProfile(),
+        '/settings': (context) => const SettingsPage(),
+
       },
       debugShowCheckedModeBanner: false,
     );
