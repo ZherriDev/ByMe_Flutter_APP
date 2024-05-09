@@ -1,8 +1,8 @@
-import 'package:byme_flutter_app/pages/landing_page.dart';
-import 'package:byme_flutter_app/pages/register_page.dart';
-import 'package:byme_flutter_app/pages/login_page.dart';
-import 'package:byme_flutter_app/pages/forgot_pass_page.dart';
-import 'package:byme_flutter_app/pages/inside_app.dart';
+import 'package:byme_flutter_app/pages/auth/landing_page.dart';
+import 'package:byme_flutter_app/pages/auth/register_page.dart';
+import 'package:byme_flutter_app/pages/auth/login_page.dart';
+import 'package:byme_flutter_app/pages/auth/forgot_pass_page.dart';
+import 'package:byme_flutter_app/pages/navigation/inside_app.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -1,8 +1,8 @@
-import 'package:byme_flutter_app/pages/calendar_page.dart';
-import 'package:byme_flutter_app/pages/homepage.dart';
-import 'package:byme_flutter_app/pages/patients_page.dart';
-import 'package:byme_flutter_app/pages/profile_page.dart';
-import 'package:byme_flutter_app/pages/settings_page.dart';
+import 'package:byme_flutter_app/pages/navigation/calendar_page.dart';
+import 'package:byme_flutter_app/pages/navigation/homepage.dart';
+import 'package:byme_flutter_app/pages/navigation/patients_page.dart';
+import 'package:byme_flutter_app/pages/navigation/profile_page.dart';
+import 'package:byme_flutter_app/pages/navigation/settings_page.dart';
 import 'package:byme_flutter_app/utils/widgets/header_page_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
