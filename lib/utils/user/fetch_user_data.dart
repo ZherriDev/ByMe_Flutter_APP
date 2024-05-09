@@ -1,10 +1,11 @@
 import 'package:byme_flutter_app/utils/appointment/get_appointment.data.dart';
+import 'package:byme_flutter_app/utils/patients/get_patients.dart';
 import 'package:flutter/material.dart';
 import 'package:byme_flutter_app/utils/user/verify_user.dart';
 import 'package:byme_flutter_app/utils/token/read_token.dart';
 import 'package:byme_flutter_app/utils/user/get_user_data.dart';
 
-Future<Map<String, dynamic>?> fetchUserData(BuildContext context, String query, String date) async {
+Future<Map<String, dynamic>?> fetchUserData(BuildContext context, String query, String date, order, state) async {
   try {
     final loggedIn = await verifyUser();
     if (!loggedIn) {
@@ -17,12 +18,13 @@ Future<Map<String, dynamic>?> fetchUserData(BuildContext context, String query, 
 
     final user = await getUserData(token, doctorId);
     final appointments = await getAppointmentsData(token, doctorId, query, date);
+    final patients = await getPatients(token, doctorId, order, state);
 
-    final data = {'user': user, 'appointments': appointments};
+    final data = {'user': user, 'appointments': appointments, 'patients': patients};
 
     return data;
   } catch (e) {
-    print('Erro ao obter dados do usuário: $e');
+    print('Erro ao obter dados do utilizador: $e');
     return null;
   }
 }

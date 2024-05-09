@@ -41,7 +41,7 @@ class _InsideAppState extends State<InsideApp> {
   @override
   void initState() {
     super.initState();
-    userData = fetchUserData(context, 'one', getDate());
+    userData = fetchUserData(context, 'one', getDate(), null, null);
     _pageController = PageController(initialPage: _currentIndex);
   }
 
