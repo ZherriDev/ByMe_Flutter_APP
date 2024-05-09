@@ -1,7 +1,5 @@
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class DoctorProfile extends StatefulWidget {
   const DoctorProfile({super.key});
