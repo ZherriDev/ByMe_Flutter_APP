@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+  final PageController pageController;
+
+  const SettingsPage({Key? key, required this.pageController}) : super(key: key);
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
