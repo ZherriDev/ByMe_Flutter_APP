@@ -85,10 +85,18 @@ class _InsideAppState extends State<InsideApp> {
                 HomePage(
                   pageController: _pageController,
                 ),
-                Calendar(),
-                PatientsPage(),
-                DoctorProfile(),
-                SettingsPage(),
+                CalendarPage(
+                  pageController: _pageController,
+                ),
+                PatientsPage(
+                  pageController: _pageController,
+                ),
+                DoctorProfile(
+                  pageController: _pageController,
+                ),
+                SettingsPage(
+                  pageController: _pageController,
+                ),
               ],
             ),
             bottomNavigationBar: Container(

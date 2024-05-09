@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class DoctorProfile extends StatefulWidget {
-  const DoctorProfile({super.key});
+  final PageController pageController;
+
+  const DoctorProfile({Key? key, required this.pageController}) : super(key: key);
 
   @override
   State<DoctorProfile> createState() => _DoctorProfileState();
@@ -120,9 +122,10 @@ class _DoctorProfileState extends State<DoctorProfile> {
                   height: 60,
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20),
+                  padding:
+                      EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
                   height: 250,
-                  width: 300,
+                  width: 340,
                   decoration: BoxDecoration(
                       color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(20)),

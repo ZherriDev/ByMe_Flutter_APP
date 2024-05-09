@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class PatientsPage extends StatefulWidget {
-  const PatientsPage({super.key});
+  final PageController pageController;
+
+  const PatientsPage({Key? key, required this.pageController}) : super(key: key);
 
   @override
   State<PatientsPage> createState() => _PatientsPageState();
