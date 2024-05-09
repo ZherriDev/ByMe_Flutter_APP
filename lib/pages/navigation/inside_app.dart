@@ -1,3 +1,4 @@
+import 'package:byme_flutter_app/pages/extra/profile/personal_info.dart';
 import 'package:byme_flutter_app/pages/navigation/calendar_page.dart';
 import 'package:byme_flutter_app/pages/navigation/homepage.dart';
 import 'package:byme_flutter_app/pages/navigation/patients_page.dart';
@@ -47,7 +48,9 @@ class _InsideAppState extends State<InsideApp> {
 
   setCurrentPage(value) {
     setState(() {
-      _currentIndex = value;
+      if(value < 5){
+        _currentIndex = value;
+      }
     });
   }
 
@@ -97,6 +100,7 @@ class _InsideAppState extends State<InsideApp> {
                 SettingsPage(
                   pageController: _pageController,
                 ),
+                PersonalInfo(pageController: _pageController),
               ],
             ),
             bottomNavigationBar: Container(
