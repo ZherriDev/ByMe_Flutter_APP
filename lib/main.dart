@@ -1,4 +1,5 @@
 import 'package:byme_flutter_app/pages/calendar_page.dart';
+import 'package:byme_flutter_app/pages/homepage.dart';
 import 'package:byme_flutter_app/pages/landing_page.dart';
 import 'package:byme_flutter_app/pages/patients_page.dart';
 import 'package:byme_flutter_app/pages/profile_page.dart';
@@ -32,11 +33,6 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/forgot_password': (context) => const ForgotPasswordPage(),
         '/inside_app': (context) => const InsideApp(),
-        '/calendar': (context) => const Calendar(),
-        '/patients': (context) => const PatientsPage(),
-        '/doctor_profile': (context) => const DoctorProfile(),
-        '/settings': (context) => const SettingsPage(),
-
       },
       debugShowCheckedModeBanner: false,
     );
