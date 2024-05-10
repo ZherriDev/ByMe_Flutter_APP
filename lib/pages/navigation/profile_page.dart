@@ -1,10 +1,12 @@
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class DoctorProfile extends StatefulWidget {
   final PageController pageController;
 
-  const DoctorProfile({Key? key, required this.pageController}) : super(key: key);
+  const DoctorProfile({Key? key, required this.pageController})
+      : super(key: key);
 
   @override
   State<DoctorProfile> createState() => _DoctorProfileState();
@@ -131,27 +133,32 @@ class _DoctorProfileState extends State<DoctorProfile> {
                     children: <Widget>[
                       Expanded(
                         flex: 1,
-                        child: Container(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.person),
-                              Expanded(
-                                  flex: 5,
-                                  child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Informações Pessoais',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
-                                      ))),
-                              Icon(Icons.chevron_right),
-                            ],
+                        child: GestureDetector(
+                          onTap: () {
+                            widget.pageController.jumpToPage(5);
+                          },
+                          child: Container(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.person),
+                                Expanded(
+                                    flex: 8,
+                                    child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Informações Pessoais',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ))),
+                                Icon(Icons.chevron_right),
+                              ],
+                            ),
+                            width: double.infinity,
+                            height: double.infinity,
                           ),
-                          width: double.infinity,
-                          height: double.infinity,
                         ),
                       ),
                       Divider(

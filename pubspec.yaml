@@ -21,6 +21,8 @@ dependencies:
   country_provider: ^1.0.2
   flutter_icons_null_safety: ^1.1.0
   curved_navigation_bar: ^1.0.3
+  flutter_datetime_picker: ^1.5.1
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
