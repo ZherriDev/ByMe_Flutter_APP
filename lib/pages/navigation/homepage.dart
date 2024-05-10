@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>?>(
-      future: fetchUserData(context, 'one', getDate(), null, null),
+      future: fetchUserData(context, 'one', getDate(), null, null, null),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -160,75 +160,84 @@ class _HomePageState extends State<HomePage> {
                     : 'Detalhes da consulta:',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width - 40,
-                height: 260,
-                child: ListView.builder(
-                    itemCount: appointments.length,
-                    itemBuilder: (context, index) {
-                      String name = appointments[index]['patient_data']['name'];
-                      String processnumber =
-                          appointments[index]['patient_data']['processnumber'];
-                      String time = appointments[index]['time'];
+              if (appointmentsToday >= 1)
+                Container(
+                  width: MediaQuery.of(context).size.width - 40,
+                  height: MediaQuery.of(context).size.height - 565,
+                  child: ListView.builder(
+                      itemCount: appointments.length,
+                      itemBuilder: (context, index) {
+                        String name =
+                            appointments[index]['patient_data']['name'];
+                        String processnumber = appointments[index]
+                            ['patient_data']['processnumber'];
+                        String time = appointments[index]['time'];
 
-                      return Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.symmetric(vertical: 10),
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  'Nome: ',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
-                                Text(
-                                  '$name',
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Nº Processo: ',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
-                                Text(
-                                  '$processnumber',
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Horário: ',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
-                                Text(
-                                  '$time',
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
-              )
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    'Nome: ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  Text(
+                                    '$name',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Nº Processo: ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  Text(
+                                    '$processnumber',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Horário: ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  Text(
+                                    '$time',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
+                )
+              else
+                Container(
+                    width: MediaQuery.of(context).size.width - 40,
+                    height: MediaQuery.of(context).size.height - 565,
+                    child: Center(
+                      child: Text('Você não tem consultas marcadas para hoje'),
+                    ))
             ],
           );
         }

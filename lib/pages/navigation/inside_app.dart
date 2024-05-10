@@ -1,8 +1,10 @@
+import 'package:byme_flutter_app/pages/extra/patients/patient_page.dart';
 import 'package:byme_flutter_app/pages/navigation/calendar_page.dart';
 import 'package:byme_flutter_app/pages/navigation/homepage.dart';
 import 'package:byme_flutter_app/pages/navigation/patients_page.dart';
 import 'package:byme_flutter_app/pages/navigation/profile_page.dart';
 import 'package:byme_flutter_app/pages/navigation/settings_page.dart';
+import 'package:byme_flutter_app/utils/user/verify_user.dart';
 import 'package:byme_flutter_app/utils/widgets/header_page_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
@@ -41,7 +43,7 @@ class _InsideAppState extends State<InsideApp> {
   @override
   void initState() {
     super.initState();
-    userData = fetchUserData(context, 'one', getDate(), null, null);
+    userData = fetchUserData(context, 'one', getDate(), null, null, null);
     _pageController = PageController(initialPage: _currentIndex);
   }
 
@@ -53,6 +55,11 @@ class _InsideAppState extends State<InsideApp> {
 
   @override
   Widget build(BuildContext context) {
+    verifyUser().then((loggedIn) {
+      if (!loggedIn) {
+        Navigator.of(context).pushReplacementNamed('/');
+      }
+    });
     return FutureBuilder<Map<String, dynamic>?>(
       future: userData,
       builder: (context, snapshot) {
@@ -95,6 +102,9 @@ class _InsideAppState extends State<InsideApp> {
                   pageController: _pageController,
                 ),
                 SettingsPage(
+                  pageController: _pageController,
+                ),
+                PatientPage(
                   pageController: _pageController,
                 ),
               ],

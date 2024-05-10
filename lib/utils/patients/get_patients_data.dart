@@ -1,17 +1,32 @@
+import 'package:byme_flutter_app/utils/token/read_token.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future<Map<String, dynamic>?> getPatients(
-    String token, int doctorId, order, state) async {
+Future<Map<String, dynamic>?> getPatientsData(search, order, state) async {
   var url;
+  final userStorage = await readToken();
+  String token = userStorage?['token'];
+  int doctorId = userStorage?['doctor_id'];
 
-  if (order == null && state == null) {
+  if (order != null) {
+    if (order == 'A-Z') {
+      order = 'a-z';
+    } else if (order == 'Recente') {
+      order = 'recent';
+    }
+  }
+
+  if (search == null && order == null && state == null) {
     url = Uri.parse(
         'https://api-py-byme.onrender.com/patient/select_patient/$doctorId');
-  } else {
+  } else if (search == null) {
     url = Uri.parse(
         'https://api-py-byme.onrender.com/patient/select_patient/$doctorId/$order/$state');
+  } else {
+    url = Uri.parse(
+        'https://api-py-byme.onrender.com/patient/select_patient/$doctorId/$search/$order/$state');
   }
+
   Map<String, String> header = {
     'Content-type': 'application/json',
     'Accept': 'application/json',
