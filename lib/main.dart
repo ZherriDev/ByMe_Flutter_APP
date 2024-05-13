@@ -12,30 +12,43 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'ByMe',
-      theme: ThemeData(
-        fontFamily: 'Lato',
-        brightness: Brightness.light,
-        useMaterial3: true,
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const LandingPage(),
-        '/register': (context) => const RegisterPage(),
-        '/login': (context) => const LoginPage(),
-        '/forgot_password': (context) => const ForgotPasswordPage(),
-        '/inside_app': (context) => const InsideApp(),
-      },
-      debugShowCheckedModeBanner: false,
-    );
+    return FutureBuilder(
+        future: _initialization,
+        builder: (context, app) {
+          if (app.connectionState == ConnectionState.done) {
+            return MaterialApp(
+              title: 'ByMe',
+              theme: ThemeData(
+                fontFamily: 'Lato',
+                brightness: Brightness.light,
+                useMaterial3: true,
+              ),
+              initialRoute: '/',
+              routes: {
+                '/': (context) => const LandingPage(),
+                '/register': (context) => const RegisterPage(),
+                '/login': (context) => const LoginPage(),
+                '/forgot_password': (context) => const ForgotPasswordPage(),
+                '/inside_app': (context) => const InsideApp(),
+              },
+              debugShowCheckedModeBanner: false,
+            );
+          }
+          if (app.hasError) {
+            return Text('Error');
+          }
+          else{
+            return const Center(child: CircularProgressIndicator());
+          }
+        });
   }
 }

@@ -7,7 +7,6 @@ Future<bool> updateData(
  
   final userStorage = await readToken();
   String token = userStorage?['token'];
-  int doctorId = userStorage?['doctor_id'];
   bool _succes = false;
    var url = Uri.parse(
       'https://api-py-byme.onrender.com/doctor/update_doctor');

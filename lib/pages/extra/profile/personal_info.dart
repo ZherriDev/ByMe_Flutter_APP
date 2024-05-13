@@ -2,12 +2,12 @@ import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
-
 
 class PersonalInfo extends StatefulWidget {
   final PageController pageController;
@@ -50,7 +50,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
   late String _speciality;
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
-
+  bool _isLoadingImage = false;
+  final FirebaseStorage storage = FirebaseStorage.instance;
 
   @override
   void initState() {
@@ -71,6 +72,43 @@ class _PersonalInfoState extends State<PersonalInfo> {
     super.dispose();
   }
 
+  Future<XFile?> getImage() async {
+    final ImagePicker _picker = ImagePicker();
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    return image;
+  }
+
+  Future<UploadTask> upload(String path) async {
+    File file = File(path);
+    try {
+      String ref = 'images/img-${DateTime.now().toString()}.jpg';
+      UploadTask uploadTask = storage.ref(ref).putFile(file);
+      return uploadTask;
+    } on FirebaseException catch (e) {
+      print('Erro ao fazer upload: ${e.code}');
+      throw e; // Lança a exceção para ser tratada fora desta função
+    }
+  }
+
+  pickAndUploadImage() async {
+    XFile? file = await getImage();
+    if (file != null) {
+      await upload(file.path);
+      UploadTask task = await upload(file.path);
+
+      task.snapshotEvents.listen((TaskSnapshot snapshot) async {
+        if (snapshot.state == TaskState.running) {
+          setState(() {
+            _isLoadingImage = true;
+          });
+        } else if (snapshot.state == TaskState.success) {
+          setState(() {
+            _isLoadingImage = false;
+          });
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,11 +172,17 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                     child: Text(
                                       'Mudar Imagem de Perfil',
                                     )),
-                                IconButton(
-                                    onPressed: () {
-                                    
-                                    },
-                                    icon: Icon(Icons.add_a_photo)),
+                                _isLoadingImage
+                                    ? Center(
+                                        child: SizedBox(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      )
+                                    : IconButton(
+                                        onPressed: () {
+                                          pickAndUploadImage();
+                                        },
+                                        icon: Icon(Icons.add_a_photo)),
                               ],
                             ),
                           ),
