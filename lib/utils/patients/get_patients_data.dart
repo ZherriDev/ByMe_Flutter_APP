@@ -18,13 +18,13 @@ Future<Map<String, dynamic>?> getPatientsData(search, order, state) async {
 
   if (search == null && order == null && state == null) {
     url = Uri.parse(
-        'https://api-py-byme.onrender.com/patient/select_patient/$doctorId');
+        'https://api-py-byme.onrender.com/patient/select_patients/$doctorId');
   } else if (search == null) {
     url = Uri.parse(
-        'https://api-py-byme.onrender.com/patient/select_patient/$doctorId/$order/$state');
+        'https://api-py-byme.onrender.com/patient/select_patients/$doctorId/$order/$state');
   } else {
     url = Uri.parse(
-        'https://api-py-byme.onrender.com/patient/select_patient/$doctorId/$search/$order/$state');
+        'https://api-py-byme.onrender.com/patient/select_patients/$doctorId/$search/$order/$state');
   }
 
   Map<String, String> header = {
@@ -38,8 +38,8 @@ Future<Map<String, dynamic>?> getPatientsData(search, order, state) async {
 
     switch (response.statusCode) {
       case 200:
-        final Map<String, dynamic> patientData = jsonDecode(response.body);
-        return patientData;
+        final Map<String, dynamic> patientsData = jsonDecode(response.body);
+        return patientsData;
       case 400:
         print('Dados Incorretos');
         break;

@@ -161,23 +161,28 @@ class _PatientsPageState extends State<PatientsPage> {
                   child: Row(
                     children: [
                       Expanded(
-                        flex: 2,
-                        child: TextFormField(
-                          controller: search,
+                        flex: 1,
+                        child: DropdownButtonFormField<String>(
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.grey[200],
-                            suffixIcon: IconButton(
-                              icon: Icon(Icons.search),
-                              onPressed: () => reloadPage(),
-                            ),
-                            label: const Text('Pesquisar paciente'),
-                            hintText: 'Pesquise por um paciente',
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
+                          value: state,
+                          items: _state.map((String state) {
+                            return DropdownMenuItem<String>(
+                              value: state,
+                              child: iconList(state),
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            setState(() {
+                              state = newValue!;
+                            });
+                          },
                         ),
                       ),
                       Container(
@@ -216,28 +221,23 @@ class _PatientsPageState extends State<PatientsPage> {
                         width: 5,
                       ),
                       Expanded(
-                        flex: 1,
-                        child: DropdownButtonFormField<String>(
+                        flex: 2,
+                        child: TextFormField(
+                          controller: search,
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.grey[200],
+                            suffixIcon: IconButton(
+                              icon: Icon(Icons.search),
+                              onPressed: () => reloadPage(),
+                            ),
+                            label: const Text('Pesquisar paciente'),
+                            hintText: 'Pesquise por um paciente',
                             border: OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          value: state,
-                          items: _state.map((String state) {
-                            return DropdownMenuItem<String>(
-                              value: state,
-                              child: iconList(state),
-                            );
-                          }).toList(),
-                          onChanged: (newValue) {
-                            setState(() {
-                              state = newValue!;
-                            });
-                          },
                         ),
                       ),
                     ],
@@ -637,6 +637,7 @@ class _PatientsPageState extends State<PatientsPage> {
                                       flex: 1,
                                       child: ElevatedButton(
                                         onPressed: () {
+                                          _formKey2.currentState!.reset();
                                           Navigator.of(context).pop();
                                         },
                                         style: ButtonStyle(
