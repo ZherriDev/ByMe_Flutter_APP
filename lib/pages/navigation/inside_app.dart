@@ -56,6 +56,12 @@ class _InsideAppState extends State<InsideApp> {
     });
   }
 
+  int patientId = 0;
+
+  void patientPageID(int patient_id) {
+    setState(() => patientId = patient_id);
+  }
+
   @override
   Widget build(BuildContext context) {
     verifyUser().then((loggedIn) {
@@ -101,6 +107,7 @@ class _InsideAppState extends State<InsideApp> {
                 ),
                 PatientsPage(
                   pageController: _pageController,
+                  patientPageID: patientPageID
                 ),
                 DoctorProfile(
                   pageController: _pageController,
@@ -110,6 +117,7 @@ class _InsideAppState extends State<InsideApp> {
                 ),
                 PersonalInfo(pageController: _pageController),
                 PatientPage(
+                  patientId: patientId,
                   pageController: _pageController,
                 ),
               ],
