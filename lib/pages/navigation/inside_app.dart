@@ -95,6 +95,7 @@ class _InsideAppState extends State<InsideApp> {
               image: userData['user']['doctor']['photo'],
             ),
             body: PageView(
+              physics: NeverScrollableScrollPhysics(),
               onPageChanged: setCurrentPage,
               controller: _pageController,
               children: [

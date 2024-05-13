@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "592675043830",
+    "firebase_url": "https://byme-app-images-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "byme-app-images",
+    "storage_bucket": "byme-app-images.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592675043830:android:6268d11b906ed5589cafd7",
+        "android_client_info": {
+          "package_name": "com.example.byme_flutter_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjqMhiznugy6ZNnZ3LdDNiApmfbQdsAzc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
