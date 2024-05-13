@@ -50,10 +50,16 @@ class _InsideAppState extends State<InsideApp> {
 
   setCurrentPage(value) {
     setState(() {
-      if(value < 5){
+      if (value < 5) {
         _currentIndex = value;
       }
     });
+  }
+
+  int patientId = 0;
+
+  void patientPageID(int patient_id) {
+    setState(() => patientId = patient_id);
   }
 
   @override
@@ -100,6 +106,7 @@ class _InsideAppState extends State<InsideApp> {
                 ),
                 PatientsPage(
                   pageController: _pageController,
+                  patientPageID: patientPageID
                 ),
                 DoctorProfile(
                   pageController: _pageController,
@@ -109,6 +116,7 @@ class _InsideAppState extends State<InsideApp> {
                 ),
                 PersonalInfo(pageController: _pageController),
                 PatientPage(
+                  patientId: patientId,
                   pageController: _pageController,
                 ),
               ],

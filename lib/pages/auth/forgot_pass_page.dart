@@ -13,7 +13,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _formKey = GlobalKey<FormState>();
   final email = TextEditingController();
   String message = '';
-  bool success = false;
   bool isLoading = false;
 
   void _showSuccessPopUp(String message) {
@@ -163,8 +162,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   if (_formKey.currentState!.validate()) {
                     setState(() {
                       isLoading = true;
+                      message = "";
                     });
-                    message = "";
                     forgotPass(email.text);
                   }
                 },
@@ -203,7 +202,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: success ? Colors.green : Colors.red),
+                      color: Colors.red),
                   child: Text(
                     message,
                     textAlign: TextAlign.center,

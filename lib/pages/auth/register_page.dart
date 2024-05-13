@@ -328,16 +328,16 @@ class _RegisterPageState extends State<RegisterPage> {
                       if (_formKey.currentState!.validate()) {
                         setState(() {
                           isLoading = true;
+                          message = "";
                         });
-                        message = "";
                         if (pass.text != confirmPass.text) {
-                          message = "As palavras-passe não coincidem-se";
                           setState(() {
+                            message = "As palavras-passe não coincidem-se";
                             isLoading = false;
                           });
                         } else if (acceptTerms == false) {
-                          message = "Os termos de serviço precisam ser aceitos";
                           setState(() {
+                            message = "Os termos de serviço precisam ser aceitos";
                             isLoading = false;
                           });
                         } else {

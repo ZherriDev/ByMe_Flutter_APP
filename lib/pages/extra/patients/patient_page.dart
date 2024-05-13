@@ -1,10 +1,12 @@
+import 'package:byme_flutter_app/utils/patients/fetch_patient_data.dart';
 import 'package:flutter/material.dart';
 
 class PatientPage extends StatefulWidget {
-  final int? patientId;
+  final int patientId;
   final PageController pageController;
 
-  const PatientPage({Key? key, this.patientId, required this.pageController})
+  const PatientPage(
+      {Key? key, required this.patientId, required this.pageController})
       : super(key: key);
 
   @override
@@ -14,13 +16,10 @@ class PatientPage extends StatefulWidget {
 class _PatientPageState extends State<PatientPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Patient Details'),
-      ),
-      body: Center(
-        child: Text('Patient ID: ${widget.patientId}'),
-      ),
-    );
+    return FutureBuilder(
+        future: fetchPatientData(context, widget.patientId),
+        builder: (context, snapshot) {
+          return Container();
+        });
   }
 }
