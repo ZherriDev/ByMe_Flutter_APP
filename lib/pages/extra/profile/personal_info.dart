@@ -1,19 +1,18 @@
-import 'dart:ffi';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
 import 'package:byme_flutter_app/utils/user/update_data.dart';
+import 'package:byme_flutter_app/utils/user/update_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as path;
 
 class PersonalInfo extends StatefulWidget {
   final PageController pageController;
+  final VoidCallback reloadApp;
 
-  const PersonalInfo({Key? key, required this.pageController})
+  const PersonalInfo(
+      {Key? key, required this.pageController, required this.reloadApp})
       : super(key: key);
 
   @override
@@ -107,7 +106,10 @@ class _PersonalInfoState extends State<PersonalInfo> {
       String downloadUrl = await upload(file.path);
 
       int _phoneValue = int.parse(_phoneController.text);
-      updateData(
+      setState(() {
+        _isLoading = true;
+      });
+      updateImage(
         _nameController.text,
         _phoneValue,
         _birthdateController.text,
@@ -115,7 +117,14 @@ class _PersonalInfoState extends State<PersonalInfo> {
         _speciality,
         downloadUrl,
         _sex,
-      );
+      ).then((succes) {
+        setState(() {
+          _isLoading = false;
+        });
+        if (succes) {
+          widget.reloadApp();
+        }
+      });
     }
   }
 

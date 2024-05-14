@@ -40,11 +40,23 @@ class HeaderPageBar extends StatelessWidget implements PreferredSizeWidget {
               color: const Color(0xff672D6F),
               borderRadius: BorderRadius.circular(100),
             ),
-            child: Image.asset(image),
+            child: _imageDefault(image)
+                ? Image.asset(image)
+                : CircleAvatar(
+                    backgroundImage: NetworkImage(image),
+                  ),
           ),
         ),
       ]),
     );
+  }
+
+  bool _imageDefault(String image) {
+    if (image == 'assets/images/user.png') {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Size get preferredSize => const Size.fromHeight(220);

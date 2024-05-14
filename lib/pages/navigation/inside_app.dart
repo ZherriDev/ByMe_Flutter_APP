@@ -62,6 +62,10 @@ class _InsideAppState extends State<InsideApp> {
     setState(() => patientId = patient_id);
   }
 
+  void reloadApp() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     verifyUser().then((loggedIn) {
@@ -69,6 +73,7 @@ class _InsideAppState extends State<InsideApp> {
         Navigator.of(context).pushReplacementNamed('/');
       }
     });
+
     return FutureBuilder<Map<String, dynamic>?>(
       future: userData,
       builder: (context, snapshot) {
@@ -114,7 +119,8 @@ class _InsideAppState extends State<InsideApp> {
                 SettingsPage(
                   pageController: _pageController,
                 ),
-                PersonalInfo(pageController: _pageController),
+                PersonalInfo(
+                    pageController: _pageController, reloadApp: reloadApp),
                 PatientPage(
                   patientId: patientId,
                   pageController: _pageController,
