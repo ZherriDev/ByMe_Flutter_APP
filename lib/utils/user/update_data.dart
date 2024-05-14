@@ -3,15 +3,17 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 Future<bool> updateData(
-    name, phone, birthdate, address, speciality, photo, sex) async {
+    String name, int phone, String birthdate, String address, String speciality, String photo, String sex) async {
  
   final userStorage = await readToken();
   String token = userStorage?['token'];
+  int doctorId = userStorage?['doctor_id'];
   bool _succes = false;
    var url = Uri.parse(
       'https://api-py-byme.onrender.com/doctor/update_doctor');
   ;
   var body = {
+    "doctor_id": doctorId,
     "fullname": name,
     "photo": photo,
     "telephone": phone,
@@ -29,7 +31,7 @@ Future<bool> updateData(
 
   try {
 
-    final response = await http.post(
+    final response = await http.patch(
       url,
       body: jsonEncode(body),
       headers: header,

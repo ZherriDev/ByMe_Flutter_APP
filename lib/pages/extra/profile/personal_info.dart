@@ -2,6 +2,7 @@ import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
+import 'package:byme_flutter_app/utils/user/update_data.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -43,11 +44,15 @@ class _PersonalInfoState extends State<PersonalInfo> {
     'Psiquiatra',
   ];
 
+  final List<String> _sexes = ['Masculino', 'Feminino'];
+
   late TextEditingController _nameController;
   late TextEditingController _phoneController;
   late TextEditingController _birthdateController;
   late TextEditingController _addressController;
   late String _speciality;
+  late String _sex;
+  late String _currentImage;
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   bool _isLoadingImage = false;
@@ -61,6 +66,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
     _birthdateController = TextEditingController();
     _addressController = TextEditingController();
     _speciality = '';
+    _sex = '';
+    _currentImage = '';
   }
 
   @override
@@ -69,6 +76,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     _phoneController.dispose();
     _birthdateController.dispose();
     _addressController.dispose();
+
     super.dispose();
   }
 
@@ -78,12 +86,15 @@ class _PersonalInfoState extends State<PersonalInfo> {
     return image;
   }
 
-  Future<UploadTask> upload(String path) async {
+  Future<String> upload(String path) async {
     File file = File(path);
     try {
       String ref = 'images/img-${DateTime.now().toString()}.jpg';
+      await storage.ref(ref).putFile(file);
       UploadTask uploadTask = storage.ref(ref).putFile(file);
-      return uploadTask;
+      TaskSnapshot snapshot = await uploadTask;
+      String downloadUrl = await snapshot.ref.getDownloadURL();
+      return downloadUrl;
     } on FirebaseException catch (e) {
       print('Erro ao fazer upload: ${e.code}');
       throw e; // Lança a exceção para ser tratada fora desta função
@@ -93,20 +104,18 @@ class _PersonalInfoState extends State<PersonalInfo> {
   pickAndUploadImage() async {
     XFile? file = await getImage();
     if (file != null) {
-      await upload(file.path);
-      UploadTask task = await upload(file.path);
+      String downloadUrl = await upload(file.path);
 
-      task.snapshotEvents.listen((TaskSnapshot snapshot) async {
-        if (snapshot.state == TaskState.running) {
-          setState(() {
-            _isLoadingImage = true;
-          });
-        } else if (snapshot.state == TaskState.success) {
-          setState(() {
-            _isLoadingImage = false;
-          });
-        }
-      });
+      int _phoneValue = int.parse(_phoneController.text);
+      updateData(
+        _nameController.text,
+        _phoneValue,
+        _birthdateController.text,
+        _addressController.text,
+        _speciality,
+        downloadUrl,
+        _sex,
+      );
     }
   }
 
@@ -143,6 +152,13 @@ class _PersonalInfoState extends State<PersonalInfo> {
           if (_speciality.isEmpty) {
             _speciality = snapshot.data?['user']['doctor']['speciality'] ?? '';
           }
+          if (_sex.isEmpty) {
+            _sex = snapshot.data?['user']['doctor']['sex'];
+          }
+          if (_currentImage.isEmpty) {
+            _currentImage = snapshot.data?['user']['doctor']['photo'];
+          }
+
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -307,6 +323,39 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               return null;
                             },
                           ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              labelText: 'Género',
+                              filled: true,
+                              fillColor: Colors.grey[200],
+                              prefixIcon: Icon(Icons.face),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                            value: _sex,
+                            items: _sexes.map((String sex) {
+                              return DropdownMenuItem<String>(
+                                value: sex,
+                                child: Text(sex),
+                              );
+                            }).toList(),
+                            onChanged: (newValue) {
+                              setState(() {
+                                _sex = newValue!;
+                              });
+                            },
+                            validator: (sex) {
+                              if (sex == null) {
+                                return 'Por favor, selecione uma especialidade';
+                              }
+                              return null;
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -319,7 +368,36 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 width: 400,
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                    setState(() {
+                      _isLoading = true;
+                    });
+
+                    if (_formKey.currentState!.validate()) {
+                      int _phoneValue = int.parse(_phoneController.text);
+
+                      updateData(
+                        _nameController.text,
+                        _phoneValue,
+                        _birthdateController.text,
+                        _addressController.text,
+                        _speciality,
+                        _currentImage,
+                        _sex,
+                      ).then((succes) {
+                        if (succes = true) {
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          _showSuccessPopUp(
+                              'Informações Atualizadas com sucesso!');
+                        } else {
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          print('erro');
+                        }
+                      });
+                    }
                   },
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsets>(
@@ -370,5 +448,33 @@ class _PersonalInfoState extends State<PersonalInfo> {
         _birthdate.text = DateFormat('yyyy-MM-dd').format(_picked);
       });
     }
+  }
+
+  void _showSuccessPopUp(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: SizedBox(
+            width: 150,
+            height: 150,
+            child: Image.asset('assets/images/success.png'),
+          ),
+          content: Text(
+            message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
