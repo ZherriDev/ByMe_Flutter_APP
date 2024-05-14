@@ -254,7 +254,7 @@ class _PatientsPageState extends State<PatientsPage> {
                       Icon(Icons.healing),
                       Text('Em tratamento'),
                       Container(
-                        width: 5,
+                        width: 10,
                       ),
                       Icon(Icons.access_time),
                       Text('Aguardando tratamento'),
@@ -679,7 +679,6 @@ class _PatientsPageState extends State<PatientsPage> {
                                         flex: 1,
                                         child: ElevatedButton(
                                           onPressed: () {
-                                            _formKey2.currentState!.reset();
                                             Navigator.of(context).pop();
                                           },
                                           style: ButtonStyle(
