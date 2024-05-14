@@ -106,9 +106,8 @@ class _InsideAppState extends State<InsideApp> {
                   pageController: _pageController,
                 ),
                 PatientsPage(
-                  pageController: _pageController,
-                  patientPageID: patientPageID
-                ),
+                    pageController: _pageController,
+                    patientPageID: patientPageID),
                 DoctorProfile(
                   pageController: _pageController,
                 ),
