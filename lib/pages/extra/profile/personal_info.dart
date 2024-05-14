@@ -9,10 +9,10 @@ import 'package:intl/intl.dart';
 
 class PersonalInfo extends StatefulWidget {
   final PageController pageController;
-  final VoidCallback reloadApp;
+  final Function(String) reloadPhoto;
 
   const PersonalInfo(
-      {Key? key, required this.pageController, required this.reloadApp})
+      {Key? key, required this.pageController, required this.reloadPhoto})
       : super(key: key);
 
   @override
@@ -122,7 +122,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           _isLoading = false;
         });
         if (succes) {
-          widget.reloadApp();
+          widget.reloadPhoto(downloadUrl);
         }
       });
     }

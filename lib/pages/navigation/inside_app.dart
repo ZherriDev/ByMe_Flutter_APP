@@ -22,6 +22,7 @@ class _InsideAppState extends State<InsideApp> {
   int _currentIndex = 0;
   late PageController _pageController;
   late Future<Map<String, dynamic>?> userData;
+  var userPhoto;
 
   final List<String> appBarTexts = [
     'Página Inicial',
@@ -46,6 +47,7 @@ class _InsideAppState extends State<InsideApp> {
     super.initState();
     userData = fetchUserData(context, 'one', getDate(), null, null, null);
     _pageController = PageController(initialPage: _currentIndex);
+    userPhoto = "";
   }
 
   setCurrentPage(value) {
@@ -62,8 +64,8 @@ class _InsideAppState extends State<InsideApp> {
     setState(() => patientId = patient_id);
   }
 
-  void reloadApp() {
-    setState(() {});
+  void reloadPhoto(String newPhoto) {
+    setState(() => userPhoto = newPhoto);
   }
 
   @override
@@ -93,11 +95,14 @@ class _InsideAppState extends State<InsideApp> {
           );
         } else {
           var userData = snapshot.data!;
+
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: HeaderPageBar(
               text: appBarTexts[_currentIndex],
-              image: userData['user']['doctor']['photo'],
+              image: userPhoto != ""
+                  ? userPhoto
+                  : userData['user']['doctor']['photo'],
             ),
             body: PageView(
               physics: NeverScrollableScrollPhysics(),
@@ -120,7 +125,7 @@ class _InsideAppState extends State<InsideApp> {
                   pageController: _pageController,
                 ),
                 PersonalInfo(
-                    pageController: _pageController, reloadApp: reloadApp),
+                    pageController: _pageController, reloadPhoto: reloadPhoto),
                 PatientPage(
                   patientId: patientId,
                   pageController: _pageController,
