@@ -45,8 +45,7 @@ class MyApp extends StatelessWidget {
           }
           if (app.hasError) {
             return Text('Error');
-          }
-          else{
+          } else {
             return const Center(child: CircularProgressIndicator());
           }
         });
