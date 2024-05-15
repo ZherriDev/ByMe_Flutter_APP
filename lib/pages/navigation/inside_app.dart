@@ -1,8 +1,13 @@
-import 'package:byme_flutter_app/pages/calendar_page.dart';
-import 'package:byme_flutter_app/pages/homepage.dart';
-import 'package:byme_flutter_app/pages/patients_page.dart';
-import 'package:byme_flutter_app/pages/profile_page.dart';
-import 'package:byme_flutter_app/pages/settings_page.dart';
+import 'package:byme_flutter_app/pages/extra/profile/credentials_page.dart';
+import 'package:byme_flutter_app/pages/extra/patients/module_page.dart';
+import 'package:byme_flutter_app/pages/extra/profile/personal_info.dart';
+import 'package:byme_flutter_app/pages/extra/patients/patient_page.dart';
+import 'package:byme_flutter_app/pages/navigation/calendar_page.dart';
+import 'package:byme_flutter_app/pages/navigation/homepage.dart';
+import 'package:byme_flutter_app/pages/navigation/patients_page.dart';
+import 'package:byme_flutter_app/pages/navigation/profile_page.dart';
+import 'package:byme_flutter_app/pages/navigation/settings_page.dart';
+import 'package:byme_flutter_app/utils/user/verify_user.dart';
 import 'package:byme_flutter_app/utils/widgets/header_page_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
@@ -19,6 +24,7 @@ class _InsideAppState extends State<InsideApp> {
   int _currentIndex = 0;
   late PageController _pageController;
   late Future<Map<String, dynamic>?> userData;
+  var userPhoto;
 
   final List<String> appBarTexts = [
     'Página Inicial',
@@ -41,18 +47,42 @@ class _InsideAppState extends State<InsideApp> {
   @override
   void initState() {
     super.initState();
-    userData = fetchUserData(context, 'one', getDate());
+    userData = fetchUserData(context, 'one', getDate(), null, null, null);
     _pageController = PageController(initialPage: _currentIndex);
+    userPhoto = "";
   }
 
   setCurrentPage(value) {
     setState(() {
-      _currentIndex = value;
+      if (value < 5) {
+        _currentIndex = value;
+      }
     });
+  }
+
+  int patientId = 0;
+  int moduleId = 0;
+
+  void patientPageID(int patient_id) {
+    setState(() => patientId = patient_id);
+  }
+
+  void modulePageID(int module_id) {
+    setState(() => moduleId = module_id);
+  }
+
+  void reloadPhoto(String newPhoto) {
+    setState(() => userPhoto = newPhoto);
   }
 
   @override
   Widget build(BuildContext context) {
+    verifyUser().then((loggedIn) {
+      if (!loggedIn) {
+        Navigator.of(context).pushReplacementNamed('/');
+      }
+    });
+
     return FutureBuilder<Map<String, dynamic>?>(
       future: userData,
       builder: (context, snapshot) {
@@ -72,23 +102,44 @@ class _InsideAppState extends State<InsideApp> {
           );
         } else {
           var userData = snapshot.data!;
+
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: HeaderPageBar(
               text: appBarTexts[_currentIndex],
-              image: userData['user']['doctor']['photo'],
+              image: userPhoto != ""
+                  ? userPhoto
+                  : userData['user']['doctor']['photo'],
             ),
             body: PageView(
+              physics: NeverScrollableScrollPhysics(),
               onPageChanged: setCurrentPage,
               controller: _pageController,
               children: [
                 HomePage(
                   pageController: _pageController,
                 ),
-                Calendar(),
-                PatientsPage(),
-                DoctorProfile(),
-                SettingsPage(),
+                CalendarPage(
+                  pageController: _pageController,
+                ),
+                PatientsPage(
+                    pageController: _pageController,
+                    patientPageID: patientPageID),
+                DoctorProfile(
+                  pageController: _pageController,
+                ),
+                SettingsPage(
+                  pageController: _pageController,
+                ),
+                PersonalInfo(
+                    pageController: _pageController, reloadPhoto: reloadPhoto),
+                PatientPage(
+                  patientId: patientId,
+                  pageController: _pageController,
+                  modulePageID: modulePageID,
+                ),
+                CredentialsPage(pageController: _pageController,),
+                ModulePage(moduleId: moduleId, pageController: _pageController)
               ],
             ),
             bottomNavigationBar: Container(

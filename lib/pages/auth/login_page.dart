@@ -205,10 +205,13 @@ class _LoginPageState extends State<LoginPage> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      _errorMessage = "";
+                      setState(() {
+                        _errorMessage = "";
+                      });
                       login().then((loggedIn) {
                         if (loggedIn) {
-                          Navigator.of(context).pushReplacementNamed('/inside_app');
+                          Navigator.of(context)
+                              .pushReplacementNamed('/inside_app');
                         }
                       });
                     }
