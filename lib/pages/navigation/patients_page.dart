@@ -601,7 +601,7 @@ class _PatientsPageState extends State<PatientsPage> {
                                             fillColor: Colors.grey[400]
                                                 ?.withOpacity(0.3),
                                             prefixIcon:
-                                                const Icon(Icons.location_on),
+                                                const Icon(Icons.location_city),
                                             label: const Text('Cidade'),
                                             hintText: 'Cidade do paciente',
                                             border: OutlineInputBorder(

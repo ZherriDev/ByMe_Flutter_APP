@@ -1,3 +1,4 @@
+import 'package:byme_flutter_app/pages/extra/patients/module_page.dart';
 import 'package:byme_flutter_app/pages/extra/profile/personal_info.dart';
 import 'package:byme_flutter_app/pages/extra/patients/patient_page.dart';
 import 'package:byme_flutter_app/pages/navigation/calendar_page.dart';
@@ -59,9 +60,14 @@ class _InsideAppState extends State<InsideApp> {
   }
 
   int patientId = 0;
+  int moduleId = 0;
 
   void patientPageID(int patient_id) {
     setState(() => patientId = patient_id);
+  }
+
+  void modulePageID(int module_id) {
+    setState(() => moduleId = module_id);
   }
 
   void reloadPhoto(String newPhoto) {
@@ -129,7 +135,9 @@ class _InsideAppState extends State<InsideApp> {
                 PatientPage(
                   patientId: patientId,
                   pageController: _pageController,
+                  modulePageID: modulePageID,
                 ),
+                ModulePage(moduleId: moduleId, pageController: _pageController)
               ],
             ),
             bottomNavigationBar: Container(

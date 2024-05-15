@@ -1,13 +1,16 @@
 import 'package:byme_flutter_app/utils/patients/fetch_patient_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class PatientPage extends StatefulWidget {
   final int patientId;
   final PageController pageController;
+  final Function(int) modulePageID;
 
   const PatientPage(
-      {Key? key, required this.patientId, required this.pageController})
+      {Key? key,
+      required this.patientId,
+      required this.pageController,
+      required this.modulePageID})
       : super(key: key);
 
   @override
@@ -35,6 +38,8 @@ class _PatientPageState extends State<PatientPage> {
               ),
             );
           } else {
+            List<dynamic> modules = snapshot.data?['modules']['modules'];
+
             return SingleChildScrollView(
               padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
               child: Column(
@@ -47,6 +52,9 @@ class _PatientPageState extends State<PatientPage> {
                         onPressed: () {},
                         iconSize: 35,
                         icon: Icon(Icons.edit_note),
+                      ),
+                      Container(
+                        width: 10,
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -64,6 +72,9 @@ class _PatientPageState extends State<PatientPage> {
                           ),
                         ],
                       ),
+                      Container(
+                        width: 10,
+                      ),
                       IconButton(
                         onPressed: () {},
                         iconSize: 35,
@@ -74,97 +85,189 @@ class _PatientPageState extends State<PatientPage> {
                   Container(
                     height: 10,
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          padding: EdgeInsets.only(
-                              left: 8, right: 8, top: 6, bottom: 6),
-                          height: MediaQuery.of(context).size.height / 2 - 250,
+                  Container(
+                    padding: EdgeInsets.only(bottom: 5),
+                    width: MediaQuery.of(context).size.width - 40,
+                    decoration: BoxDecoration(
+                        color: Color(0xFF787878).withOpacity(0.16),
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 30,
                           decoration: BoxDecoration(
-                              color: Color(0xFF787878).withOpacity(0.16),
+                              color: Color(0xff672D6F),
                               borderRadius: BorderRadius.circular(20)),
-                          child: Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(6),
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                    color: Color(0xff672D6F),
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: Text(
-                                  'Opções de Contacto:',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              Container(
-                                height: 10,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Icon(Icons.call),
-                                  Container(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    '+351${snapshot.data?['patient']['patient']['telephone']}',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                              Container(
-                                height: 10,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Icon(Icons.email),
-                                  Container(
-                                    width: 5,
-                                  ),
-                                  Flexible(
-                                    child: Text(
-                                      snapshot.data?['patient']['patient']
-                                          ['email'],
-                                      textAlign: TextAlign.end,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      maxLines: 3,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                          child: Center(
+                            child: Text(
+                              'Local de Morada',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: 10,
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height / 2 - 250,
-                          decoration: BoxDecoration(
-                              color: Color(0xFF787878).withOpacity(0.16),
-                              borderRadius: BorderRadius.circular(20)),
-                        ),
-                      )
-                    ],
+                        Text(
+                          '${snapshot.data?["patient"]["patient"]["address"]} - ${snapshot.data?["patient"]["patient"]["postalcode"]} - ${snapshot.data?["patient"]["patient"]["town"]}',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
                   ),
+                  Container(
+                    height: 10,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(bottom: 5),
+                    width: MediaQuery.of(context).size.width - 40,
+                    decoration: BoxDecoration(
+                        color: Color(0xFF787878).withOpacity(0.16),
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 30,
+                          decoration: BoxDecoration(
+                              color: Color(0xff672D6F),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Center(
+                            child: Text(
+                              'E-mail',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          snapshot.data?["patient"]["patient"]["email"],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 10,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(bottom: 5),
+                    width: MediaQuery.of(context).size.width - 40,
+                    decoration: BoxDecoration(
+                        color: Color(0xFF787878).withOpacity(0.16),
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 30,
+                          decoration: BoxDecoration(
+                              color: Color(0xff672D6F),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Center(
+                            child: Text(
+                              'Nº Telefone',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          '+351${snapshot.data?["patient"]["patient"]["telephone"]}',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 20,
+                  ),
+                  Text(
+                    'Módulos do Paciente:',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                  if (modules.length >= 1)
+                    Container(
+                      width: MediaQuery.of(context).size.width - 40,
+                      height: MediaQuery.of(context).size.height - 600,
+                      child: ListView.builder(
+                          itemCount: modules.length,
+                          itemBuilder: (context, index) {
+                            int module_id = modules[index]['module_id'];
+                            String episode = modules[index]['episode'];
+                            String module = modules[index]['module'];
+                            String status = modules[index]['status'];
+
+                            return GestureDetector(
+                              onTap: () {
+                                widget.modulePageID(module_id);
+                                widget.pageController.jumpToPage(8);
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: EdgeInsets.symmetric(vertical: 10),
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Container(
+                                  height: 80,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Módulo $module',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Flexible(
+                                          child: Text(
+                                        episode,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                      )),
+                                      Text(
+                                        status == "In Progress"
+                                            ? 'Em progresso...'
+                                            : status == "Finished"
+                                                ? 'Acabado'
+                                                : status == "Paused"
+                                                    ? 'Pausado'
+                                                    : status,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                    )
+                  else
+                    Container(
+                        width: MediaQuery.of(context).size.width - 40,
+                        height: MediaQuery.of(context).size.height - 565,
+                        child: Center(
+                          child: Text(
+                              'O paciente ainda não possui módulos adicionados'),
+                        ))
                 ],
               ),
             );
