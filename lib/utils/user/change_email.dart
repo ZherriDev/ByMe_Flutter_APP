@@ -1,19 +1,18 @@
-import 'package:byme_flutter_app/utils/token/clear_token.dart';
 import 'package:byme_flutter_app/utils/token/read_token.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future<bool> updatePass(String oldPassword, String newPassword) async {
+Future<bool> updateEmail(String oldEmail, String newEmail) async {
   final userStorage = await readToken();
   String token = userStorage?['token'];
   int doctorId = userStorage?['doctor_id'];
   bool _succes = false;
-  var url = Uri.parse('https://api-py-byme.onrender.com/auth/change_password');
+  var url = Uri.parse('https://api-py-byme.onrender.com/doctor/change_email');
   ;
   var body = {
     "doctor_id": doctorId,
-    "old_password": oldPassword,
-    "new_password": newPassword,
+    "old_email": oldEmail,
+    "new_email": newEmail,
   };
 
   Map<String, String> header = {
@@ -23,13 +22,11 @@ Future<bool> updatePass(String oldPassword, String newPassword) async {
   };
 
   try {
-    final response = await http.post(
+    final response = await http.patch(
       url,
       body: jsonEncode(body),
       headers: header,
     );
-
-    clearToken();
 
     switch (response.statusCode) {
       case 200:
@@ -42,9 +39,6 @@ Future<bool> updatePass(String oldPassword, String newPassword) async {
         break;
       case 500:
         print('Erro no servidor');
-        break;
-      case 405:
-        print('Método não permitido');
         break;
     }
   } catch (error) {
