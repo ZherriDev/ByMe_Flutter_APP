@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
 import 'package:byme_flutter_app/utils/user/update_data.dart';
@@ -106,9 +107,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
       String downloadUrl = await upload(file.path);
 
       int _phoneValue = int.parse(_phoneController.text);
-      setState(() {
-        _isLoading = true;
-      });
       updateImage(
         _nameController.text,
         _phoneValue,
@@ -119,7 +117,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
         _sex,
       ).then((succes) {
         setState(() {
-          _isLoading = false;
+          _isLoadingImage = false;
         });
         if (succes) {
           widget.reloadPhoto(downloadUrl);
@@ -171,9 +169,26 @@ class _PersonalInfoState extends State<PersonalInfo> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'Informações Pessoais',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+              Container(
+                padding: EdgeInsets.only(left: 30),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        widget.pageController.jumpToPage(3);
+                      },
+                      icon: Icon(Icons.arrow_back),
+                    ),
+                    SizedBox(
+                      width: 40,
+                    ),
+                    Text(
+                      'Informações Pessoais',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
                 height: 20,
@@ -205,6 +220,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                       )
                                     : IconButton(
                                         onPressed: () {
+                                          setState(() {
+                                            _isLoadingImage = true;
+                                          });
                                           pickAndUploadImage();
                                         },
                                         icon: Icon(Icons.add_a_photo)),

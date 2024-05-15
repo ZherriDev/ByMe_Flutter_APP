@@ -1,6 +1,5 @@
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class DoctorProfile extends StatefulWidget {
   final PageController pageController;
@@ -119,7 +118,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                   ],
                 ),
                 SizedBox(
-                  height: 60,
+                  height: 50,
                 ),
                 Container(
                   padding:
@@ -168,27 +167,32 @@ class _DoctorProfileState extends State<DoctorProfile> {
                       ),
                       Expanded(
                         flex: 1,
-                        child: Container(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.lock),
-                              Expanded(
-                                  flex: 8,
-                                  child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Credencias',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
-                                      ))),
-                              Icon(Icons.chevron_right)
-                            ],
+                        child: GestureDetector(
+                          onTap: () {
+                            widget.pageController.jumpToPage(7);
+                          },
+                          child: Container(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.lock),
+                                Expanded(
+                                    flex: 8,
+                                    child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Credenciais',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ))),
+                                Icon(Icons.chevron_right)
+                              ],
+                            ),
+                            width: double.infinity,
+                            height: double.infinity,
                           ),
-                          width: double.infinity,
-                          height: double.infinity,
                         ),
                       ),
                       Divider(

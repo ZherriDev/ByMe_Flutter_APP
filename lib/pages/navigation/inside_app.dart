@@ -1,3 +1,4 @@
+import 'package:byme_flutter_app/pages/extra/profile/credentials_page.dart';
 import 'package:byme_flutter_app/pages/extra/patients/module_page.dart';
 import 'package:byme_flutter_app/pages/extra/profile/personal_info.dart';
 import 'package:byme_flutter_app/pages/extra/patients/patient_page.dart';
@@ -137,6 +138,7 @@ class _InsideAppState extends State<InsideApp> {
                   pageController: _pageController,
                   modulePageID: modulePageID,
                 ),
+                CredentialsPage(pageController: _pageController,),
                 ModulePage(moduleId: moduleId, pageController: _pageController)
               ],
             ),
