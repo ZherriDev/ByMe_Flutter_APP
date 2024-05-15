@@ -1,7 +1,6 @@
 import 'package:byme_flutter_app/utils/patients/get_patients_data.dart';
 import 'package:byme_flutter_app/utils/token/read_token.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -340,6 +339,9 @@ class _PatientsPageState extends State<PatientsPage> {
                                     key: _formKey2,
                                     child: ListView(
                                       children: [
+                                        Container(
+                                          height: 5,
+                                        ),
                                         TextFormField(
                                           enabled: isLoading == false,
                                           controller: nameController,
@@ -445,8 +447,9 @@ class _PatientsPageState extends State<PatientsPage> {
                                               child: Text(
                                                 sex,
                                                 style: TextStyle(
-                                                  fontSize: 16,
-                                                ),
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.normal),
                                               ),
                                             );
                                           }).toList(),
@@ -735,8 +738,7 @@ class _PatientsPageState extends State<PatientsPage> {
                                                 NIFController.text,
                                                 SNSController.text,
                                               ).then((success) {
-                                                if (success != null &&
-                                                    success != false) {
+                                                if (success == true) {
                                                   _formKey2.currentState!
                                                       .reset();
                                                   Navigator.of(context).pop();

@@ -138,7 +138,9 @@ class _InsideAppState extends State<InsideApp> {
                   pageController: _pageController,
                   modulePageID: modulePageID,
                 ),
-                CredentialsPage(pageController: _pageController,),
+                CredentialsPage(
+                  pageController: _pageController,
+                ),
                 ModulePage(moduleId: moduleId, pageController: _pageController)
               ],
             ),

@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
 import 'package:byme_flutter_app/utils/user/update_data.dart';
