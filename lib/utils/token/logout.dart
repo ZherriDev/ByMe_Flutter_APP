@@ -1,28 +1,29 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
-Future<Map<String, dynamic>?> getUserData(String token, int doctorId) async {
-  var url = Uri.parse(
-      'https://api-py-byme.onrender.com/doctor/select_doctor/$doctorId');
+Future<bool> clearToken() async {
+  final storage = FlutterSecureStorage();
+  final token = await storage.read(key: 'token');
+  var url = Uri.parse('https://api-py-byme.onrender.com/auth/logout');
   Map<String, String> header = {
     'Content-type': 'application/json',
     'Accept': 'application/json',
     'Authorization': 'Bearer $token',
   };
-
+  bool success = false;
   try {
     final response = await http.get(url, headers: header);
-
+    await storage.delete(key: 'token');
+    await storage.delete(key: 'doctor_id');
     switch (response.statusCode) {
       case 200:
-        final Map<String, dynamic> userData = jsonDecode(response.body);
-        return userData;
+        success = true;
       case 400:
         print('Dados Incorretos');
         break;
       case 401:
         print('Token Inválido');
-        return {'error': true};
+        break;
       case 500:
         print('Erro no servidor');
         break;
@@ -30,5 +31,5 @@ Future<Map<String, dynamic>?> getUserData(String token, int doctorId) async {
   } catch (error) {
     print('Error: $error');
   }
-  return null;
+  return success;
 }

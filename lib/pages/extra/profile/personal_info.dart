@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
 import 'package:byme_flutter_app/utils/user/update_data.dart';
 import 'package:byme_flutter_app/utils/user/update_image.dart';
+import 'package:byme_flutter_app/utils/widgets/buttom_widget.dart';
+import 'package:byme_flutter_app/utils/widgets/change_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -202,32 +204,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       key: _formKey,
                       child: Column(
                         children: [
-                          Container(
-                            padding: EdgeInsets.only(left: 20, right: 20),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    flex: 6,
-                                    child: Text(
-                                      'Mudar Imagem de Perfil',
-                                    )),
-                                _isLoadingImage
-                                    ? Center(
-                                        child: SizedBox(
-                                          child: CircularProgressIndicator(),
-                                        ),
-                                      )
-                                    : IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            _isLoadingImage = true;
-                                          });
-                                          pickAndUploadImage();
-                                        },
-                                        icon: Icon(Icons.add_a_photo)),
-                              ],
-                            ),
-                          ),
+                          ChangeImage(pickAndUploadImage: pickAndUploadImage),
                           SizedBox(
                             height: 20,
                           ),
@@ -354,7 +331,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           ),
                           DropdownButtonFormField<String>(
                             decoration: InputDecoration(
-                              labelText: 'Género',
+                              labelText: 'Sexo',
                               filled: true,
                               fillColor: Colors.grey[200],
                               prefixIcon: Icon(Icons.face),
@@ -388,72 +365,19 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   ),
                 ),
               ),
-              Container(
-                padding:
-                    EdgeInsets.only(top: 10, bottom: 30, left: 20, right: 20),
-                width: 400,
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _isLoading = true;
-                    });
-
-                    if (_formKey.currentState!.validate()) {
-                      int _phoneValue = int.parse(_phoneController.text);
-
-                      updateData(
-                        _nameController.text,
-                        _phoneValue,
-                        _birthdateController.text,
-                        _addressController.text,
-                        _speciality,
-                        _currentImage,
-                        _sex,
-                      ).then((succes) {
-                        if (succes = true) {
-                          setState(() {
-                            _isLoading = false;
-                          });
-                          _showSuccessPopUp(
-                              'Informações Atualizadas com sucesso!');
-                        } else {
-                          setState(() {
-                            _isLoading = false;
-                          });
-                          print('erro');
-                        }
-                      });
-                    }
-                  },
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsets>(
-                        const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 25)),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xff672D6F)),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                    ),
-                  ),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          _isLoading ? '' : 'Salvar Alterações',
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        if (_isLoading)
-                          const CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2,
-                          ),
-                      ]),
-                ),
-              )
+              SaveButton(
+                formKey: _formKey,
+                nameController: _nameController,
+                phoneController: _phoneController,
+                birthdateController: _birthdateController,
+                addressController: _addressController,
+                speciality: _speciality,
+                currentImage: _currentImage,
+                sex: _sex,
+                updateData: updateData,
+                showSuccessPopUp: _showSuccessPopUp,
+                buttonText: 'Salvar Alterações', // Texto do botão definido aqui
+              ),
             ],
           );
         }
