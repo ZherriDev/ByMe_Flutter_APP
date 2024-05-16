@@ -589,6 +589,7 @@ class _PatientPageState extends State<PatientPage> {
                                                 setState(() {
                                                   isLoading = true;
                                                   message = "";
+                                                  
                                                 });
                                                 updatePatient(
                                                   widget.patientId,
