@@ -12,6 +12,8 @@ import 'package:byme_flutter_app/utils/widgets/header_page_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
 import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 
 class InsideApp extends StatefulWidget {
   const InsideApp({super.key});
@@ -47,7 +49,7 @@ class _InsideAppState extends State<InsideApp> {
   @override
   void initState() {
     super.initState();
-    userData = fetchUserData(context, 'one', getDate(), null, null, null);
+    userData = fetchUserData('one', getDate(), null, null, null);
     _pageController = PageController(initialPage: _currentIndex);
     userPhoto = "";
   }
@@ -144,38 +146,32 @@ class _InsideAppState extends State<InsideApp> {
                 ModulePage(moduleId: moduleId, pageController: _pageController)
               ],
             ),
-            bottomNavigationBar: Container(
-              child: BottomNavigationBar(
-                backgroundColor: Colors.black,
-                currentIndex: _currentIndex,
-                onTap: (value) {
-                  _pageController.jumpToPage(value);
+            bottomNavigationBar: CurvedNavigationBar(
+                animationDuration: Duration(milliseconds: 250),
+                index: _currentIndex,
+                color: Color(0xff672D6F),
+                backgroundColor: Colors.white,
+                onTap: (index) {
+                  _pageController.jumpToPage(index);
                 },
-                unselectedItemColor: Colors.black54,
-                items: const [
-                  BottomNavigationBarItem(
-                      backgroundColor: Color(0xff672D6F),
-                      icon: Icon(Icons.home),
-                      label: ''),
-                  BottomNavigationBarItem(
-                      backgroundColor: Color(0xff672D6F),
-                      icon: Icon(FlutterIcons.calendar_ant),
-                      label: ''),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.healing),
-                      backgroundColor: Color(0xff672D6F),
-                      label: ''),
-                  BottomNavigationBarItem(
-                      backgroundColor: Color(0xff672D6F),
-                      icon: Icon(Icons.medical_services),
-                      label: ''),
-                  BottomNavigationBarItem(
-                      backgroundColor: Color(0xff672D6F),
-                      icon: Icon(Icons.settings),
-                      label: ''),
-                ],
-              ),
-            ),
+                items: [
+                  CurvedNavigationBarItem(
+                    child: Icon(Icons.home_outlined, color: Colors.white),
+                  ),
+                  CurvedNavigationBarItem(
+                    child: Icon(Icons.calendar_month, color: Colors.white),
+                  ),
+                  CurvedNavigationBarItem(
+                    child: Icon(Icons.personal_injury_outlined,
+                        color: Colors.white),
+                  ),
+                  CurvedNavigationBarItem(
+                    child: Icon(Icons.perm_identity, color: Colors.white),
+                  ),
+                  CurvedNavigationBarItem(
+                    child: Icon(Icons.settings_outlined, color: Colors.white),
+                  ),
+                ]),
           );
         }
       },

@@ -28,6 +28,8 @@ dependencies:
   firebase_core: ^2.31.0
   firebase_storage: ^11.7.5
   provider: ^6.1.2
+  flutter_speed_dial: ^7.0.0
+  curved_labeled_navigation_bar: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -50,6 +52,7 @@ flutter:
     - assets/images/user2.png
     - assets/images/forgot_password.png
     - assets/images/success.png
+    - assets/images/warning.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

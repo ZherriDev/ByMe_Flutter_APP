@@ -1,9 +1,6 @@
 import 'package:byme_flutter_app/utils/patients/get_patients_data.dart';
 import 'package:byme_flutter_app/utils/patients/insert_patient.dart';
-import 'package:byme_flutter_app/utils/token/read_token.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class PatientsPage extends StatefulWidget {
   final PageController pageController;
@@ -68,181 +65,191 @@ class _PatientsPageState extends State<PatientsPage> {
         } else {
           List<dynamic> patients = snapshot.data?['patients'];
 
-          return SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
-              child: Column(
-                children: [
-                  Form(
-                    key: _formKey1,
-                    child: Row(
+          return Container(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Container(
+                    padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
+                    child: Column(
                       children: [
-                        Expanded(
-                          flex: 1,
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.grey[200],
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            value: state,
-                            items: _state.map((String state) {
-                              return DropdownMenuItem<String>(
-                                value: state,
-                                child: iconList(state),
-                              );
-                            }).toList(),
-                            onChanged: (newValue) {
-                              setState(() {
-                                state = newValue!;
-                              });
-                            },
-                          ),
-                        ),
-                        Container(
-                          width: 5,
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.grey[200],
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            value: order,
-                            items: _order.map((String order) {
-                              return DropdownMenuItem<String>(
-                                value: order,
-                                child: Text(
-                                  order,
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold),
+                        Form(
+                          key: _formKey1,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: DropdownButtonFormField<String>(
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.grey[200],
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  value: state,
+                                  items: _state.map((String state) {
+                                    return DropdownMenuItem<String>(
+                                      value: state,
+                                      child: iconList(state),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      state = newValue!;
+                                    });
+                                  },
                                 ),
-                              );
-                            }).toList(),
-                            onChanged: (newValue) {
-                              setState(() {
-                                order = newValue!;
-                              });
-                            },
+                              ),
+                              Container(
+                                width: 5,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: DropdownButtonFormField<String>(
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.grey[200],
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  value: order,
+                                  items: _order.map((String order) {
+                                    return DropdownMenuItem<String>(
+                                      value: order,
+                                      child: Text(
+                                        order,
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      order = newValue!;
+                                    });
+                                  },
+                                ),
+                              ),
+                              Container(
+                                width: 5,
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: TextFormField(
+                                  controller: search,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors.grey[200],
+                                    suffixIcon: IconButton(
+                                      icon: Icon(Icons.search),
+                                      onPressed: () => reloadPage(),
+                                    ),
+                                    label: const Text('Pesquisar paciente'),
+                                    hintText: 'Pesquise por um paciente',
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         Container(
-                          width: 5,
+                          height: 10,
                         ),
-                        Expanded(
-                          flex: 2,
-                          child: TextFormField(
-                            controller: search,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.grey[200],
-                              suffixIcon: IconButton(
-                                icon: Icon(Icons.search),
-                                onPressed: () => reloadPage(),
-                              ),
-                              label: const Text('Pesquisar paciente'),
-                              hintText: 'Pesquise por um paciente',
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.healing),
+                            Text('Em tratamento'),
+                            Container(
+                              width: 10,
                             ),
-                          ),
+                            Icon(Icons.access_time),
+                            Text('Aguardando tratamento'),
+                          ],
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.check_circle),
+                            Text('Tratamento Concluído'),
+                          ],
+                        ),
+                        Container(
+                          height: 10,
+                        ),
+                        if (patients.length >= 1)
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height - 425,
+                            child: ListView.builder(
+                                itemCount: patients.length,
+                                itemBuilder: (context, index) {
+                                  int patient_id =
+                                      patients[index]['patient_id'];
+                                  String image =
+                                      'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg';
+                                  String name = patients[index]['name'];
+                                  String email = patients[index]['email'];
+                                  String processnumber =
+                                      patients[index]['processnumber'];
+
+                                  return ListTile(
+                                    onTap: () {
+                                      widget.patientPageID(patient_id);
+                                      widget.pageController.jumpToPage(6);
+                                    },
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.purple,
+                                      backgroundImage: NetworkImage(image),
+                                    ),
+                                    title: Text(name),
+                                    subtitle: Text(email),
+                                    trailing: Text(processnumber),
+                                  );
+                                }),
+                          )
+                        else
+                          Container(
+                              width: MediaQuery.of(context).size.width - 40,
+                              height: MediaQuery.of(context).size.height - 425,
+                              child: Center(
+                                child: Text('Nenhum paciente encontrado'),
+                              )),
                       ],
                     ),
                   ),
-                  Container(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.healing),
-                      Text('Em tratamento'),
-                      Container(
-                        width: 10,
-                      ),
-                      Icon(Icons.access_time),
-                      Text('Aguardando tratamento'),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.check_circle),
-                      Text('Tratamento Concluído'),
-                    ],
-                  ),
-                  Container(
-                    height: 10,
-                  ),
-                  if (patients.length >= 1)
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height - 480,
-                      child: ListView.builder(
-                          itemCount: patients.length,
-                          itemBuilder: (context, index) {
-                            int patient_id = patients[index]['patient_id'];
-                            String image =
-                                'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg';
-                            String name = patients[index]['name'];
-                            String email = patients[index]['email'];
-                            String processnumber =
-                                patients[index]['processnumber'];
-
-                            return ListTile(
-                              onTap: () {
-                                widget.patientPageID(patient_id);
-                                widget.pageController.jumpToPage(6);
-                              },
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.transparent,
-                                backgroundImage: NetworkImage(image),
-                              ),
-                              title: Text(name),
-                              subtitle: Text(email),
-                              trailing: Text(processnumber),
-                            );
-                          }),
-                    )
-                  else
-                    Container(
-                        width: MediaQuery.of(context).size.width - 40,
-                        height: MediaQuery.of(context).size.height - 440,
-                        child: Center(
-                          child: Text('Nenhum paciente encontrado'),
-                        )),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: FloatingActionButton(
-                      backgroundColor: Color(0xff672D6F),
-                      child: Icon(
-                        Icons.person_add,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return InsertPatient(
-                                  context: context, reloadPage: reloadPage);
-                            });
-                      },
+                ),
+                Positioned(
+                  right: 15,
+                  bottom: 10,
+                  child: FloatingActionButton(
+                    shape: CircleBorder(),
+                    backgroundColor: Color(0xff672D6F),
+                    child: Icon(
+                      Icons.person_add,
+                      color: Colors.white,
                     ),
-                  )
-                ],
-              ),
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return InsertPatient(
+                                context: context, reloadPage: reloadPage);
+                          });
+                    },
+                  ),
+                ),
+              ],
             ),
           );
         }
