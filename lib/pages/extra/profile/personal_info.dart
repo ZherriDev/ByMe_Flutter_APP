@@ -130,7 +130,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>?>(
-      future: fetchUserData(context, 'all', getDate(), null, null, null),
+      future: fetchUserData('all', getDate(), null, null, null),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(

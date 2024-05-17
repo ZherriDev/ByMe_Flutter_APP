@@ -1,10 +1,9 @@
 import 'package:byme_flutter_app/utils/appointment/get_appointment.data.dart';
 import 'package:byme_flutter_app/utils/patients/get_patients_data.dart';
-import 'package:flutter/material.dart';
 import 'package:byme_flutter_app/utils/token/read_token.dart';
 import 'package:byme_flutter_app/utils/user/get_user_data.dart';
 
-Future<Map<String, dynamic>?> fetchUserData(BuildContext context, String query, String date, search, order, state) async {
+Future<Map<String, dynamic>?> fetchUserData(String query, String date, search, order, state) async {
   try {
     final userStorage = await readToken();
     String token = userStorage?['token'];
