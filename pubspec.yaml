@@ -50,6 +50,7 @@ flutter:
     - assets/images/user2.png
     - assets/images/forgot_password.png
     - assets/images/success.png
+    - assets/images/error.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

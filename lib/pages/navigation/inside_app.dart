@@ -2,6 +2,7 @@ import 'package:byme_flutter_app/pages/extra/profile/credentials_page.dart';
 import 'package:byme_flutter_app/pages/extra/patients/module_page.dart';
 import 'package:byme_flutter_app/pages/extra/profile/personal_info.dart';
 import 'package:byme_flutter_app/pages/extra/patients/patient_page.dart';
+import 'package:byme_flutter_app/pages/extra/profile/sessions_page.dart';
 import 'package:byme_flutter_app/pages/navigation/calendar_page.dart';
 import 'package:byme_flutter_app/pages/navigation/homepage.dart';
 import 'package:byme_flutter_app/pages/navigation/patients_page.dart';
@@ -141,7 +142,8 @@ class _InsideAppState extends State<InsideApp> {
                 CredentialsPage(
                   pageController: _pageController,
                 ),
-                ModulePage(moduleId: moduleId, pageController: _pageController)
+                ModulePage(moduleId: moduleId, pageController: _pageController),
+                SessionsPage(pageController: _pageController),
               ],
             ),
             bottomNavigationBar: Container(

@@ -202,27 +202,32 @@ class _DoctorProfileState extends State<DoctorProfile> {
                       ),
                       Expanded(
                         flex: 1,
-                        child: Container(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.access_time),
-                              Expanded(
-                                  flex: 8,
-                                  child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Sessões da Conta',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
-                                      ))),
-                              Icon(Icons.chevron_right)
-                            ],
+                        child: GestureDetector(
+                          onTap: () {
+                            widget.pageController.jumpToPage(9);
+                          },
+                          child: Container(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.access_time),
+                                Expanded(
+                                    flex: 8,
+                                    child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Sessões da Conta',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ))),
+                                Icon(Icons.chevron_right)
+                              ],
+                            ),
+                            width: double.infinity,
+                            height: double.infinity,
                           ),
-                          width: double.infinity,
-                          height: double.infinity,
                         ),
                       ),
                       Divider(

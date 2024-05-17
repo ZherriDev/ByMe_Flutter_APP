@@ -1,18 +1,17 @@
 import "package:flutter/material.dart";
+import 'package:byme_flutter_app/utils/token/clear_token.dart';
+import 'package:byme_flutter_app/utils/token/read_token.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class UpdatePass extends StatefulWidget {
-  final Future<bool> Function(
-    String oldPassword,
-    String newPasswprd,
-  ) updateFunction;
-  final void Function(String message) showSuccessPopUp;
+  final void Function(String message, bool succes, String navigator) showSuccessPopUp;
   final GlobalKey<FormState> formKey;
   final TextEditingController oldpassController;
   final TextEditingController newpassController;
   final TextEditingController confirmnewpassController;
 
   const UpdatePass({
-    required this.updateFunction,
     required this.formKey,
     required this.oldpassController,
     required this.newpassController,
@@ -26,6 +25,67 @@ class UpdatePass extends StatefulWidget {
 
 class _UpdatePassState extends State<UpdatePass> {
   bool _isLoading = false;
+  String _errorMessage = '';
+
+  Future<bool> updatePass(String oldPassword, String newPassword) async {
+    final userStorage = await readToken();
+    String token = userStorage?['token'];
+    int doctorId = userStorage?['doctor_id'];
+    bool _succes = false;
+
+    var url =
+        Uri.parse('https://api-py-byme.onrender.com/auth/change_password');
+    ;
+    var body = {
+      "doctor_id": doctorId,
+      "old_password": oldPassword,
+      "new_password": newPassword,
+    };
+
+    Map<String, String> header = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    try {
+      final response = await http.post(
+        url,
+        body: jsonEncode(body),
+        headers: header,
+      );
+
+      switch (response.statusCode) {
+        case 200:
+          clearToken();
+          _succes = true;
+        case 400:
+          setState(() {
+            _errorMessage = 'Requisição Inválida';
+          });
+
+          break;
+        case 401:
+          setState(() {
+            _errorMessage = 'Palavra-Passe antiga incorreta';
+          });
+
+          break;
+        case 500:
+          setState(() {
+            _errorMessage = 'Algo correu mal';
+          });
+          break;
+        case 405:
+          print('Método não permitido');
+          break;
+      }
+    } catch (error) {
+      print('Error: $error');
+    }
+    return _succes;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,23 +96,24 @@ class _UpdatePassState extends State<UpdatePass> {
             setState(() {
               _isLoading = true;
             });
-            widget
-                .updateFunction(
+            updatePass(
               widget.oldpassController.text,
               widget.newpassController.text,
-            )
-                .then((succes) {
+            ).then((succes) {
               if (succes) {
                 setState(() {
                   _isLoading = false;
                 });
-                widget.showSuccessPopUp('Informações atualizadas com sucesso\n'
-                    'Pra sua segurança a sua sessão será encerrada');
+                widget.showSuccessPopUp(
+                    'Informações atualizadas com sucesso\n'
+                    'Pra sua segurança a sua sessão será encerrada',
+                    true,
+                    'password');
               } else {
                 setState(() {
                   _isLoading = false;
-                  print('Erro ao mudar senhas');
                 });
+                widget.showSuccessPopUp(_errorMessage, false, 'password');
               }
             });
           }
