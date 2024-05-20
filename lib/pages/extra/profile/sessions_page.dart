@@ -1,7 +1,6 @@
+import 'package:byme_flutter_app/pages/extra/profile/alert_dialog.dart';
 import 'package:byme_flutter_app/utils/sessions/get_sessions.dart';
-import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
@@ -56,8 +55,6 @@ class _SessionsPageState extends State<SessionsPage> {
               },
             );
 
-            print(sessions);
-
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -95,13 +92,13 @@ class _SessionsPageState extends State<SessionsPage> {
                     SizedBox(
                       height: 5,
                     ),
-                    Text('Efetuas-te Login nesses dispositivos:'),
+                    Text('Tens sessão ativa nesses dispositivos:'),
                     SizedBox(
                       height: 15,
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height - 480,
+                      height: MediaQuery.of(context).size.height - 470,
                       child: ListView.builder(
                         itemCount: sessionsLength,
                         itemBuilder: (context, index) {
@@ -130,91 +127,27 @@ class _SessionsPageState extends State<SessionsPage> {
                               showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              isAndroid
-                                                  ? CircleAvatar(
-                                                      backgroundImage:
-                                                          NetworkImage(
-                                                              androidImage),
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                    )
-                                                  : CircleAvatar(
-                                                      backgroundImage:
-                                                          NetworkImage(
-                                                              IOSImage),
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                    ),
-                                              isAndroid
-                                                  ? Text(
-                                                      'Dispositivo Android',
-                                                      style: TextStyle(
-                                                          fontSize: 20),
-                                                    )
-                                                  : Text(
-                                                      'Dispositivo IOS',
-                                                      style: TextStyle(
-                                                          fontSize: 20),
-                                                    ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                      content: Container(
-                                        height: 100,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  'Nome do Disposivito: ',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                ),
-                                                Text(sessions[index]['device'])
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  'Endereço IP: ',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                ),
-                                                Text(sessions[index]
-                                                    ['ip_address'])
-                                              ],
-                                            ),
-                                            Text(
-                                                '${location}, ${day} de ${monthName}')
-                                          ],
-                                        ),
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text('OK'),
-                                        ),
-                                      ],
+                                    return SessionAlertDialog(
+                                      isAndroid: isAndroid,
+                                      androidImage: androidImage,
+                                      iOSImage: IOSImage,
+                                      index: index,
+                                      sessions: sessions,
+                                      setState: _setState,
                                     );
                                   });
                             },
                             title: Text(sessions[index]['device']),
-                            subtitle:
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
                                 Text('${location}, ${day} de ${monthName}'),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                CurrentSession(index)
+                              ],
+                            ),
                             trailing: Text(sessions[index]['ip_address']),
                             leading: CircleAvatar(
                               backgroundColor: Colors.transparent,
@@ -232,5 +165,28 @@ class _SessionsPageState extends State<SessionsPage> {
             );
           }
         });
+  }
+
+  Widget CurrentSession(index) {
+    if (index == 0) {
+      return Row(
+        children: [
+          Image.asset(
+            'assets/images/success.png',
+            width: 20,
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Text('Sessão Atual'),
+        ],
+      );
+    } else {
+      return Container();
+    }
+  }
+
+  void _setState() {
+    setState(() {});
   }
 }

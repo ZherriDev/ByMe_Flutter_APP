@@ -85,6 +85,12 @@ class _LoginPageState extends State<LoginPage> {
             successLogin = false;
           });
           break;
+        case 403:
+          setState(() {
+            _errorMessage = 'E-mail não confirmado';
+            successLogin = false;
+          });
+          break;
         case 429:
           setState(() {
             _errorMessage =
