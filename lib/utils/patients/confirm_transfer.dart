@@ -1,37 +1,39 @@
-import 'package:byme_flutter_app/utils/token/read_token.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:byme_flutter_app/utils/token/read_token.dart';
+import 'package:flutter/material.dart';
 
-class DeletePatient extends StatefulWidget {
+class ConfirmTransfer extends StatefulWidget {
   final BuildContext context;
+  final String fullname;
   final int patientId;
+  final int doctorId;
   final PageController pageController;
 
-  const DeletePatient(
+  const ConfirmTransfer(
       {Key? key,
       required this.context,
+      required this.fullname,
       required this.patientId,
+      required this.doctorId,
       required this.pageController})
       : super(key: key);
 
   @override
-  State<DeletePatient> createState() => _DeletePatientState();
+  State<ConfirmTransfer> createState() => _ConfirmTransferState();
 }
 
-class _DeletePatientState extends State<DeletePatient> {
+class _ConfirmTransferState extends State<ConfirmTransfer> {
   bool isLoading = false;
 
-  Future<bool?> deletePatient(int patientId) async {
+  Future<bool?> transferPatient(int patientId, int doctorId) async {
     final userStorage = await readToken();
     String token = userStorage?['token'];
 
-    var url =
-        Uri.parse('https://api-py-byme.onrender.com/patient/delete_patient');
+    var url = Uri.parse(
+        'https://api-py-byme.onrender.com/patient/update_patient_doctor');
 
-    var body = {
-      "patient_id": patientId,
-    };
+    var body = {"patient_id": patientId, "doctor_id": doctorId};
 
     Map<String, String> header = {
       'Content-type': 'application/json',
@@ -41,7 +43,7 @@ class _DeletePatientState extends State<DeletePatient> {
 
     try {
       final response =
-          await http.delete(url, body: jsonEncode(body), headers: header);
+          await http.patch(url, body: jsonEncode(body), headers: header);
 
       switch (response.statusCode) {
         case 200:
@@ -75,13 +77,13 @@ class _DeletePatientState extends State<DeletePatient> {
         child: Image.asset('assets/images/warning.png'),
       ),
       content: Text(
-        'Você não poderá voltar atrás com esta ação. Tem certeza que deseja excluir o paciente?',
+        'Tem certeza que deseja transferir o paciente para o doutor ${widget.fullname}?',
         textAlign: TextAlign.center,
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text('Cancelar'),
+          child: const Text('Não'),
           onPressed: () {
             Navigator.of(widget.context).pop();
           },
@@ -91,24 +93,24 @@ class _DeletePatientState extends State<DeletePatient> {
               ? CircularProgressIndicator(
                   strokeWidth: 2,
                 )
-              : const Text('Excluir'),
+              : const Text('Sim'),
           onPressed: () {
             setState(() {
               isLoading = true;
             });
-            deletePatient(widget.patientId).then((success) {
+            transferPatient(widget.patientId, widget.doctorId).then((success) {
               if (success == true) {
                 Navigator.of(widget.context).pop();
                 widget.pageController.jumpToPage(2);
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Paciente excluído com sucesso.'),
+                  content: Text('Paciente transferido com sucesso.'),
                   backgroundColor: Colors.green,
                   duration: Duration(seconds: 2),
                 ));
               } else {
                 Navigator.of(widget.context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Não foi possível excluir o paciente.'),
+                  content: Text('Não foi possível transferir o paciente.'),
                   backgroundColor: Colors.red,
                   duration: Duration(seconds: 2),
                 ));

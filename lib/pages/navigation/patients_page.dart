@@ -74,6 +74,9 @@ class _PatientsPageState extends State<PatientsPage> {
                     padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
                     child: Column(
                       children: [
+                        Container(
+                          height: 5,
+                        ),
                         Form(
                           key: _formKey1,
                           child: Row(
@@ -209,7 +212,7 @@ class _PatientsPageState extends State<PatientsPage> {
                                       widget.pageController.jumpToPage(6);
                                     },
                                     leading: CircleAvatar(
-                                      backgroundColor: Colors.purple,
+                                      backgroundColor: Color(0xff672D6F),
                                       backgroundImage: NetworkImage(image),
                                     ),
                                     title: Text(name),
