@@ -1,4 +1,6 @@
+import 'package:byme_flutter_app/pages/extra/profile/alert_dialog_logout.dart';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
+import 'package:byme_flutter_app/pages/extra/profile/alert_dialog_logout.dart';
 import 'package:flutter/material.dart';
 
 class DoctorProfile extends StatefulWidget {
@@ -202,27 +204,32 @@ class _DoctorProfileState extends State<DoctorProfile> {
                       ),
                       Expanded(
                         flex: 1,
-                        child: Container(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.access_time),
-                              Expanded(
-                                  flex: 8,
-                                  child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Sessões da Conta',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
-                                      ))),
-                              Icon(Icons.chevron_right)
-                            ],
+                        child: GestureDetector(
+                          onTap: () {
+                            widget.pageController.jumpToPage(9);
+                          },
+                          child: Container(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.access_time),
+                                Expanded(
+                                    flex: 8,
+                                    child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Sessões da Conta',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ))),
+                                Icon(Icons.chevron_right)
+                              ],
+                            ),
+                            width: double.infinity,
+                            height: double.infinity,
                           ),
-                          width: double.infinity,
-                          height: double.infinity,
                         ),
                       ),
                       Divider(
@@ -232,27 +239,36 @@ class _DoctorProfileState extends State<DoctorProfile> {
                       ),
                       Expanded(
                         flex: 1,
-                        child: Container(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.logout),
-                              Expanded(
-                                  flex: 8,
-                                  child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Terminar Sessão',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
-                                      ))),
-                              Icon(Icons.chevron_right)
-                            ],
+                        child: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialogLogout();
+                                });
+                          },
+                          child: Container(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.logout),
+                                Expanded(
+                                    flex: 8,
+                                    child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Terminar Sessão',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ))),
+                                Icon(Icons.chevron_right)
+                              ],
+                            ),
+                            width: double.infinity,
+                            height: double.infinity,
                           ),
-                          width: double.infinity,
-                          height: double.infinity,
                         ),
                       ),
                     ],

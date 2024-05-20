@@ -1,10 +1,14 @@
+import 'package:byme_flutter_app/utils/token/read_token.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future<Map<String, dynamic>?>getAppointmentsData(
-    String token, int doctorId, String query, String date) async {
+Future<Map<String, dynamic>?> getUserSessions() async {
+  final Map<String, dynamic>? tokenId = await readToken();
+  final String token = tokenId?['token'];
+  final int doctorId = tokenId?['doctor_id'];
+
   var url = Uri.parse(
-      'https://api-py-byme.onrender.com/appointments/select_appointments/$query/$date');
+      'https://api-py-byme.onrender.com/sessions/select_sessions/$doctorId');
   Map<String, String> header = {
     'Content-type': 'application/json',
     'Accept': 'application/json',
@@ -16,14 +20,13 @@ Future<Map<String, dynamic>?>getAppointmentsData(
 
     switch (response.statusCode) {
       case 200:
-        final Map<String, dynamic> appointmentData = jsonDecode(response.body);
-        return appointmentData;
+        final Map<String, dynamic> userSessions = jsonDecode(response.body);
+        return userSessions;
       case 400:
         print('Dados Incorretos');
         break;
       case 401:
         print('Token Inválido');
-        break;
       case 500:
         print('Erro no servidor');
         break;

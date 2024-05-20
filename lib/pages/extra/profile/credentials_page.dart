@@ -1,6 +1,4 @@
-import 'package:byme_flutter_app/utils/user/change_email.dart';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
-import 'package:byme_flutter_app/utils/user/update_pass.dart';
 import 'package:byme_flutter_app/utils/widgets/buttom_update_email.dart';
 import 'package:byme_flutter_app/utils/widgets/buttom_update_pass.dart';
 import 'package:byme_flutter_app/utils/widgets/password_field.dart';
@@ -58,7 +56,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
     return masked;
   }
 
-  void _showSuccessPopUp(String message) {
+  void _showMessagePopUp(String message, bool success, String navigator) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -66,7 +64,9 @@ class _CredentialsPageState extends State<CredentialsPage> {
           title: SizedBox(
             width: 150,
             height: 150,
-            child: Image.asset('assets/images/success.png'),
+            child: success
+                ? Image.asset('assets/images/success.png')
+                : Image.asset('assets/images/error.png'),
           ),
           content: Text(
             message,
@@ -77,7 +77,14 @@ class _CredentialsPageState extends State<CredentialsPage> {
             TextButton(
               child: const Text('OK'),
               onPressed: () {
-                Navigator.of(context).pushNamed('/');
+                if (success && navigator == 'password') {
+                  Navigator.of(context).pushNamed('/');
+                } else if (success && navigator == 'e-mail') {
+                  Navigator.of(context).pop();
+                } else {
+                  Navigator.of(context).pop();
+                }
+
                 ;
               },
             ),
@@ -86,8 +93,6 @@ class _CredentialsPageState extends State<CredentialsPage> {
       },
     );
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -221,7 +226,8 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                             height: 10,
                                           ),
                                           UpdateEmail(
-                                              updateFunction: updateEmail,
+                                              showSuccessPopUp:
+                                                  _showMessagePopUp,
                                               formKey: _formemailKey,
                                               oldEmaiController:
                                                   _oldemailController,
@@ -351,14 +357,16 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                           height: 10,
                                         ),
                                         UpdatePass(
-                                          showSuccessPopUp: _showSuccessPopUp,
-                                          updateFunction: updatePass,
+                                          showSuccessPopUp: _showMessagePopUp,
                                           formKey: _formpassKey,
                                           oldpassController: _oldpassController,
                                           newpassController: _newpassController,
                                           confirmnewpassController:
                                               _confirmNewpassController,
-                                        )
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
                                       ],
                                     )),
                               )
