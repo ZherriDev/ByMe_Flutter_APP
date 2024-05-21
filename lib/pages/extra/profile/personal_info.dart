@@ -56,7 +56,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
   late String _currentImage;
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
-  bool _isLoadingImage = false;
   final FirebaseStorage storage = FirebaseStorage.instance;
 
   @override
@@ -98,7 +97,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
       return downloadUrl;
     } on FirebaseException catch (e) {
       print('Erro ao fazer upload: ${e.code}');
-      throw e; // Lança a exceção para ser tratada fora desta função
+      throw e; 
     }
   }
 
@@ -117,9 +116,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
         downloadUrl,
         _sex,
       ).then((succes) {
-        setState(() {
-          _isLoadingImage = false;
-        });
         if (succes) {
           widget.reloadPhoto(downloadUrl);
         }

@@ -1,8 +1,12 @@
+import 'package:byme_flutter_app/utils/token/read_token.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future<Map<String, dynamic>?>getAppointmentsData(
-    String token, int doctorId, String query, String date) async {
+Future<Map<String, dynamic>?>getAppointmentsData( String query, String date) async {
+
+  final userStorage = await readToken();
+    String token = userStorage?['token'];
+    
   var url = Uri.parse(
       'https://api-py-byme.onrender.com/appointments/select_appointments/$query/$date');
   Map<String, String> header = {
