@@ -2,12 +2,12 @@ import 'package:byme_flutter_app/utils/token/read_token.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future<Map<String, dynamic>?> getModulesData(int patientId) async {
+Future<Map<String, dynamic>?> getModuleData(int moduleId) async {
   final userStorage = await readToken();
   String token = userStorage?['token'];
 
   var url = Uri.parse(
-      'https://api-py-byme.onrender.com/module/select_modules/$patientId');
+      'https://api-py-byme.onrender.com/module/select_module/$moduleId');
 
   Map<String, String> header = {
     'Content-type': 'application/json',
@@ -20,8 +20,8 @@ Future<Map<String, dynamic>?> getModulesData(int patientId) async {
 
     switch (response.statusCode) {
       case 200:
-        final Map<String, dynamic> modulesData = jsonDecode(response.body);
-        return modulesData;
+        final Map<String, dynamic> moduleData = jsonDecode(response.body);
+        return moduleData;
       case 400:
         print('Dados Incorretos');
         break;

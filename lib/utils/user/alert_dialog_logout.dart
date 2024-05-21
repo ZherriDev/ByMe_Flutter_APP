@@ -1,4 +1,3 @@
-import "package:byme_flutter_app/utils/token/clear_token.dart";
 import "package:byme_flutter_app/utils/token/logout.dart";
 import "package:flutter/material.dart";
 
@@ -19,7 +18,7 @@ class _AlertDialogLogoutState extends State<AlertDialogLogout> {
         child: Image.asset('assets/images/warning.png'),
       ),
       content: Text(
-        'Tens a certeza que queres terminar Sessão?',
+        'Tens a certeza que queres terminar sessão?',
         textAlign: TextAlign.center,
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),

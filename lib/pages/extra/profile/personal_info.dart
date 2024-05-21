@@ -167,22 +167,32 @@ class _PersonalInfoState extends State<PersonalInfo> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                padding: EdgeInsets.only(left: 30),
-                child: Row(
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        widget.pageController.jumpToPage(3);
-                      },
-                      icon: Icon(Icons.arrow_back),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        onPressed: () {
+                          widget.pageController.jumpToPage(3);
+                        },
+                        icon: Icon(Icons.arrow_back),
+                      ),
                     ),
-                    SizedBox(
-                      width: 40,
-                    ),
-                    Text(
-                      'Informações Pessoais',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                    Center(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(height: 45),
+                          Text(
+                            'Informações Pessoais',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
