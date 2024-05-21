@@ -1,21 +1,17 @@
-import 'package:byme_flutter_app/app_localizations.dart';
 import 'package:byme_flutter_app/utils/appointment/get_appointment.data.dart';
-import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
+import 'package:byme_flutter_app/utils/appointment/get_appointment_class_data.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Appointments {
   final String patientName;
-  final String time;
-  final String date;
+  final String sex;
   final String processNumber;
 
   Appointments(
       {required this.patientName,
-      required this.time,
-      required this.date,
-      required this.processNumber});
+      required this.processNumber,
+      required this.sex});
 }
 
 class CalendarPage extends StatefulWidget {
@@ -29,7 +25,6 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-  DateTime _now = DateTime.now();
   late List<Appointments> _appointments;
 
   String getDate() {
@@ -50,26 +45,9 @@ class _CalendarPageState extends State<CalendarPage> {
   }
 
   @override
-  Future<AppLocalizations> load(Locale locale) async {
-    final translations = {
-      'en': {
-        'month': 'Month',
-        'week': 'Week',
-        // Adicione outras traduções necessárias para o table_calendar em inglês aqui
-      },
-      'pt': {
-        'month': 'Mês',
-        'week': 'Semana',
-        // Adicione outras traduções necessárias para o table_calendar em português aqui
-      },
-    };
-
-    return AppLocalizations(locale);
-  }
-
   Widget build(BuildContext context) {
-    return FutureBuilder<Map<String, dynamic>?>(
-      future: getAppointmentsData('all', getDate()),
+    return FutureBuilder<List<dynamic>?>(
+      future: getAppointmentsClassData('all', getDate()),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -80,30 +58,88 @@ class _CalendarPageState extends State<CalendarPage> {
             child: Text('Erro ao carregar dados'),
           );
         } else {
-          List<dynamic> data = snapshot.data?['appointments'];
+          List<dynamic>? appointmentsData = snapshot.data;
+          if (appointmentsData == null || appointmentsData.isEmpty) {
+            return Center(
+              child: Text('Nenhum appointment encontrado'),
+            );
+          }
 
-          _appointments = data
-              .map((item) => Appointments(
-                  date: item['date'],
-                  time: item['time'],
-                  patientName: item['patient_data']['name'],
-                  processNumber: item['patient_data']['processnumber']))
-              .toList();
+          print(appointmentsData);
+          Map<DateTime, List<Appointments>> appointments = {};
 
-          print(_appointments[0].time);
+          // for (var appointment in appointmentsData) {
+          //   String patientName = appointment['patient_data']['name'];
+          //   String processNumber = appointment['patient_data']['processnumber'];
+          //   String sex = appointment['sex'];
 
-          return Column(
-            children: [
-              TableCalendar(
-                focusedDay: _now,
-                firstDay: _now,
-                lastDay: _now.add(Duration(days: 90)),
-                locale: Localizations.localeOf(context).languageCode,
-              ),
-            ],
+          //   Appointments appointmentObj = Appointments(
+          //     patientName: patientName,
+          //     processNumber: processNumber,
+          //     sex: sex,
+          //   );
+
+          //   DateTime appointmentDate = DateTime.parse(appointment['date']);
+
+          //   if (appointments.containsKey(appointmentDate)) {
+          //     appointments[appointmentDate]!.add(appointmentObj);
+          //   } else {
+          //     appointments[appointmentDate] = [appointmentObj];
+          //   }
+          // }
+
+          return Scaffold(
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {},
+              child: Icon(Icons.add),
+            ),
+            body: Column(
+              children: [
+                TableCalendarWidget(),
+              ],
+            ),
           );
         }
       },
+    );
+  }
+}
+
+class TableCalendarWidget extends StatefulWidget {
+  const TableCalendarWidget({super.key});
+
+  @override
+  State<TableCalendarWidget> createState() => _TableCalendarWidgetState();
+}
+
+class _TableCalendarWidgetState extends State<TableCalendarWidget> {
+  DateTime today = DateTime.now();
+  DateTime _now = DateTime.now();
+
+  void _onDaySelected(DateTime day, DateTime focusedDay) {
+    setState(() {
+      today = day;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TableCalendar(
+      calendarStyle: CalendarStyle(
+          todayTextStyle: TextStyle(color: Colors.white),
+          todayDecoration: BoxDecoration(
+              color: const Color(0xff672D6F).withOpacity(0.5),
+              shape: BoxShape.circle),
+          selectedDecoration: BoxDecoration(
+              color: const Color(0xff672D6F), shape: BoxShape.circle)),
+      headerStyle: HeaderStyle(formatButtonVisible: false, titleCentered: true),
+      availableGestures: AvailableGestures.all,
+      locale: "pt_BR",
+      focusedDay: _now,
+      firstDay: _now,
+      lastDay: _now.add(Duration(days: 90)),
+      selectedDayPredicate: (day) => isSameDay(day, today),
+      onDaySelected: _onDaySelected,
     );
   }
 }

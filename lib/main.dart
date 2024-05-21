@@ -1,4 +1,3 @@
-import 'package:byme_flutter_app/app_localizations.dart';
 import 'package:byme_flutter_app/pages/auth/landing_page.dart';
 import 'package:byme_flutter_app/pages/auth/register_page.dart';
 import 'package:byme_flutter_app/pages/auth/login_page.dart';
@@ -6,11 +5,12 @@ import 'package:byme_flutter_app/pages/auth/forgot_pass_page.dart';
 import 'package:byme_flutter_app/pages/navigation/inside_app.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'firebase_options.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  initializeDateFormatting('pt_BR', null);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -28,12 +28,6 @@ class MyApp extends StatelessWidget {
         builder: (context, app) {
           if (app.connectionState == ConnectionState.done) {
             return MaterialApp(
-               localizationsDelegates: [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
               title: 'ByMe',
               theme: ThemeData(
                 fontFamily: 'Lato',
