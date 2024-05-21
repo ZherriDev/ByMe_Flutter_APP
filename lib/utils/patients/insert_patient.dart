@@ -28,16 +28,30 @@ class _InsertPatientState extends State<InsertPatient> {
   final townController = TextEditingController();
   final NIFController = TextEditingController();
   final SNSController = TextEditingController();
+  String status = "Aguardando tratamento";
   bool isLoading = false;
   String message = '';
 
   final List<String> _sex = ['Feminino', 'Masculino'];
+  final List<String> _status = [
+    'Aguardando tratamento',
+    'Em tratamento',
+    'Tratamento concluído'
+  ];
 
   Future<bool?> insertPatient(name, telephone, email, sex, birthdate,
-      processnumber, address, postalcode, town, nif, sns) async {
+      processnumber, address, postalcode, town, nif, sns, status) async {
     Map<String, dynamic>? userStorage = await readToken();
     String token = userStorage?['token'];
     int doctorId = userStorage?['doctor_id'];
+
+    if (status == 'Aguardando tratamento') {
+      status = 'Awaiting Treatment';
+    } else if (status == 'Em tratamento') {
+      status = 'In Treatment';
+    } else if (status == 'Tratamento concluído') {
+      status = 'Completed Treatment';
+    }
 
     var url =
         Uri.parse('https://api-py-byme.onrender.com/patient/insert_patient');
@@ -53,7 +67,8 @@ class _InsertPatientState extends State<InsertPatient> {
       "postalcode": postalcode,
       "town": town,
       "nif": nif,
-      "sns": sns
+      "sns": sns,
+      "status": status
     };
     Map<String, String> header = {
       'Content-type': 'application/json',
@@ -409,6 +424,44 @@ class _InsertPatientState extends State<InsertPatient> {
                   ),
                 ),
               ),
+              Container(
+                height: 10,
+              ),
+              DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  prefixIcon: Icon(Icons.info),
+                  label: const Text('Estado'),
+                  hintText: 'Estado do paciente',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                value: status,
+                items: _status.map((String status) {
+                  return DropdownMenuItem<String>(
+                    value: status,
+                    child: Text(
+                      status,
+                      style: TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.normal),
+                    ),
+                  );
+                }).toList(),
+                onChanged: (newValue) {
+                  setState(() {
+                    status = newValue!;
+                  });
+                },
+                validator: (status) {
+                  if (status == null) {
+                    return 'Por favor, selecione o estado do paciente';
+                  }
+                  return null;
+                },
+              ),
             ],
           ),
         ),
@@ -454,18 +507,19 @@ class _InsertPatientState extends State<InsertPatient> {
                       message = "";
                     });
                     insertPatient(
-                      nameController.text,
-                      telephoneController.text,
-                      emailController.text,
-                      sex,
-                      birthdateController.text,
-                      processnumberController.text,
-                      addressController.text,
-                      postalcodeController.text,
-                      townController.text,
-                      NIFController.text,
-                      SNSController.text,
-                    ).then((success) {
+                            nameController.text,
+                            telephoneController.text,
+                            emailController.text,
+                            sex,
+                            birthdateController.text,
+                            processnumberController.text,
+                            addressController.text,
+                            postalcodeController.text,
+                            townController.text,
+                            NIFController.text,
+                            SNSController.text,
+                            status)
+                        .then((success) {
                       if (success == true) {
                         _formKey.currentState!.reset();
                         Navigator.of(widget.context).pop();

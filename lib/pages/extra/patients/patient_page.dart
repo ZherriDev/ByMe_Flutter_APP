@@ -1,7 +1,9 @@
+import 'package:byme_flutter_app/utils/modules/add_module.dart';
 import 'package:byme_flutter_app/utils/patients/delete_patient.dart';
 import 'package:byme_flutter_app/utils/patients/fetch_patient_data.dart';
 import 'package:byme_flutter_app/utils/patients/transfer_patient.dart';
 import 'package:byme_flutter_app/utils/patients/update_patient.dart';
+import 'package:byme_flutter_app/utils/patients/update_patient_status.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter/material.dart';
 
@@ -295,10 +297,38 @@ class _PatientPageState extends State<PatientPage>
                         children: [
                           SpeedDialChild(
                               shape: CircleBorder(),
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AddModule(
+                                        context: context,
+                                        reloadPage: reloadPage,
+                                        patientId: widget.patientId,
+                                      );
+                                    });
+                              },
                               backgroundColor: Color(0xff672D6F),
                               foregroundColor: Colors.white,
                               label: 'Adicionar módulo',
                               child: Icon(Icons.document_scanner)),
+                          SpeedDialChild(
+                              shape: CircleBorder(),
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return DeletePatient(
+                                        context: context,
+                                        patientId: widget.patientId,
+                                        pageController: widget.pageController,
+                                      );
+                                    });
+                              },
+                              backgroundColor: Color(0xff672D6F),
+                              foregroundColor: Colors.white,
+                              label: 'Excluir paciente',
+                              child: Icon(Icons.delete_forever)),
                           SpeedDialChild(
                               shape: CircleBorder(),
                               onTap: () {
@@ -322,17 +352,18 @@ class _PatientPageState extends State<PatientPage>
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return DeletePatient(
+                                      return UpdatePatientStatus(
                                         context: context,
                                         patientId: widget.patientId,
-                                        pageController: widget.pageController,
+                                        patient: patient,
+                                        reloadPage: reloadPage,
                                       );
                                     });
                               },
                               backgroundColor: Color(0xff672D6F),
                               foregroundColor: Colors.white,
-                              label: 'Excluir paciente',
-                              child: Icon(Icons.delete_forever)),
+                              label: 'Mudar estado do paciente',
+                              child: Icon(Icons.personal_injury)),
                           SpeedDialChild(
                               shape: CircleBorder(),
                               onTap: () {
