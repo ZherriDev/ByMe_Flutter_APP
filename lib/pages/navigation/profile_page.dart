@@ -1,6 +1,5 @@
-import 'package:byme_flutter_app/pages/extra/profile/alert_dialog_logout.dart';
+import 'package:byme_flutter_app/utils/user/alert_dialog_logout.dart';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
-import 'package:byme_flutter_app/pages/extra/profile/alert_dialog_logout.dart';
 import 'package:flutter/material.dart';
 
 class DoctorProfile extends StatefulWidget {

@@ -262,7 +262,7 @@ class _PatientPageState extends State<PatientPage>
                                               status == "In Progress"
                                                   ? 'Em progresso...'
                                                   : status == "Finished"
-                                                      ? 'Acabado'
+                                                      ? 'Terminado'
                                                       : status == "Paused"
                                                           ? 'Pausado'
                                                           : status,
@@ -362,8 +362,8 @@ class _PatientPageState extends State<PatientPage>
                               },
                               backgroundColor: Color(0xff672D6F),
                               foregroundColor: Colors.white,
-                              label: 'Mudar estado do paciente',
-                              child: Icon(Icons.personal_injury)),
+                              label: 'Alterar estado do paciente',
+                              child: Icon(Icons.change_circle)),
                           SpeedDialChild(
                               shape: CircleBorder(),
                               onTap: () {
@@ -380,7 +380,7 @@ class _PatientPageState extends State<PatientPage>
                               backgroundColor: Color(0xff672D6F),
                               foregroundColor: Colors.white,
                               label: 'Editar paciente',
-                              child: Icon(Icons.edit_note)),
+                              child: Icon(Icons.edit_square)),
                         ],
                       )),
                 ],
