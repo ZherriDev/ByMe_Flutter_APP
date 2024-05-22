@@ -30,7 +30,7 @@ class _InsideAppState extends State<InsideApp> {
 
   final List<String> appBarTexts = [
     'Página Inicial',
-    'Calendário',
+    'Consultas',
     'Pacientes',
     'Perfil',
     'Definições',
@@ -122,6 +122,7 @@ class _InsideAppState extends State<InsideApp> {
                   pageController: _pageController,
                 ),
                 CalendarPage(
+                  patientPageID: patientPageID,
                   pageController: _pageController,
                 ),
                 PatientsPage(
