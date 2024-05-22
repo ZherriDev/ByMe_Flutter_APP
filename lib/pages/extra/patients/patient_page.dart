@@ -1,7 +1,9 @@
+import 'package:byme_flutter_app/utils/modules/add_module.dart';
 import 'package:byme_flutter_app/utils/patients/delete_patient.dart';
 import 'package:byme_flutter_app/utils/patients/fetch_patient_data.dart';
 import 'package:byme_flutter_app/utils/patients/transfer_patient.dart';
 import 'package:byme_flutter_app/utils/patients/update_patient.dart';
+import 'package:byme_flutter_app/utils/patients/update_patient_status.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter/material.dart';
 
@@ -260,7 +262,7 @@ class _PatientPageState extends State<PatientPage>
                                               status == "In Progress"
                                                   ? 'Em progresso...'
                                                   : status == "Finished"
-                                                      ? 'Acabado'
+                                                      ? 'Terminado'
                                                       : status == "Paused"
                                                           ? 'Pausado'
                                                           : status,
@@ -295,27 +297,21 @@ class _PatientPageState extends State<PatientPage>
                         children: [
                           SpeedDialChild(
                               shape: CircleBorder(),
-                              backgroundColor: Color(0xff672D6F),
-                              foregroundColor: Colors.white,
-                              label: 'Adicionar módulo',
-                              child: Icon(Icons.document_scanner)),
-                          SpeedDialChild(
-                              shape: CircleBorder(),
                               onTap: () {
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return TransferPatient(
+                                      return AddModule(
                                         context: context,
+                                        reloadPage: reloadPage,
                                         patientId: widget.patientId,
-                                        pageController: widget.pageController,
                                       );
                                     });
                               },
                               backgroundColor: Color(0xff672D6F),
                               foregroundColor: Colors.white,
-                              label: 'Transferir paciente',
-                              child: Icon(Icons.transfer_within_a_station)),
+                              label: 'Adicionar módulo',
+                              child: Icon(Icons.document_scanner)),
                           SpeedDialChild(
                               shape: CircleBorder(),
                               onTap: () {
@@ -339,6 +335,41 @@ class _PatientPageState extends State<PatientPage>
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
+                                      return TransferPatient(
+                                        context: context,
+                                        patientId: widget.patientId,
+                                        pageController: widget.pageController,
+                                      );
+                                    });
+                              },
+                              backgroundColor: Color(0xff672D6F),
+                              foregroundColor: Colors.white,
+                              label: 'Transferir paciente',
+                              child: Icon(Icons.transfer_within_a_station)),
+                          SpeedDialChild(
+                              shape: CircleBorder(),
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return UpdatePatientStatus(
+                                        context: context,
+                                        patientId: widget.patientId,
+                                        patient: patient,
+                                        reloadPage: reloadPage,
+                                      );
+                                    });
+                              },
+                              backgroundColor: Color(0xff672D6F),
+                              foregroundColor: Colors.white,
+                              label: 'Alterar estado do paciente',
+                              child: Icon(Icons.change_circle)),
+                          SpeedDialChild(
+                              shape: CircleBorder(),
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
                                       return UpdatePatient(
                                           context: context,
                                           patientId: widget.patientId,
@@ -349,7 +380,7 @@ class _PatientPageState extends State<PatientPage>
                               backgroundColor: Color(0xff672D6F),
                               foregroundColor: Colors.white,
                               label: 'Editar paciente',
-                              child: Icon(Icons.edit_note)),
+                              child: Icon(Icons.edit_square)),
                         ],
                       )),
                 ],

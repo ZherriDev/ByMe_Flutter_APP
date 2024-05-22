@@ -1,4 +1,4 @@
-import 'package:byme_flutter_app/pages/extra/profile/alert_dialog.dart';
+import 'package:byme_flutter_app/utils/sessions/session_alert_dialog.dart';
 import 'package:byme_flutter_app/utils/sessions/get_sessions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -59,22 +59,32 @@ class _SessionsPageState extends State<SessionsPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  padding: EdgeInsets.only(left: 30),
-                  child: Row(
+                  width: MediaQuery.of(context).size.width,
+                  child: Stack(
                     children: [
-                      IconButton(
-                        onPressed: () {
-                          widget.pageController.jumpToPage(3);
-                        },
-                        icon: Icon(Icons.arrow_back),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          onPressed: () {
+                            widget.pageController.jumpToPage(3);
+                          },
+                          icon: Icon(Icons.arrow_back),
+                        ),
                       ),
-                      SizedBox(
-                        width: 85,
-                      ),
-                      Text(
-                        'Sessões',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 17),
+                      Center(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(height: 45),
+                            Text(
+                              'Sessões do Utilizador',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

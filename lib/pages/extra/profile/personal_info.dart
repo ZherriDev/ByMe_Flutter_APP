@@ -56,7 +56,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
   late String _currentImage;
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
-  bool _isLoadingImage = false;
   final FirebaseStorage storage = FirebaseStorage.instance;
 
   @override
@@ -98,7 +97,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
       return downloadUrl;
     } on FirebaseException catch (e) {
       print('Erro ao fazer upload: ${e.code}');
-      throw e; // Lança a exceção para ser tratada fora desta função
+      throw e; 
     }
   }
 
@@ -117,9 +116,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
         downloadUrl,
         _sex,
       ).then((succes) {
-        setState(() {
-          _isLoadingImage = false;
-        });
         if (succes) {
           widget.reloadPhoto(downloadUrl);
         }
@@ -171,22 +167,32 @@ class _PersonalInfoState extends State<PersonalInfo> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                padding: EdgeInsets.only(left: 30),
-                child: Row(
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        widget.pageController.jumpToPage(3);
-                      },
-                      icon: Icon(Icons.arrow_back),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        onPressed: () {
+                          widget.pageController.jumpToPage(3);
+                        },
+                        icon: Icon(Icons.arrow_back),
+                      ),
                     ),
-                    SizedBox(
-                      width: 40,
-                    ),
-                    Text(
-                      'Informações Pessoais',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                    Center(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(height: 45),
+                          Text(
+                            'Informações Pessoais',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

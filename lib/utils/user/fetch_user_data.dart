@@ -10,7 +10,7 @@ Future<Map<String, dynamic>?> fetchUserData(String query, String date, search, o
     int doctorId = userStorage?['doctor_id'];
 
     final user = await getUserData(token, doctorId);
-    final appointments = await getAppointmentsData(token, doctorId, query, date);
+    final appointments = await getAppointmentsData(query, date);
     final patients = await getPatientsData(search, order, state);
 
     final data = {'user': user, 'appointments': appointments, 'patients': patients};

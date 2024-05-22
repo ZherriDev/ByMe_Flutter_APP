@@ -3,35 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class DeletePatient extends StatefulWidget {
+class DeleteAppointment extends StatefulWidget {
   final BuildContext context;
-  final int patientId;
+  final int appointmentId;
   final PageController pageController;
+  final Function() reloadPage;
 
-  const DeletePatient(
+  const DeleteAppointment(
       {Key? key,
       required this.context,
-      required this.patientId,
-      required this.pageController})
+      required this.appointmentId,
+      required this.pageController,
+      required this.reloadPage})
       : super(key: key);
 
   @override
-  State<DeletePatient> createState() => _DeletePatientState();
+  State<DeleteAppointment> createState() => _DeleteAppointmentState();
 }
 
-class _DeletePatientState extends State<DeletePatient> {
+class _DeleteAppointmentState extends State<DeleteAppointment> {
   bool isLoading = false;
 
-  Future<bool?> deletePatient(int patientId) async {
+  Future<bool?> deleteAppointment(int appointmentId) async {
     final userStorage = await readToken();
     String token = userStorage?['token'];
 
-    var url =
-        Uri.parse('https://api-py-byme.onrender.com/patient/delete_patient');
+    var url = Uri.parse(
+        'https://api-py-byme.onrender.com/appointments/delete_appointment');
 
-    var body = {
-      "patient_id": patientId,
-    };
+    var body = {"appointment_id": appointmentId};
 
     Map<String, String> header = {
       'Content-type': 'application/json',
@@ -75,13 +75,13 @@ class _DeletePatientState extends State<DeletePatient> {
         child: Image.asset('assets/images/warning.png'),
       ),
       content: Text(
-        'Você não poderá voltar atrás com esta ação. Tem certeza que deseja excluir o paciente?',
+        'Você não poderá voltar atrás com esta ação. Tem certeza que deseja cancelar esta consulta?',
         textAlign: TextAlign.center,
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text('Cancelar'),
+          child: const Text('Não'),
           onPressed: () {
             Navigator.of(widget.context).pop();
           },
@@ -91,24 +91,24 @@ class _DeletePatientState extends State<DeletePatient> {
               ? CircularProgressIndicator(
                   strokeWidth: 2,
                 )
-              : const Text('Excluir'),
+              : const Text('Sim'),
           onPressed: () {
             setState(() {
               isLoading = true;
             });
-            deletePatient(widget.patientId).then((success) {
+            deleteAppointment(widget.appointmentId).then((success) {
               if (success == true) {
                 Navigator.of(widget.context).pop();
-                widget.pageController.jumpToPage(2);
+                widget.reloadPage();
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Paciente excluído com sucesso.'),
+                  content: Text('Consulta cancelada com sucesso.'),
                   backgroundColor: Colors.green,
                   duration: Duration(seconds: 2),
                 ));
               } else {
                 Navigator.of(widget.context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Não foi possível excluir o paciente.'),
+                  content: Text('Não foi possível cancelar a consulta.'),
                   backgroundColor: Colors.red,
                   duration: Duration(seconds: 2),
                 ));

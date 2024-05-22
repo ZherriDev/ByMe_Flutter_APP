@@ -12,7 +12,6 @@ import 'package:byme_flutter_app/utils/user/verify_user.dart';
 import 'package:byme_flutter_app/utils/widgets/header_page_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
-
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 
@@ -31,7 +30,7 @@ class _InsideAppState extends State<InsideApp> {
 
   final List<String> appBarTexts = [
     'Página Inicial',
-    'Calendário',
+    'Consultas',
     'Pacientes',
     'Perfil',
     'Definições',
@@ -123,6 +122,7 @@ class _InsideAppState extends State<InsideApp> {
                   pageController: _pageController,
                 ),
                 CalendarPage(
+                  patientPageID: patientPageID,
                   pageController: _pageController,
                 ),
                 PatientsPage(

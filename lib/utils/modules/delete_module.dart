@@ -3,34 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class DeletePatient extends StatefulWidget {
+class DeleteModule extends StatefulWidget {
   final BuildContext context;
-  final int patientId;
+  final int moduleId;
   final PageController pageController;
 
-  const DeletePatient(
+  const DeleteModule(
       {Key? key,
       required this.context,
-      required this.patientId,
+      required this.moduleId,
       required this.pageController})
       : super(key: key);
 
   @override
-  State<DeletePatient> createState() => _DeletePatientState();
+  State<DeleteModule> createState() => _DeleteModuleState();
 }
 
-class _DeletePatientState extends State<DeletePatient> {
+class _DeleteModuleState extends State<DeleteModule> {
   bool isLoading = false;
 
-  Future<bool?> deletePatient(int patientId) async {
+  Future<bool?> deleteModule(int moduleId) async {
     final userStorage = await readToken();
     String token = userStorage?['token'];
 
     var url =
-        Uri.parse('https://api-py-byme.onrender.com/patient/delete_patient');
+        Uri.parse('https://api-py-byme.onrender.com/module/delete_module');
 
     var body = {
-      "patient_id": patientId,
+      "module_id": moduleId,
     };
 
     Map<String, String> header = {
@@ -75,7 +75,7 @@ class _DeletePatientState extends State<DeletePatient> {
         child: Image.asset('assets/images/warning.png'),
       ),
       content: Text(
-        'Você não poderá voltar atrás com esta ação. Tem certeza que deseja excluir o paciente?',
+        'Você não poderá voltar atrás com esta ação. Tem certeza que deseja excluir este módulo?',
         textAlign: TextAlign.center,
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
@@ -96,19 +96,19 @@ class _DeletePatientState extends State<DeletePatient> {
             setState(() {
               isLoading = true;
             });
-            deletePatient(widget.patientId).then((success) {
+            deleteModule(widget.moduleId).then((success) {
               if (success == true) {
                 Navigator.of(widget.context).pop();
-                widget.pageController.jumpToPage(2);
+                widget.pageController.jumpToPage(6);
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Paciente excluído com sucesso.'),
+                  content: Text('Módulo excluído com sucesso.'),
                   backgroundColor: Colors.green,
                   duration: Duration(seconds: 2),
                 ));
               } else {
                 Navigator.of(widget.context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Não foi possível excluir o paciente.'),
+                  content: Text('Não foi possível excluir o módulo.'),
                   backgroundColor: Colors.red,
                   duration: Duration(seconds: 2),
                 ));
