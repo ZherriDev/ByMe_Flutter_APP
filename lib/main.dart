@@ -1,3 +1,4 @@
+import 'package:byme_flutter_app/app_controller.dart';
 import 'package:byme_flutter_app/pages/auth/landing_page.dart';
 import 'package:byme_flutter_app/pages/auth/register_page.dart';
 import 'package:byme_flutter_app/pages/auth/login_page.dart';
@@ -25,11 +26,14 @@ class MyApp extends StatelessWidget {
         future: _initialization,
         builder: (context, app) {
           if (app.connectionState == ConnectionState.done) {
-            return MaterialApp(
+            return AnimatedBuilder(
+              animation: AppController.instance,
+              builder: (context, child) {
+              return MaterialApp(
               title: 'ByMe',
               theme: ThemeData(
                 fontFamily: 'Lato',
-                brightness: Brightness.light,
+                brightness: AppController.instance.isDarkTheme ? Brightness.dark : Brightness.light,
                 useMaterial3: true,
               ),
               initialRoute: '/',
@@ -42,6 +46,7 @@ class MyApp extends StatelessWidget {
               },
               debugShowCheckedModeBanner: false,
             );
+            });
           }
           if (app.hasError) {
             return Text('Error');
