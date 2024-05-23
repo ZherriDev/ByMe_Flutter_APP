@@ -151,7 +151,7 @@ class _InsertPatientState extends State<InsertPatient> {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                   prefixIcon: const Icon(Icons.person),
                   label: const Text('Nome completo'),
                   hintText: 'Nome completo do paciente',
@@ -176,7 +176,7 @@ class _InsertPatientState extends State<InsertPatient> {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                   prefixIcon: const Icon(Icons.call),
                   label: const Text('Telefone'),
                   hintText: 'Número de telefone do paciente',
@@ -200,7 +200,7 @@ class _InsertPatientState extends State<InsertPatient> {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                   prefixIcon: const Icon(Icons.email),
                   label: const Text('E-mail'),
                   hintText: 'Email do paciente',
@@ -216,7 +216,7 @@ class _InsertPatientState extends State<InsertPatient> {
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                   prefixIcon: Icon(Icons.face),
                   label: const Text('Sexo'),
                   hintText: 'Sexo do paciente',
@@ -267,7 +267,7 @@ class _InsertPatientState extends State<InsertPatient> {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                   prefixIcon: const Icon(Icons.calendar_month),
                   label: const Text('Data de nascimento'),
                   hintText: 'YYYY-MM-DD',
@@ -291,7 +291,7 @@ class _InsertPatientState extends State<InsertPatient> {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                   prefixIcon: const Icon(Icons.numbers),
                   label: const Text('Número de processo'),
                   hintText: 'Número de processo do paciente',
@@ -315,7 +315,7 @@ class _InsertPatientState extends State<InsertPatient> {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                   prefixIcon: const Icon(Icons.home),
                   label: const Text('Morada'),
                   hintText: 'Morada do paciente',
@@ -340,7 +340,7 @@ class _InsertPatientState extends State<InsertPatient> {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                   prefixIcon: const Icon(Icons.numbers),
                   label: const Text('Código Postal'),
                   hintText: '####-###',
@@ -364,7 +364,7 @@ class _InsertPatientState extends State<InsertPatient> {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                   prefixIcon: const Icon(Icons.location_city),
                   label: const Text('Cidade'),
                   hintText: 'Cidade do paciente',
@@ -389,7 +389,7 @@ class _InsertPatientState extends State<InsertPatient> {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                   prefixIcon: const Icon(Icons.badge),
                   label: const Text('Nº de Identificação Fiscal'),
                   hintText: 'NIF do paciente',
@@ -414,7 +414,7 @@ class _InsertPatientState extends State<InsertPatient> {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                   prefixIcon: const Icon(Icons.numbers),
                   label: const Text('Nº do Serviço Nacional de Saúde'),
                   hintText: 'SNS do paciente',
@@ -430,7 +430,7 @@ class _InsertPatientState extends State<InsertPatient> {
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                   prefixIcon: Icon(Icons.info),
                   label: const Text('Estado'),
                   hintText: 'Estado do paciente',

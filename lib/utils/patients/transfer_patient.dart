@@ -34,7 +34,7 @@ class _TransferPatientState extends State<TransferPatient> {
             controller: search,
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.grey[400]?.withOpacity(0.3),
+              fillColor: Theme.of(context).colorScheme.tertiary,
               suffixIcon: IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () {

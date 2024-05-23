@@ -136,7 +136,7 @@ class _UpdateModuleState extends State<UpdateModule> {
                 minLines: 5,
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                   prefixIcon: const Icon(Icons.library_books),
                   label: const Text('Episódio'),
                   hintText: 'Episódio do módulo',
@@ -152,7 +152,7 @@ class _UpdateModuleState extends State<UpdateModule> {
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                   prefixIcon: Icon(Icons.abc),
                   label: const Text('Módulo'),
                   hintText: 'Escolha o módulo',

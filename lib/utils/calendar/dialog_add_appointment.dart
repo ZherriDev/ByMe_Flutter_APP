@@ -84,7 +84,7 @@ class _AddAppointmentState extends State<AddAppointment> {
                         DropdownButtonFormField<String>(
                           decoration: InputDecoration(
                             filled: true,
-                            fillColor: Colors.grey[400]?.withOpacity(0.3),
+                            fillColor: Theme.of(context).colorScheme.tertiary,
                             prefixIcon: Icon(Icons.personal_injury),
                             label: const Text('Paciente'),
                             hintText: 'Escolha o paciente',
@@ -136,7 +136,7 @@ class _AddAppointmentState extends State<AddAppointment> {
                           },
                           decoration: InputDecoration(
                             filled: true,
-                            fillColor: Colors.grey[400]?.withOpacity(0.3),
+                            fillColor: Theme.of(context).colorScheme.tertiary,
                             prefixIcon: const Icon(Icons.subject),
                             label: const Text('Assunto'),
                             hintText: 'Assunto da consulta',
@@ -165,7 +165,7 @@ class _AddAppointmentState extends State<AddAppointment> {
                           },
                           decoration: InputDecoration(
                             filled: true,
-                            fillColor: Colors.grey[400]?.withOpacity(0.3),
+                            fillColor: Theme.of(context).colorScheme.tertiary,
                             prefixIcon: const Icon(Icons.calendar_month),
                             label: const Text('Data da consulta'),
                             hintText: 'YYYY-MM-DD',
@@ -194,7 +194,7 @@ class _AddAppointmentState extends State<AddAppointment> {
                           },
                           decoration: InputDecoration(
                             filled: true,
-                            fillColor: Colors.grey[400]?.withOpacity(0.3),
+                            fillColor: Theme.of(context).colorScheme.tertiary,
                             prefixIcon: const Icon(Icons.access_time),
                             label: const Text('Hora da consulta'),
                             hintText: 'HH:MM:SS',
