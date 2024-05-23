@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class PasswordField extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
@@ -36,7 +37,7 @@ class _PasswordFieldState extends State<PasswordField> {
       decoration: InputDecoration(
         labelText: widget.labelText,
         filled: true,
-        fillColor: Colors.grey[200],
+        fillColor: Theme.of(context).colorScheme.secondary,
         labelStyle: TextStyle(fontSize: 13),
         prefixIcon: Icon(Icons.lock),
         suffixIcon: IconButton(

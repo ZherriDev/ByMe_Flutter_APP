@@ -97,7 +97,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
       return downloadUrl;
     } on FirebaseException catch (e) {
       print('Erro ao fazer upload: ${e.code}');
-      throw e; 
+      throw e;
     }
   }
 
@@ -226,7 +226,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             decoration: InputDecoration(
                               labelText: 'Nome Completo',
                               filled: true,
-                              fillColor: Colors.grey[200],
+                              fillColor:
+                                  Theme.of(context).colorScheme.secondary,
                               labelStyle: TextStyle(fontSize: 13),
                               prefixIcon: Icon(Icons.person),
                               border: OutlineInputBorder(
@@ -250,7 +251,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             decoration: InputDecoration(
                               labelText: 'Número de Telemóvel',
                               filled: true,
-                              fillColor: Colors.grey[200],
+                              fillColor:
+                                  Theme.of(context).colorScheme.secondary,
                               labelStyle: TextStyle(fontSize: 13),
                               prefixIcon: Icon(Icons.phone),
                               border: OutlineInputBorder(
@@ -272,7 +274,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             decoration: InputDecoration(
                               labelText: 'Data de Nascimento',
                               filled: true,
-                              fillColor: Colors.grey[200],
+                              fillColor:
+                                  Theme.of(context).colorScheme.secondary,
                               labelStyle: TextStyle(fontSize: 13),
                               prefixIcon: Icon(Icons.calendar_today),
                               border: OutlineInputBorder(
@@ -290,7 +293,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             decoration: InputDecoration(
                               labelText: 'Morada',
                               filled: true,
-                              fillColor: Colors.grey[200],
+                              fillColor:
+                                  Theme.of(context).colorScheme.secondary,
                               labelStyle: TextStyle(fontSize: 13),
                               prefixIcon: Icon(Icons.location_on),
                               border: OutlineInputBorder(
@@ -306,7 +310,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             decoration: InputDecoration(
                               labelText: 'Especialidade',
                               filled: true,
-                              fillColor: Colors.grey[200],
+                              fillColor:
+                                  Theme.of(context).colorScheme.secondary,
                               prefixIcon: Icon(Icons.badge_rounded),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
@@ -339,7 +344,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             decoration: InputDecoration(
                               labelText: 'Sexo',
                               filled: true,
-                              fillColor: Colors.grey[200],
+                              fillColor:
+                                  Theme.of(context).colorScheme.secondary,
                               prefixIcon: Icon(Icons.face),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,

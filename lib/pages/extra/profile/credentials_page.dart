@@ -194,7 +194,9 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                             decoration: InputDecoration(
                                               labelText: 'E-mail antigo',
                                               filled: true,
-                                              fillColor: Colors.grey[200],
+                                              fillColor: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
                                               labelStyle:
                                                   TextStyle(fontSize: 13),
                                               prefixIcon: Icon(Icons.email),
@@ -221,7 +223,9 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                             decoration: InputDecoration(
                                               labelText: 'E-mail novo',
                                               filled: true,
-                                              fillColor: Colors.grey[200],
+                                              fillColor: Theme.of(context)
+                                                  .colorScheme
+                                                  .secondary,
                                               labelStyle:
                                                   TextStyle(fontSize: 13),
                                               prefixIcon: Icon(Icons.email),
@@ -304,7 +308,9 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                           decoration: InputDecoration(
                                             labelText: 'Antiga Palavra-Passe',
                                             filled: true,
-                                            fillColor: Colors.grey[200],
+                                            fillColor: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
                                             labelStyle: TextStyle(fontSize: 13),
                                             prefixIcon: Icon(Icons.lock),
                                             border: OutlineInputBorder(
