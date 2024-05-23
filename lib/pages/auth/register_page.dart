@@ -116,7 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Form(
@@ -146,7 +146,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Colors.grey[200],
+                      fillColor: Theme.of(context).colorScheme.secondary,
                       prefixIcon: const Icon(Icons.person),
                       label: const Text('Nome Completo'),
                       hintText: 'Digite seu nome completo',
@@ -162,7 +162,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   DropdownButtonFormField<String>(
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Colors.grey[200],
+                      fillColor: Theme.of(context).colorScheme.secondary,
                       prefixIcon: const Icon(Icons.badge_rounded),
                       label: const Text('Especialidade'),
                       hintText: 'Escolha sua especialidade',
@@ -204,7 +204,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Colors.grey[200],
+                      fillColor: Theme.of(context).colorScheme.secondary,
                       prefixIcon: const Icon(Icons.email),
                       label: const Text('Email'),
                       hintText: 'exemplo@gmail.com',
@@ -239,7 +239,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Colors.grey[200],
+                      fillColor: Theme.of(context).colorScheme.secondary,
                       prefixIcon: const Icon(Icons.lock),
                       label: const Text('Palavra-passe'),
                       hintText: 'Digite sua Palavra-Passe',
@@ -274,7 +274,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Colors.grey[200],
+                      fillColor: Theme.of(context).colorScheme.secondary,
                       prefixIcon: const Icon(Icons.lock),
                       label: const Text('Confirmação da palavra-passe'),
                       hintText: 'Confirme sua palavra-passe',
@@ -299,9 +299,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   Row(
                     children: [
                       RichText(
-                          text: const TextSpan(
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 16),
+                          text: TextSpan(
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 16),
                               children: [
                             TextSpan(
                                 text: "Concordo com os ",
@@ -337,7 +338,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           });
                         } else if (acceptTerms == false) {
                           setState(() {
-                            message = "Os termos de serviço precisam ser aceitos";
+                            message =
+                                "Os termos de serviço precisam ser aceitos";
                             isLoading = false;
                           });
                         } else {

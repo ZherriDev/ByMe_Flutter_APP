@@ -95,7 +95,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -117,8 +117,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               ),
               RichText(
                   textAlign: TextAlign.center,
-                  text: const TextSpan(
-                      style: TextStyle(color: Colors.black, fontSize: 16),
+                  text: TextSpan(
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontSize: 16),
                       children: [
                         TextSpan(
                             text: "Introduza seu e-mail ",
@@ -144,7 +146,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[200],
+                  fillColor: Theme.of(context).colorScheme.secondary,
                   prefixIcon: const Icon(Icons.email),
                   label: const Text('E-mail'),
                   hintText: 'Digite seu email',
