@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:byme_flutter_app/utils/appointment/get_appointment_class_data.dart';
 import 'package:byme_flutter_app/utils/calendar/delete_appointment.dart';
 import 'package:byme_flutter_app/utils/calendar/dialog_add_appointment.dart';
@@ -166,13 +168,14 @@ class TableCalendarWidget extends StatefulWidget {
 class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   DateTime _today = DateTime.now();
   DateTime? _selectedDay;
-  DateTime _focusedDay = DateTime.now();
+  DateTime? _focusedDay;
   late ValueNotifier<List<Appointments>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
 
   @override
   void initState() {
     super.initState();
+    _focusedDay = DateTime(_today.year, _today.month, _today.day);
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
   }
@@ -214,7 +217,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
           ),
           availableGestures: AvailableGestures.all,
           locale: "pt_BR",
-          focusedDay: _focusedDay,
+          focusedDay: _focusedDay!,
           firstDay: _today,
           lastDay: _today.add(Duration(days: 90)),
           selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
