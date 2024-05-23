@@ -1,6 +1,8 @@
 import 'package:byme_flutter_app/utils/user/alert_dialog_logout.dart';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class DoctorProfile extends StatefulWidget {
   final PageController pageController;
@@ -69,53 +71,68 @@ class _DoctorProfileState extends State<DoctorProfile> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Theme.of(context).colorScheme.primary,
-                              width: 2),
-                          borderRadius: BorderRadius.circular(12)),
-                      width: 80,
-                      height: 80,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Consultas agendadas',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            '$appointmentsAll',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        widget.pageController.jumpToPage(1);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        width: 80,
+                        height: 80,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Consultas agendadas',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              '$appointmentsAll',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(width: 60),
-                    Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Theme.of(context).colorScheme.primary,
-                              width: 2),
-                          borderRadius: BorderRadius.circular(12)),
-                      width: 80,
-                      height: 80,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Pacientes',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            '$patientsAll',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        widget.pageController.jumpToPage(2);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.circular(12)),
+                        width: 80,
+                        height: 80,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Pacientes',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              '$patientsAll',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
