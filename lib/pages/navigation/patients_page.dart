@@ -86,7 +86,8 @@ class _PatientsPageState extends State<PatientsPage> {
                                 child: DropdownButtonFormField<String>(
                                   decoration: InputDecoration(
                                     filled: true,
-                                    fillColor: Colors.grey[200],
+                                    fillColor:
+                                        Theme.of(context).colorScheme.secondary,
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                       borderRadius: BorderRadius.circular(10),
@@ -114,7 +115,8 @@ class _PatientsPageState extends State<PatientsPage> {
                                 child: DropdownButtonFormField<String>(
                                   decoration: InputDecoration(
                                     filled: true,
-                                    fillColor: Colors.grey[200],
+                                    fillColor:
+                                        Theme.of(context).colorScheme.secondary,
                                     border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                       borderRadius: BorderRadius.circular(10),
@@ -148,7 +150,8 @@ class _PatientsPageState extends State<PatientsPage> {
                                   controller: search,
                                   decoration: InputDecoration(
                                     filled: true,
-                                    fillColor: Colors.grey[200],
+                                    fillColor:
+                                        Theme.of(context).colorScheme.secondary,
                                     suffixIcon: IconButton(
                                       icon: Icon(Icons.search),
                                       onPressed: () => reloadPage(),

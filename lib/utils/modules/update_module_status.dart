@@ -83,7 +83,7 @@ class _UpdateModuleStatusState extends State<UpdateModuleStatus> {
               child: DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.grey[400]?.withOpacity(0.3),
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                   prefixIcon: Icon(Icons.info),
                   hintText: 'Estado do módulo',
                   border: OutlineInputBorder(

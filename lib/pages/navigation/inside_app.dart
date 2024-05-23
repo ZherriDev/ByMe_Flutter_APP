@@ -106,7 +106,7 @@ class _InsideAppState extends State<InsideApp> {
           var userData = snapshot.data!;
 
           return Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).colorScheme.background,
             appBar: HeaderPageBar(
               text: appBarTexts[_currentIndex],
               image: userPhoto != ""
@@ -152,7 +152,7 @@ class _InsideAppState extends State<InsideApp> {
                 animationDuration: Duration(milliseconds: 250),
                 index: _currentIndex,
                 color: Color(0xff672D6F),
-                backgroundColor: Colors.white,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 onTap: (index) {
                   _pageController.jumpToPage(index);
                 },

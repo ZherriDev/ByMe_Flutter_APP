@@ -57,14 +57,12 @@ class _PatientPageState extends State<PatientPage>
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
-              backgroundColor: Colors.white,
               body: Center(
                 child: CircularProgressIndicator(),
               ),
             );
           } else if (snapshot.hasError || snapshot.data == null) {
             return Scaffold(
-              backgroundColor: Colors.white,
               body: Center(
                 child: Text('Erro ao carregar dados do utilizador'),
               ),
@@ -108,7 +106,7 @@ class _PatientPageState extends State<PatientPage>
                           padding: EdgeInsets.only(bottom: 5),
                           width: MediaQuery.of(context).size.width - 40,
                           decoration: BoxDecoration(
-                              color: Color(0xFF787878).withOpacity(0.16),
+                              color: Theme.of(context).colorScheme.secondary,
                               borderRadius: BorderRadius.circular(20)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -145,7 +143,7 @@ class _PatientPageState extends State<PatientPage>
                           padding: EdgeInsets.only(bottom: 5),
                           width: MediaQuery.of(context).size.width - 40,
                           decoration: BoxDecoration(
-                              color: Color(0xFF787878).withOpacity(0.16),
+                              color: Theme.of(context).colorScheme.secondary,
                               borderRadius: BorderRadius.circular(20)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -182,7 +180,7 @@ class _PatientPageState extends State<PatientPage>
                           padding: EdgeInsets.only(bottom: 5),
                           width: MediaQuery.of(context).size.width - 40,
                           decoration: BoxDecoration(
-                              color: Color(0xFF787878).withOpacity(0.16),
+                              color: Theme.of(context).colorScheme.secondary,
                               borderRadius: BorderRadius.circular(20)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -238,7 +236,9 @@ class _PatientPageState extends State<PatientPage>
                                           EdgeInsets.symmetric(vertical: 10),
                                       padding: EdgeInsets.all(10),
                                       decoration: BoxDecoration(
-                                        color: Colors.grey[200],
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       child: Container(

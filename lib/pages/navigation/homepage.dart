@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                   width: MediaQuery.of(context).size.width - 40,
                   height: 230,
                   decoration: BoxDecoration(
-                      color: Color(0xFF787878).withOpacity(0.16),
+                      color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(20)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -78,9 +78,7 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             snapshot.data?['user']['doctor']['speciality'],
                             style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold),
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ]),
                       ),
@@ -95,9 +93,7 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             snapshot.data?['user']['doctor']['hospital'],
                             style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold),
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ]),
                       ),
@@ -110,9 +106,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Text('$appointmentsToday',
                               style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold)),
+                                  fontSize: 18, fontWeight: FontWeight.bold)),
                           Container(
                             width: 20,
                           ),
@@ -121,9 +115,7 @@ class _HomePageState extends State<HomePage> {
                                 ? 'Consultas para hoje'
                                 : 'Consulta para hoje',
                             style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold),
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ]),
                       ),
@@ -173,13 +165,13 @@ class _HomePageState extends State<HomePage> {
                           String processnumber = appointments[index]
                               ['patient_data']['processnumber'];
                           String time = appointments[index]['time'];
-            
+
                           return Container(
                             width: MediaQuery.of(context).size.width,
                             margin: EdgeInsets.symmetric(vertical: 10),
                             padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              color: Colors.grey[200],
+                              color: Theme.of(context).colorScheme.secondary,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Column(
@@ -193,9 +185,17 @@ class _HomePageState extends State<HomePage> {
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16),
                                     ),
-                                    Text(
-                                      '$name',
-                                      style: TextStyle(fontSize: 16),
+                                    Container(
+                                      constraints: BoxConstraints(
+                                          maxWidth: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              130),
+                                      child: Text(
+                                        '$name',
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(fontSize: 16),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -237,7 +237,8 @@ class _HomePageState extends State<HomePage> {
                       width: MediaQuery.of(context).size.width - 40,
                       height: MediaQuery.of(context).size.height - 565,
                       child: Center(
-                        child: Text('Você não tem consultas marcadas para hoje'),
+                        child:
+                            Text('Você não tem consultas marcadas para hoje'),
                       ))
               ],
             ),

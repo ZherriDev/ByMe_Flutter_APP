@@ -52,10 +52,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
                   children: [
                     Text(
                       snapshot.data?['user']['doctor']['fullname'],
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 10),
                     Row(
@@ -73,7 +71,9 @@ class _DoctorProfileState extends State<DoctorProfile> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                          color: Color(0xFF672D6F),
+                          border: Border.all(
+                              color: Theme.of(context).colorScheme.primary,
+                              width: 2),
                           borderRadius: BorderRadius.circular(12)),
                       width: 80,
                       height: 80,
@@ -83,12 +83,12 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           Text(
                             'Consultas agendadas',
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
                             '$appointmentsAll',
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -96,7 +96,9 @@ class _DoctorProfileState extends State<DoctorProfile> {
                     SizedBox(width: 60),
                     Container(
                       decoration: BoxDecoration(
-                          color: Color(0xFF672D6F),
+                          border: Border.all(
+                              color: Theme.of(context).colorScheme.primary,
+                              width: 2),
                           borderRadius: BorderRadius.circular(12)),
                       width: 80,
                       height: 80,
@@ -106,12 +108,12 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           Text(
                             'Pacientes',
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(
                             '$patientsAll',
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -126,9 +128,6 @@ class _DoctorProfileState extends State<DoctorProfile> {
                       EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
                   height: 250,
                   width: 340,
-                  decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(20)),
                   child: Column(
                     children: <Widget>[
                       Expanded(
@@ -164,7 +163,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                       Divider(
                         thickness: 1, // Line thickness in pixels
                         color: Colors.grey[300], // Line color
-                        indent: 20, // Indentation from left edge in pixels
+                        indent: 0, // Indentation from left edge in pixels
                       ),
                       Expanded(
                         flex: 1,
@@ -199,7 +198,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                       Divider(
                         thickness: 1, // Line thickness in pixels
                         color: Colors.grey[300], // Line color
-                        indent: 20, // Indentation from left edge in pixels
+                        indent: 0, // Indentation from left edge in pixels
                       ),
                       Expanded(
                         flex: 1,
@@ -234,7 +233,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                       Divider(
                         thickness: 1, // Line thickness in pixels
                         color: Colors.grey[300], // Line color
-                        indent: 20, // Indentation from left edge in pixels
+                        indent: 0, // Indentation from left edge in pixels
                       ),
                       Expanded(
                         flex: 1,
