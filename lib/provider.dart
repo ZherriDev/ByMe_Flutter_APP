@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UIProvider extends ChangeNotifier {
   bool _isDark = false;
   bool get isDark => _isDark;
+
+  late SharedPreferences storage;
 
   final darkTheme = ThemeData(
       primaryColor: Color(0xff672D6F),
@@ -16,6 +19,7 @@ class UIProvider extends ChangeNotifier {
       useMaterial3: true);
 
   final lightTheme = ThemeData(
+      primaryColor: Color(0xff672D6F),
       brightness: Brightness.light,
       colorScheme: ColorScheme.light(
         background: Colors.white,
@@ -27,10 +31,13 @@ class UIProvider extends ChangeNotifier {
 
   changeTheme() {
     _isDark = !isDark;
+    storage.setBool('isDark', _isDark);
     notifyListeners();
   }
 
-  init() {
+  init() async {
+    storage = await SharedPreferences.getInstance();
+    _isDark = storage.getBool('isDark') ?? false;
     notifyListeners();
   }
 }

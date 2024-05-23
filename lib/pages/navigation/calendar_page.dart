@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:byme_flutter_app/utils/appointment/get_appointment_class_data.dart';
 import 'package:byme_flutter_app/utils/calendar/delete_appointment.dart';
 import 'package:byme_flutter_app/utils/calendar/dialog_add_appointment.dart';
