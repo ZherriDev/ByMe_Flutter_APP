@@ -28,6 +28,9 @@ class _AlertDialogLogoutState extends State<AlertDialogLogout> {
           children: [
             TextButton(
               onPressed: () {
+                setState(() {
+                  _isLoading = true;
+                });
                 LogOut().then((success) => {
                       if (success)
                         {

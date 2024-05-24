@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:byme_flutter_app/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:byme_flutter_app/utils/user/get_session_data.dart';
 import 'package:byme_flutter_app/utils/token/write_token.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -127,166 +129,174 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Image.asset(
-                  "assets/images/user.png",
-                  width: 150,
-                  height: 150,
-                ),
-                const SizedBox(height: 35),
-                TextFormField(
-                  enabled: _isLoading == false,
-                  controller: _emailController,
-                  validator: (email) {
-                    if (email == null || email.isEmpty) {
-                      return 'Insira o seu e-mail';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey[200],
-                    prefixIcon: const Icon(Icons.email),
-                    label: const Text('E-mail'),
-                    hintText: 'Digite seu email',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(10),
+    return Consumer<UIProvider>(
+      builder: (context, UIProvider notifier, child) {
+        return Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          body: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Image.asset(
+                      "assets/images/user.png",
+                      width: 150,
+                      height: 150,
                     ),
-                  ),
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  enabled: _isLoading == false,
-                  obscureText: _passwordVisible,
-                  controller: _passwordController,
-                  validator: (password) {
-                    if (password == null || password.isEmpty) {
-                      return 'Insira a sua palavra-passe';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey[200],
-                    prefixIcon: const Icon(Icons.lock),
-                    label: const Text('Palavra-passe'),
-                    hintText: 'Digite sua Palavra-Passe',
-                    suffixIcon: IconButton(
-                      onPressed: _toggleObscured,
-                      icon: Icon(
-                        _passwordVisible
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                      ),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.centerRight,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed('/forgot_password');
-                    },
-                    child: const Text(
-                      'Esqueceu a Palavra-passe?',
-                      style: TextStyle(decoration: TextDecoration.underline),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      setState(() {
-                        _errorMessage = "";
-                      });
-                      login().then((loggedIn) {
-                        if (loggedIn) {
-                          Navigator.of(context)
-                              .pushReplacementNamed('/inside_app');
+                    const SizedBox(height: 35),
+                    TextFormField(
+                      enabled: _isLoading == false,
+                      controller: _emailController,
+                      validator: (email) {
+                        if (email == null || email.isEmpty) {
+                          return 'Insira o seu e-mail';
                         }
-                      });
-                    }
-                  },
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsets>(
-                        const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 25)),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xff672D6F)),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Theme.of(context).colorScheme.secondary,
+                        prefixIcon: const Icon(Icons.email),
+                        label: const Text('E-mail'),
+                        hintText: 'Digite seu email',
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
-                  ),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          _isLoading ? '' : 'Acessar',
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        if (_isLoading)
-                          const CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2,
+                    const SizedBox(height: 15),
+                    TextFormField(
+                      enabled: _isLoading == false,
+                      obscureText: _passwordVisible,
+                      controller: _passwordController,
+                      validator: (password) {
+                        if (password == null || password.isEmpty) {
+                          return 'Insira a sua palavra-passe';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Theme.of(context).colorScheme.secondary,
+                        prefixIcon: const Icon(Icons.lock),
+                        label: const Text('Palavra-passe'),
+                        hintText: 'Digite sua Palavra-Passe',
+                        suffixIcon: IconButton(
+                          onPressed: _toggleObscured,
+                          icon: Icon(
+                            _passwordVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility,
                           ),
-                      ]),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed('/register');
-                    },
-                    child: const Text(
-                      'Ainda não tem uma conta? Criar conta',
-                      style: TextStyle(decoration: TextDecoration.underline),
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Visibility(
-                  visible: _errorMessage.isNotEmpty,
-                  child: Container(
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.red),
-                    child: Text(
-                      _errorMessage,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(color: Colors.white, fontSize: 14),
+                    Container(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed('/forgot_password');
+                        },
+                        child: const Text(
+                          'Esqueceu a Palavra-passe?',
+                          style:
+                              TextStyle(decoration: TextDecoration.underline),
+                        ),
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            _errorMessage = "";
+                          });
+                          login().then((loggedIn) {
+                            if (loggedIn) {
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/inside_app');
+                            }
+                          });
+                        }
+                      },
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                            const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 25)),
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xff672D6F)),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                        ),
+                      ),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              _isLoading ? '' : 'Acessar',
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                            if (_isLoading)
+                              const CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              ),
+                          ]),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed('/register');
+                        },
+                        child: const Text(
+                          'Ainda não tem uma conta? Criar conta',
+                          style:
+                              TextStyle(decoration: TextDecoration.underline),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Visibility(
+                      visible: _errorMessage.isNotEmpty,
+                      child: Container(
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Colors.red),
+                        child: Text(
+                          _errorMessage,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 14),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

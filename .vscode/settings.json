@@ -60,5 +60,12 @@
   "liveshare.allowGuestTaskControl": true,
   "liveshare.languages.allowGuestCommandControl": true,
   "liveshare.notebooks.allowGuestExecuteCells": true,
-  "liveshare.publishWorkspaceInfo": true
+  "liveshare.publishWorkspaceInfo": true,
+  "workbench.colorTheme": "Hack The Box-Lite",
+  "workbench.preferredDarkColorTheme": "Hack The Box-Lite",
+  "workbench.editor.decorations.colors": true,
+  "workbench.settings.editor": "ui",
+  "zenMode.hideStatusBar": true,
+  "zenMode.fullScreen": true,
+  "zenMode.hideActivityBar": true
 }
