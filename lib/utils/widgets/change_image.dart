@@ -11,7 +11,7 @@ class ChangeImage extends StatefulWidget {
 }
 
 class _ChangeImageState extends State<ChangeImage> {
-  bool _isLoadingImage = false;
+  bool _isLoadingImage = false; w
 
   @override
   Widget build(BuildContext context) {
