@@ -35,13 +35,13 @@ class _PatientsPageState extends State<PatientsPage> {
 
   Widget iconList(state) {
     if (state == 'In Treatment') {
-      return Icon(Icons.healing);
+      return const Icon(Icons.healing);
     } else if (state == 'Awaiting Treatment') {
-      return Icon(Icons.access_time);
+      return const Icon(Icons.access_time);
     } else if (state == 'Completed Treatment') {
-      return Icon(Icons.check_circle);
+      return const Icon(Icons.check_circle);
     }
-    return Icon(Icons.circle);
+    return const Icon(Icons.circle);
   }
 
   Future<Map<String, dynamic>?> fetchPatientsData(
@@ -55,13 +55,13 @@ class _PatientsPageState extends State<PatientsPage> {
       setState(() {});
     }
 
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: Stack(
         children: [
           SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
+              padding: const EdgeInsets.only(left: 14, right: 14, bottom: 14),
               child: Column(
                 children: [
                   Container(
@@ -118,7 +118,7 @@ class _PatientsPageState extends State<PatientsPage> {
                                 value: order,
                                 child: Text(
                                   order,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -161,16 +161,16 @@ class _PatientsPageState extends State<PatientsPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.healing),
-                      Text('Em tratamento'),
+                      const Icon(Icons.healing),
+                      const Text('Em tratamento'),
                       Container(
                         width: 10,
                       ),
-                      Icon(Icons.access_time),
-                      Text('Aguardando tratamento'),
+                      const Icon(Icons.access_time),
+                      const Text('Aguardando tratamento'),
                     ],
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.check_circle),
@@ -187,24 +187,24 @@ class _PatientsPageState extends State<PatientsPage> {
                         state),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       } else if (snapshot.hasError || snapshot.data == null) {
-                        return Center(
+                        return const Center(
                           child: Text('Erro ao carregar dados'),
                         );
                       } else {
                         List<dynamic> patients = snapshot.data?['patients'];
 
-                        if (patients.length >= 1) {
-                          return Container(
+                        if (patients.isNotEmpty) {
+                          return SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height - 425,
                             child: ListView.builder(
                                 itemCount: patients.length,
                                 itemBuilder: (context, index) {
-                                  int patient_id =
+                                  int patientId =
                                       patients[index]['patient_id'];
                                   String image =
                                       'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg';
@@ -215,11 +215,11 @@ class _PatientsPageState extends State<PatientsPage> {
 
                                   return ListTile(
                                     onTap: () {
-                                      widget.patientPageID(patient_id);
+                                      widget.patientPageID(patientId);
                                       widget.pageController.jumpToPage(6);
                                     },
                                     leading: CircleAvatar(
-                                      backgroundColor: Color(0xff672D6F),
+                                      backgroundColor: const Color(0xff672D6F),
                                       backgroundImage: NetworkImage(image),
                                     ),
                                     title: Text(name),
@@ -229,10 +229,10 @@ class _PatientsPageState extends State<PatientsPage> {
                                 }),
                           );
                         } else {
-                          return Container(
+                          return SizedBox(
                             width: MediaQuery.of(context).size.width - 40,
                             height: MediaQuery.of(context).size.height - 425,
-                            child: Center(
+                            child: const Center(
                               child: Text('Nenhum paciente encontrado'),
                             ),
                           );
@@ -248,9 +248,9 @@ class _PatientsPageState extends State<PatientsPage> {
             right: 15,
             bottom: 10,
             child: FloatingActionButton(
-              shape: CircleBorder(),
-              backgroundColor: Color(0xff672D6F),
-              child: Icon(
+              shape: const CircleBorder(),
+              backgroundColor: const Color(0xff672D6F),
+              child: const Icon(
                 Icons.person_add,
                 color: Colors.white,
               ),

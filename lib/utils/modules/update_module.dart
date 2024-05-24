@@ -101,18 +101,18 @@ class _UpdateModuleState extends State<UpdateModule> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         width: MediaQuery.of(context).size.width,
         height: 50,
         decoration: BoxDecoration(
-            color: Color(0xff672D6F), borderRadius: BorderRadius.circular(10)),
-        child: Text(
+            color: const Color(0xff672D6F), borderRadius: BorderRadius.circular(10)),
+        child: const Text(
           'Editar Módulo',
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.white),
         ),
       ),
-      content: Container(
+      content: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: 240,
         child: Form(
@@ -153,7 +153,7 @@ class _UpdateModuleState extends State<UpdateModule> {
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.tertiary,
-                  prefixIcon: Icon(Icons.abc),
+                  prefixIcon: const Icon(Icons.abc),
                   label: const Text('Módulo'),
                   hintText: 'Escolha o módulo',
                   border: OutlineInputBorder(
@@ -167,7 +167,7 @@ class _UpdateModuleState extends State<UpdateModule> {
                     value: module,
                     child: Text(
                       module,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.normal),
                     ),
                   );
@@ -210,9 +210,9 @@ class _UpdateModuleState extends State<UpdateModule> {
                     ),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Cancelar',
-                  style: const TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 18),
                 ),
               ),
             ),

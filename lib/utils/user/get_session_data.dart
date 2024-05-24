@@ -24,7 +24,7 @@ Future<Map<String, dynamic>> getDeviceInfo() async {
 
     deviceData['ipAddress'] = await getPublicIpAddress();
   } catch (e) {
-    print('Erro ao obter informações: $e');
+    throw 'Erro ao obter informações: $e';
   }
 
   return deviceData;
@@ -41,7 +41,6 @@ Future<String> getPublicIpAddress() async {
       throw Exception('Falha ao obter endereço IP público');
     }
   } catch (e) {
-    print('Erro ao obter endereço IP público: $e');
-    return 'Unknown';
+    throw 'Erro ao obter endereço IP público: $e';
   }
 }

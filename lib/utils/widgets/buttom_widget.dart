@@ -21,7 +21,8 @@ class SaveButton extends StatefulWidget {
   final void Function(String message) showSuccessPopUp;
   final String buttonText;
 
-  SaveButton({
+  const SaveButton({
+    Key? key,
     required this.formKey,
     required this.nameController,
     required this.phoneController,
@@ -33,10 +34,10 @@ class SaveButton extends StatefulWidget {
     required this.updateData,
     required this.showSuccessPopUp,
     required this.buttonText,
-  });
+  }) : super(key: key);
 
   @override
-  _SaveButtonState createState() => _SaveButtonState();
+  State<SaveButton> createState() => _SaveButtonState();
 }
 
 class _SaveButtonState extends State<SaveButton> {
@@ -45,7 +46,7 @@ class _SaveButtonState extends State<SaveButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 10, bottom: 30, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 10, bottom: 30, left: 20, right: 20),
       width: 400,
       child: ElevatedButton(
         onPressed: () {
@@ -73,7 +74,7 @@ class _SaveButtonState extends State<SaveButton> {
               if (success) {
                 widget.showSuccessPopUp('Informações Atualizadas com sucesso!');
               } else {
-                print('erro');
+                throw 'error';
               }
             });
           } else {

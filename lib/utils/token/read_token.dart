@@ -1,7 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 Future<Map<String, dynamic>?> readToken() async {
-  final storage = FlutterSecureStorage();
+  const storage = FlutterSecureStorage();
 
   // Read the token and doctor ID asynchronously
   final token = await storage.read(key: 'token');

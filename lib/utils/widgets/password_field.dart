@@ -15,7 +15,7 @@ class PasswordField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _PasswordFieldState createState() => _PasswordFieldState();
+  State<PasswordField> createState() => _PasswordFieldState();
 }
 
 class _PasswordFieldState extends State<PasswordField> {
@@ -38,8 +38,8 @@ class _PasswordFieldState extends State<PasswordField> {
         labelText: widget.labelText,
         filled: true,
         fillColor: Theme.of(context).colorScheme.secondary,
-        labelStyle: TextStyle(fontSize: 13),
-        prefixIcon: Icon(Icons.lock),
+        labelStyle: const TextStyle(fontSize: 13),
+        prefixIcon: const Icon(Icons.lock),
         suffixIcon: IconButton(
           onPressed: _toggleObscured,
           icon: Icon(

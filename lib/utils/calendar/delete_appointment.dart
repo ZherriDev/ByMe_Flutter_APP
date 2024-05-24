@@ -47,17 +47,14 @@ class _DeleteAppointmentState extends State<DeleteAppointment> {
         case 200:
           return true;
         case 400:
-          print('Dados Incorretos');
           return false;
         case 401:
-          print('Token Inválido');
           return false;
         case 500:
-          print('Erro no servidor');
           return false;
       }
     } catch (error) {
-      print('Error: $error');
+      throw 'Error: $error';
     } finally {
       setState(() {
         isLoading = false;
@@ -74,10 +71,10 @@ class _DeleteAppointmentState extends State<DeleteAppointment> {
         height: 150,
         child: Image.asset('assets/images/warning.png'),
       ),
-      content: Text(
+      content: const Text(
         'Você não poderá voltar atrás com esta ação. Tem certeza que deseja cancelar esta consulta?',
         textAlign: TextAlign.center,
-        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       actions: <Widget>[
         TextButton(
@@ -88,7 +85,7 @@ class _DeleteAppointmentState extends State<DeleteAppointment> {
         ),
         TextButton(
           child: isLoading
-              ? CircularProgressIndicator(
+              ? const CircularProgressIndicator(
                   strokeWidth: 2,
                 )
               : const Text('Sim'),
@@ -100,14 +97,14 @@ class _DeleteAppointmentState extends State<DeleteAppointment> {
               if (success == true) {
                 Navigator.of(widget.context).pop();
                 widget.reloadPage();
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text('Consulta cancelada com sucesso.'),
                   backgroundColor: Colors.green,
                   duration: Duration(seconds: 2),
                 ));
               } else {
                 Navigator.of(widget.context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text('Não foi possível cancelar a consulta.'),
                   backgroundColor: Colors.red,
                   duration: Duration(seconds: 2),

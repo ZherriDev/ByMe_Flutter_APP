@@ -11,11 +11,12 @@ class UpdateEmail extends StatefulWidget {
   final TextEditingController newEmailController;
 
   const UpdateEmail({
+    Key? key,
     required this.formKey,
     required this.oldEmaiController,
     required this.newEmailController,
     required this.showSuccessPopUp,
-  });
+  }) : super(key: key);
 
   @override
   State<UpdateEmail> createState() => _UpdateEmailState();
@@ -29,9 +30,8 @@ class _UpdateEmailState extends State<UpdateEmail> {
     final userStorage = await readToken();
     String token = userStorage?['token'];
     int doctorId = userStorage?['doctor_id'];
-    bool _succes = false;
+    bool succes = false;
     var url = Uri.parse('https://api-py-byme.onrender.com/auth/change_email');
-    ;
     var body = {
       "doctor_id": doctorId,
       "old_email": oldEmail,
@@ -58,7 +58,7 @@ class _UpdateEmailState extends State<UpdateEmail> {
                 'Verifique a caixa de entrada do seu\n'
                 'novo E-mail';
           });
-          _succes = true;
+          succes = true;
         case 400:
           setState(() {
             _errorMessage = 'Requisição Inválida';
@@ -76,19 +76,16 @@ class _UpdateEmailState extends State<UpdateEmail> {
             _errorMessage = 'Algo correu mal';
           });
           break;
-        case 405:
-          print('Método não permitido');
-          break;
       }
     } catch (error) {
-      print('Error: $error');
+      throw 'Error: $error';
     }
-    return _succes;
+    return succes;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 100,
       child: ElevatedButton(
         onPressed: () {

@@ -38,7 +38,7 @@ class HeaderPageBar extends StatelessWidget implements PreferredSizeWidget {
             height: 100,
             decoration: BoxDecoration(
               color: const Color(0xff672D6F),
-              border: Border.all(color: Color(0xff672D6F), width: 2),
+              border: Border.all(color: const Color(0xff672D6F), width: 2),
               borderRadius: BorderRadius.circular(100),
             ),
             child: _imageDefault(image)
@@ -60,5 +60,6 @@ class HeaderPageBar extends StatelessWidget implements PreferredSizeWidget {
     }
   }
 
+  @override
   Size get preferredSize => const Size.fromHeight(220);
 }

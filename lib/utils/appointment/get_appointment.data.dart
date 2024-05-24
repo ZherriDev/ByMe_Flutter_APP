@@ -25,17 +25,14 @@ Future<Map<String, dynamic>?> getAppointmentsData(
         final Map<String, dynamic> appointmentData = jsonDecode(response.body);
         return appointmentData;
       case 400:
-        print('Dados Incorretos');
-        break;
+        return null;
       case 401:
-        print('Token Inválido');
-        break;
+        return null;
       case 500:
-        print('Erro no servidor');
-        break;
+        return null;
     }
   } catch (error) {
-    print('Error: $error');
+    throw 'Error: $error';
   }
   return null;
 }

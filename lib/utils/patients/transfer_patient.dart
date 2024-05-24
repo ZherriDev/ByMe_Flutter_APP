@@ -35,7 +35,7 @@ class _TransferPatientState extends State<TransferPatient> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Container(
+      title: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Form(
           key: _formKey,
@@ -66,20 +66,20 @@ class _TransferPatientState extends State<TransferPatient> {
           ),
         ),
       ),
-      content: Container(
+      content: SizedBox(
         height: 400,
         child: FutureBuilder<Map<String, dynamic>?>(
           future: futureDoctors,
           builder: (context, futureSnapshot) {
             if (futureSnapshot.connectionState == ConnectionState.waiting) {
-              return Scaffold(
+              return const Scaffold(
                 backgroundColor: Colors.transparent,
                 body: Center(
                   child: CircularProgressIndicator(),
                 ),
               );
             } else if (futureSnapshot.hasError || futureSnapshot.data == null) {
-              return Scaffold(
+              return const Scaffold(
                 backgroundColor: Colors.transparent,
                 body: Center(
                   child: Text('Erro ao carregar dados dos doutores'),
@@ -88,8 +88,8 @@ class _TransferPatientState extends State<TransferPatient> {
             } else {
               List<dynamic> doctors = futureSnapshot.data?['doctors'];
 
-              if (doctors.length >= 1)
-                return Container(
+              if (doctors.isNotEmpty) {
+                return SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: ListView.builder(
@@ -120,7 +120,7 @@ class _TransferPatientState extends State<TransferPatient> {
                                 });
                           },
                           leading: CircleAvatar(
-                            backgroundColor: Color(0xff672D6F),
+                            backgroundColor: const Color(0xff672D6F),
                             backgroundImage: NetworkImage(photo),
                           ),
                           title: Text(fullname),
@@ -128,14 +128,15 @@ class _TransferPatientState extends State<TransferPatient> {
                         );
                       }),
                 );
-              else
-                return Container(
+              } else {
+                return SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
-                  child: Center(
+                  child: const Center(
                     child: Text('Nenhum doutor encontrado'),
                   ),
                 );
+              }
             }
           },
         ),

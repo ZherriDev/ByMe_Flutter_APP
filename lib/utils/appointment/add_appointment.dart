@@ -33,17 +33,14 @@ Future<bool> addAppointment(
       case 201:
         return true;
       case 400:
-        print('Dados Incorretos');
-        break;
+        return false;
       case 401:
-        print('Token Inválido');
-        break;
+        return false;
       case 500:
-        print('Erro no servidor');
-        break;
+        return false;
     }
   } catch (error) {
-    print('Error: $error');
+    throw 'Error: $error';
   }
   return false;
 }

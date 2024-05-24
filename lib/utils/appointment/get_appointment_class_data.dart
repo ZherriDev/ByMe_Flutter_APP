@@ -10,7 +10,6 @@ Future<List<dynamic>?> getAppointmentsClassData(
   String timeNow = DateFormat('HH:mm:ss').format(DateTime.now());
 
   if (token == null) {
-    print('Token não encontrado');
     return null;
   }
 
@@ -31,31 +30,26 @@ Future<List<dynamic>?> getAppointmentsClassData(
       case 200:
         final Map<String, dynamic> appointmentData = jsonDecode(response.body);
         final List<dynamic>? appointments = appointmentData['appointments'];
-        print(appointments);
         return appointments;
       case 400:
-        print('Dados Incorretos');
-        break;
+        return null;
       case 401:
-        print('Token Inválido');
-        break;
+        return null;
       case 500:
-        print('Erro no servidor');
-        break;
+        return null;
       default:
-        print('Erro desconhecido: ${response.statusCode}');
+        return null;
     }
   } catch (error) {
-    print('Erro: $error');
+    return null;
   }
-  return null;
 }
 
 String formatDate(String date) {
   List<String> parts = date.split('-');
 
   if (parts.length != 3) {
-    throw FormatException('Invalid date format');
+    throw const FormatException('Invalid date format');
   }
 
   String year = parts[0].padLeft(4, '0');

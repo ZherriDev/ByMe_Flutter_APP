@@ -121,7 +121,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                           fontSize: 16),
-                      children: [
+                      children: const [
                         TextSpan(
                             text: "Introduza seu e-mail ",
                             style: TextStyle(fontWeight: FontWeight.bold)),

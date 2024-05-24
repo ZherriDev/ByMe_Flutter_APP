@@ -49,17 +49,14 @@ class _ConfirmTransferState extends State<ConfirmTransfer> {
         case 200:
           return true;
         case 400:
-          print('Dados Incorretos');
           return false;
         case 401:
-          print('Token Inválido');
           return false;
         case 500:
-          print('Erro no servidor');
           return false;
       }
     } catch (error) {
-      print('Error: $error');
+      throw 'Error: $error';
     } finally {
       setState(() {
         isLoading = false;
@@ -90,7 +87,7 @@ class _ConfirmTransferState extends State<ConfirmTransfer> {
         ),
         TextButton(
           child: isLoading
-              ? CircularProgressIndicator(
+              ? const CircularProgressIndicator(
                   strokeWidth: 2,
                 )
               : const Text('Sim'),
@@ -102,14 +99,14 @@ class _ConfirmTransferState extends State<ConfirmTransfer> {
               if (success == true) {
                 Navigator.of(widget.context).pop();
                 widget.pageController.jumpToPage(2);
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text('Paciente transferido com sucesso.'),
                   backgroundColor: Colors.green,
                   duration: Duration(seconds: 2),
                 ));
               } else {
                 Navigator.of(widget.context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text('Não foi possível transferir o paciente.'),
                   backgroundColor: Colors.red,
                   duration: Duration(seconds: 2),

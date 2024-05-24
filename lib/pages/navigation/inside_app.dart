@@ -27,7 +27,7 @@ class _InsideAppState extends State<InsideApp> {
   int _currentIndex = 0;
   late PageController _pageController;
   late Future<Map<String, dynamic>?> userData;
-  var userPhoto;
+  late String userPhoto;
 
   final List<String> appBarTexts = [
     'Página Inicial',
@@ -66,12 +66,12 @@ class _InsideAppState extends State<InsideApp> {
   int patientId = 0;
   int moduleId = 0;
 
-  void patientPageID(int patient_id) {
-    setState(() => patientId = patient_id);
+  void patientPageID(int patientIdFunc) {
+    setState(() => patientId = patientIdFunc);
   }
 
-  void modulePageID(int module_id) {
-    setState(() => moduleId = module_id);
+  void modulePageID(int moduleIdFunc) {
+    setState(() => moduleId = moduleIdFunc);
   }
 
   void reloadPhoto(String newPhoto) {
@@ -90,13 +90,13 @@ class _InsideAppState extends State<InsideApp> {
       future: userData,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),
           );
         } else if (snapshot.hasError || snapshot.data == null) {
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: Text('Erro ao carregar dados do utilizador'),
             ),
@@ -113,7 +113,7 @@ class _InsideAppState extends State<InsideApp> {
                   : userData['user']['doctor']['photo'],
             ),
             body: PageView(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               onPageChanged: setCurrentPage,
               controller: _pageController,
               children: [
@@ -151,14 +151,14 @@ class _InsideAppState extends State<InsideApp> {
               ],
             ),
             bottomNavigationBar: CurvedNavigationBar(
-                animationDuration: Duration(milliseconds: 250),
+                animationDuration: const Duration(milliseconds: 250),
                 index: _currentIndex,
-                color: Color(0xff672D6F),
+                color: const Color(0xff672D6F),
                 backgroundColor: Theme.of(context).colorScheme.background,
                 onTap: (index) {
                   _pageController.jumpToPage(index);
                 },
-                items: [
+                items: const [
                   CurvedNavigationBarItem(
                     child: Icon(Icons.home_outlined, color: Colors.white),
                   ),

@@ -62,8 +62,7 @@ class _UpdatePatientStatusState extends State<UpdatePatientStatus> {
           return false;
       }
     } catch (error) {
-      print(error);
-      return false;
+      throw '$error';
     } finally {
       setState(() {
         isLoading = false;
@@ -77,7 +76,7 @@ class _UpdatePatientStatusState extends State<UpdatePatientStatus> {
     String status = widget.patient['status'];
 
     return AlertDialog(
-        title: Text(
+        title: const Text(
           'Mudar para qual estado?',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
@@ -88,7 +87,7 @@ class _UpdatePatientStatusState extends State<UpdatePatientStatus> {
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.tertiary,
-                  prefixIcon: Icon(Icons.info),
+                  prefixIcon: const Icon(Icons.info),
                   hintText: 'Estado do paciente',
                   border: OutlineInputBorder(
                     borderSide: BorderSide.none,
@@ -105,7 +104,7 @@ class _UpdatePatientStatusState extends State<UpdatePatientStatus> {
                           : status == 'In Treatment'
                               ? 'Em tratamento'
                               : 'Tratamento concluído',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.normal),
                     ),
                   );
@@ -119,7 +118,7 @@ class _UpdatePatientStatusState extends State<UpdatePatientStatus> {
                     if (success == true) {
                       Navigator.of(context).pop();
                       widget.reloadPage();
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content:
                             Text('Estado do paciente atualizado com sucesso.'),
                         backgroundColor: Colors.green,
@@ -127,7 +126,7 @@ class _UpdatePatientStatusState extends State<UpdatePatientStatus> {
                       ));
                     } else {
                       Navigator.of(context).pop();
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text(
                             'Não foi possível atualizar o estado do paciente.'),
                         backgroundColor: Colors.red,
@@ -148,7 +147,7 @@ class _UpdatePatientStatusState extends State<UpdatePatientStatus> {
               Positioned.fill(
                 child: Container(
                   color: Colors.grey.withOpacity(0.3),
-                  child: Center(
+                  child: const Center(
                     child: CircularProgressIndicator(),
                   ),
                 ),

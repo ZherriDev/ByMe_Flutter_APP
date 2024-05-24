@@ -40,29 +40,29 @@ class _AddAppointmentState extends State<AddAppointment> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         width: MediaQuery.of(context).size.width,
         height: 50,
         decoration: BoxDecoration(
-            color: Color(0xff672D6F), borderRadius: BorderRadius.circular(10)),
-        child: Text(
+            color: const Color(0xff672D6F), borderRadius: BorderRadius.circular(10)),
+        child: const Text(
           'Nova Consulta',
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.white),
         ),
       ),
-      content: Container(
+      content: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: 315,
         child: FutureBuilder(
             future: patientsData,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (snapshot.hasError || snapshot.data == null) {
-                return Center(
+                return const Center(
                   child: Text('Erro ao carregar dados'),
                 );
               } else {
@@ -76,8 +76,7 @@ class _AddAppointmentState extends State<AddAppointment> {
                   }
                 });
 
-                return Container(
-                  child: Form(
+                return Form(
                     key: _formKey,
                     child: ListView(
                       children: [
@@ -85,7 +84,7 @@ class _AddAppointmentState extends State<AddAppointment> {
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Theme.of(context).colorScheme.tertiary,
-                            prefixIcon: Icon(Icons.personal_injury),
+                            prefixIcon: const Icon(Icons.personal_injury),
                             label: const Text('Paciente'),
                             hintText: 'Escolha o paciente',
                             border: OutlineInputBorder(
@@ -98,11 +97,11 @@ class _AddAppointmentState extends State<AddAppointment> {
                             return DropdownMenuItem<String>(
                               value: patient,
                               child: Container(
-                                constraints: BoxConstraints(maxWidth: 160),
+                                constraints: const BoxConstraints(maxWidth: 160),
                                 child: Text(
                                   patient,
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -122,7 +121,7 @@ class _AddAppointmentState extends State<AddAppointment> {
                             return null;
                           },
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
@@ -146,7 +145,7 @@ class _AddAppointmentState extends State<AddAppointment> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
@@ -175,7 +174,7 @@ class _AddAppointmentState extends State<AddAppointment> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
@@ -206,8 +205,7 @@ class _AddAppointmentState extends State<AddAppointment> {
                         ),
                       ],
                     ),
-                  ),
-                );
+                  );
               }
             }),
       ),
@@ -233,9 +231,9 @@ class _AddAppointmentState extends State<AddAppointment> {
                     ),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Cancelar',
-                  style: const TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 18),
                 ),
               ),
             ),

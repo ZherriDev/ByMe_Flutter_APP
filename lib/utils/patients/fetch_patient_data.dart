@@ -11,7 +11,6 @@ Future<Map<String, dynamic>?> fetchPatientData(int patientId) async {
 
     return data;
   } catch (e) {
-    print('Erro ao obter dados do paciente: $e');
-    return null;
+    throw 'Erro ao obter dados do paciente: $e';
   }
 }

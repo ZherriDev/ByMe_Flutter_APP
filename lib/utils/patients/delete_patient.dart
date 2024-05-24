@@ -47,17 +47,14 @@ class _DeletePatientState extends State<DeletePatient> {
         case 200:
           return true;
         case 400:
-          print('Dados Incorretos');
           return false;
         case 401:
-          print('Token Inválido');
           return false;
         case 500:
-          print('Erro no servidor');
           return false;
       }
     } catch (error) {
-      print('Error: $error');
+      throw 'Error: $error';
     } finally {
       setState(() {
         isLoading = false;
@@ -74,10 +71,10 @@ class _DeletePatientState extends State<DeletePatient> {
         height: 150,
         child: Image.asset('assets/images/warning.png'),
       ),
-      content: Text(
+      content: const Text(
         'Você não poderá voltar atrás com esta ação. Tem certeza que deseja excluir o paciente?',
         textAlign: TextAlign.center,
-        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       actions: <Widget>[
         TextButton(
@@ -88,7 +85,7 @@ class _DeletePatientState extends State<DeletePatient> {
         ),
         TextButton(
           child: isLoading
-              ? CircularProgressIndicator(
+              ? const CircularProgressIndicator(
                   strokeWidth: 2,
                 )
               : const Text('Excluir'),
@@ -100,14 +97,14 @@ class _DeletePatientState extends State<DeletePatient> {
               if (success == true) {
                 Navigator.of(widget.context).pop();
                 widget.pageController.jumpToPage(2);
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text('Paciente excluído com sucesso.'),
                   backgroundColor: Colors.green,
                   duration: Duration(seconds: 2),
                 ));
               } else {
                 Navigator.of(widget.context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text('Não foi possível excluir o paciente.'),
                   backgroundColor: Colors.red,
                   duration: Duration(seconds: 2),

@@ -27,11 +27,11 @@ class _HomePageState extends State<HomePage> {
       future: fetchUserData('one', getDate(), null, null, null),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (snapshot.hasError || snapshot.data == null) {
-          return Center(
+          return const Center(
             child: Text('Erro ao carregar dados'),
           );
         } else {
@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   width: MediaQuery.of(context).size.width - 40,
                   height: 230,
                   decoration: BoxDecoration(
@@ -54,14 +54,14 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                            color: Color(0xff672D6F),
+                            color: const Color(0xff672D6F),
                             borderRadius: BorderRadius.circular(12)),
                         child: Text(
                           snapshot.data?['user']['doctor']['fullname'],
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.bold),
@@ -69,43 +69,43 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Row(children: [
-                          Icon(Icons.medical_information_rounded),
+                          const Icon(Icons.medical_information_rounded),
                           Container(
                             width: 10,
                           ),
                           Text(
                             snapshot.data?['user']['doctor']['speciality'],
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ]),
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Row(children: [
-                          Icon(Icons.business_rounded),
+                          const Icon(Icons.business_rounded),
                           Container(
                             width: 10,
                           ),
                           Text(
                             snapshot.data?['user']['doctor']['hospital'],
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ]),
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Row(children: [
                           Container(
                             width: 5,
                           ),
                           Text('$appointmentsToday',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold)),
                           Container(
                             width: 20,
@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                             appointmentsToday > 1
                                 ? 'Consultas para hoje'
                                 : 'Consulta para hoje',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ]),
@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                           width: 30,
                           height: 30,
                           decoration: BoxDecoration(
-                              color: Color(0xff672D6F),
+                              color: const Color(0xff672D6F),
                               borderRadius: BorderRadius.circular(100)),
                           child: Center(
                             child: IconButton(
@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                                 widget.pageController.jumpToPage(3);
                               },
                               iconSize: 15,
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.edit,
                                 color: Colors.white,
                               ),
@@ -151,10 +151,10 @@ class _HomePageState extends State<HomePage> {
                   appointmentsToday > 1
                       ? 'Detalhes das consultas:'
                       : 'Detalhes da consulta:',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
                 if (appointmentsToday >= 1)
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width - 40,
                     height: MediaQuery.of(context).size.height - 565,
                     child: ListView.builder(
@@ -168,8 +168,8 @@ class _HomePageState extends State<HomePage> {
 
                           return Container(
                             width: MediaQuery.of(context).size.width,
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            padding: EdgeInsets.all(10),
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.secondary,
                               borderRadius: BorderRadius.circular(20),
@@ -179,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 Row(
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Nome: ',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -192,38 +192,38 @@ class _HomePageState extends State<HomePage> {
                                                   .width -
                                               130),
                                       child: Text(
-                                        '$name',
+                                        name,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(fontSize: 16),
+                                        style: const TextStyle(fontSize: 16),
                                       ),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Nº Processo: ',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16),
                                     ),
                                     Text(
-                                      '$processnumber',
-                                      style: TextStyle(fontSize: 16),
+                                      processnumber,
+                                      style: const TextStyle(fontSize: 16),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Horário: ',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16),
                                     ),
                                     Text(
-                                      '$time',
-                                      style: TextStyle(fontSize: 16),
+                                      time,
+                                      style: const TextStyle(fontSize: 16),
                                     ),
                                   ],
                                 ),
@@ -233,10 +233,10 @@ class _HomePageState extends State<HomePage> {
                         }),
                   )
                 else
-                  Container(
+                  SizedBox(
                       width: MediaQuery.of(context).size.width - 40,
                       height: MediaQuery.of(context).size.height - 565,
-                      child: Center(
+                      child: const Center(
                         child:
                             Text('Você não tem consultas marcadas para hoje'),
                       ))

@@ -32,11 +32,11 @@ class _SessionsPageState extends State<SessionsPage> {
         future: getUserSessions(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError || snapshot.data == null) {
-            return Center(
+            return const Center(
               child: Text('Erro ao carregar dados'),
             );
           } else {
@@ -62,7 +62,7 @@ class _SessionsPageState extends State<SessionsPage> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Stack(
                       children: [
@@ -72,10 +72,10 @@ class _SessionsPageState extends State<SessionsPage> {
                             onPressed: () {
                               widget.pageController.jumpToPage(3);
                             },
-                            icon: Icon(Icons.arrow_back),
+                            icon: const Icon(Icons.arrow_back),
                           ),
                         ),
-                        Center(
+                        const Center(
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -93,24 +93,24 @@ class _SessionsPageState extends State<SessionsPage> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Column(
                     children: [
                       Text(
-                        'Seus Dispositivos: ${sessionsLength}',
-                        style: TextStyle(
+                        'Seus Dispositivos: $sessionsLength',
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
-                      Text('Tens sessão ativa nesses dispositivos:'),
-                      SizedBox(
+                      const Text('Tens sessão ativa nesses dispositivos:'),
+                      const SizedBox(
                         height: 15,
                       ),
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height - 470,
                         child: ListView.builder(
@@ -121,13 +121,13 @@ class _SessionsPageState extends State<SessionsPage> {
 
                             String androidImage =
                                 'https://firebasestorage.googleapis.com/v0/b/byme-app-images.appspot.com/o/images%2FIcons%2Fandroid_os_logo_icon_134673.png?alt=media&token=c1a6bab8-0a7c-4ea8-ba11-56647d177d06';
-                            String IOSImage;
+                            String iosImage;
 
                             if (notifier.isDark) {
-                              IOSImage =
+                              iosImage =
                                   'https://firebasestorage.googleapis.com/v0/b/byme-app-images.appspot.com/o/images%2FIcons%2Fapple%20(1).png?alt=media&token=0befbee2-5024-4339-886a-ff1f8032509a';
                             } else {
-                              IOSImage =
+                              iosImage =
                                   'https://firebasestorage.googleapis.com/v0/b/byme-app-images.appspot.com/o/images%2FIcons%2Fapple.png?alt=media&token=8449c6fc-4c58-4e15-a161-41197843e22e';
                             }
 
@@ -152,7 +152,7 @@ class _SessionsPageState extends State<SessionsPage> {
                                       return SessionAlertDialog(
                                         isAndroid: isAndroid,
                                         androidImage: androidImage,
-                                        iOSImage: IOSImage,
+                                        iOSImage: iosImage,
                                         index: index,
                                         sessions: sessions,
                                         setState: _setState,
@@ -163,11 +163,11 @@ class _SessionsPageState extends State<SessionsPage> {
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('${location}, ${day} de ${monthName}'),
-                                  SizedBox(
+                                  Text('$location, $day de $monthName'),
+                                  const SizedBox(
                                     height: 5,
                                   ),
-                                  CurrentSession(index)
+                                  currentSession(index)
                                 ],
                               ),
                               trailing: Text(sessions[index]['ip_address']),
@@ -175,7 +175,7 @@ class _SessionsPageState extends State<SessionsPage> {
                                 backgroundColor: Colors.transparent,
                                 backgroundImage: isAndroid
                                     ? NetworkImage(androidImage)
-                                    : NetworkImage(IOSImage),
+                                    : NetworkImage(iosImage),
                               ),
                             );
                           },
@@ -190,7 +190,7 @@ class _SessionsPageState extends State<SessionsPage> {
         });
   }
 
-  Widget CurrentSession(index) {
+  Widget currentSession(index) {
     if (index == 0) {
       return Row(
         children: [
@@ -198,10 +198,10 @@ class _SessionsPageState extends State<SessionsPage> {
             'assets/images/success.png',
             width: 20,
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
-          Text('Sessão Atual'),
+          const Text('Sessão Atual'),
         ],
       );
     } else {

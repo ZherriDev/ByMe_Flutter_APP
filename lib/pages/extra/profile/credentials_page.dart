@@ -21,7 +21,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
   final _confirmNewpassController = TextEditingController();
   final _formemailKey = GlobalKey<FormState>();
   final _formpassKey = GlobalKey<FormState>();
-  bool _isLoading = false;
+  final bool _isLoading = false;
   String getDate() {
     DateTime now = DateTime.now();
     int year = now.year;
@@ -84,8 +84,6 @@ class _CredentialsPageState extends State<CredentialsPage> {
                 } else {
                   Navigator.of(context).pop();
                 }
-
-                ;
               },
             ),
           ],
@@ -100,18 +98,18 @@ class _CredentialsPageState extends State<CredentialsPage> {
         future: fetchUserData('all', getDate(), null, null, null),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError || snapshot.data == null) {
-            return Center(
+            return const Center(
               child: Text('Erro ao carregar dados'),
             );
           } else {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Stack(
                     children: [
@@ -121,10 +119,10 @@ class _CredentialsPageState extends State<CredentialsPage> {
                           onPressed: () {
                             widget.pageController.jumpToPage(3);
                           },
-                          icon: Icon(Icons.arrow_back),
+                          icon: const Icon(Icons.arrow_back),
                         ),
                       ),
-                      Center(
+                      const Center(
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -142,22 +140,22 @@ class _CredentialsPageState extends State<CredentialsPage> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Expanded(
                     child: SingleChildScrollView(
                   child: Container(
-                    padding: EdgeInsets.only(left: 20, right: 20),
+                    padding: const EdgeInsets.only(left: 20, right: 20),
                     child: Column(
                       children: [
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                              color: Color(0xff672D6F),
+                              color: const Color(0xff672D6F),
                               borderRadius: BorderRadius.circular(12)),
-                          child: Text(
+                          child: const Text(
                             'Alterar E-mail',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -178,7 +176,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                       key: _formemailKey,
                                       child: Column(
                                         children: [
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           TextFormField(
@@ -198,8 +196,8 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                                   .colorScheme
                                                   .secondary,
                                               labelStyle:
-                                                  TextStyle(fontSize: 13),
-                                              prefixIcon: Icon(Icons.email),
+                                                  const TextStyle(fontSize: 13),
+                                              prefixIcon: const Icon(Icons.email),
                                               border: OutlineInputBorder(
                                                 borderSide: BorderSide.none,
                                                 borderRadius:
@@ -207,7 +205,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           TextFormField(
@@ -227,8 +225,8 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                                   .colorScheme
                                                   .secondary,
                                               labelStyle:
-                                                  TextStyle(fontSize: 13),
-                                              prefixIcon: Icon(Icons.email),
+                                                  const TextStyle(fontSize: 13),
+                                              prefixIcon: const Icon(Icons.email),
                                               border: OutlineInputBorder(
                                                 borderSide: BorderSide.none,
                                                 borderRadius:
@@ -236,7 +234,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           UpdateEmail(
@@ -247,7 +245,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                                   _oldemailController,
                                               newEmailController:
                                                   _newemailController),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                         ],
@@ -255,24 +253,24 @@ class _CredentialsPageState extends State<CredentialsPage> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
-                        Divider(
+                        const Divider(
                           thickness: 1, // Line thickness in pixels
                           color: Colors.black, // Line color
                           indent: 0, // Indentation from left edge in pixels
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                              color: Color(0xff672D6F),
+                              color: const Color(0xff672D6F),
                               borderRadius: BorderRadius.circular(12)),
-                          child: Text(
+                          child: const Text(
                             'Alterar Palavra-Passe',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -285,14 +283,14 @@ class _CredentialsPageState extends State<CredentialsPage> {
                           data: Theme.of(context)
                               .copyWith(dividerColor: Colors.transparent),
                           child: ExpansionTile(
-                            title: Text('*********'),
+                            title: const Text('*********'),
                             children: [
                               SingleChildScrollView(
                                 child: Form(
                                     key: _formpassKey,
                                     child: Column(
                                       children: [
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
                                         TextFormField(
@@ -311,8 +309,8 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                             fillColor: Theme.of(context)
                                                 .colorScheme
                                                 .secondary,
-                                            labelStyle: TextStyle(fontSize: 13),
-                                            prefixIcon: Icon(Icons.lock),
+                                            labelStyle: const TextStyle(fontSize: 13),
+                                            prefixIcon: const Icon(Icons.lock),
                                             border: OutlineInputBorder(
                                               borderSide: BorderSide.none,
                                               borderRadius:
@@ -320,7 +318,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                             ),
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
                                         PasswordField(
@@ -349,7 +347,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                             return null;
                                           },
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
                                         PasswordField(
@@ -369,7 +367,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                             return null;
                                           },
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
                                         UpdatePass(
@@ -380,7 +378,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
                                           confirmnewpassController:
                                               _confirmNewpassController,
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
                                       ],
@@ -389,13 +387,13 @@ class _CredentialsPageState extends State<CredentialsPage> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                       ],

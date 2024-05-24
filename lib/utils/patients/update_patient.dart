@@ -32,8 +32,8 @@ class _UpdatePatientState extends State<UpdatePatient> {
   late TextEditingController addressController;
   late TextEditingController postalcodeController;
   late TextEditingController townController;
-  late TextEditingController NIFController;
-  late TextEditingController SNSController;
+  late TextEditingController nifController;
+  late TextEditingController snsController;
   bool isLoading = false;
   String message = '';
 
@@ -55,8 +55,8 @@ class _UpdatePatientState extends State<UpdatePatient> {
     postalcodeController =
         TextEditingController(text: widget.patient['postalcode']);
     townController = TextEditingController(text: widget.patient['town']);
-    NIFController = TextEditingController(text: '${widget.patient['nif']}');
-    SNSController = TextEditingController(text: '${widget.patient['sns']}');
+    nifController = TextEditingController(text: '${widget.patient['nif']}');
+    snsController = TextEditingController(text: '${widget.patient['sns']}');
   }
 
   Future<bool?> updatePatient(patientId, name, telephone, email, sex, birthdate,
@@ -129,18 +129,18 @@ class _UpdatePatientState extends State<UpdatePatient> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         width: MediaQuery.of(context).size.width,
         height: 50,
         decoration: BoxDecoration(
-            color: Color(0xff672D6F), borderRadius: BorderRadius.circular(10)),
-        child: Text(
+            color: const Color(0xff672D6F), borderRadius: BorderRadius.circular(10)),
+        child: const Text(
           'Editar Paciente',
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.white),
         ),
       ),
-      content: Container(
+      content: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: 400,
         child: Form(
@@ -227,7 +227,7 @@ class _UpdatePatientState extends State<UpdatePatient> {
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.tertiary,
-                  prefixIcon: Icon(Icons.face),
+                  prefixIcon: const Icon(Icons.face),
                   label: const Text('Sexo'),
                   hintText: 'Sexo do paciente',
                   border: OutlineInputBorder(
@@ -241,7 +241,7 @@ class _UpdatePatientState extends State<UpdatePatient> {
                     value: sex,
                     child: Text(
                       sex,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.normal),
                     ),
                   );
@@ -390,9 +390,9 @@ class _UpdatePatientState extends State<UpdatePatient> {
               TextFormField(
                 enabled: isLoading == false,
                 keyboardType: TextInputType.number,
-                controller: NIFController,
-                validator: (NIF) {
-                  if (NIF == null || NIF.isEmpty) {
+                controller: nifController,
+                validator: (nif) {
+                  if (nif == null || nif.isEmpty) {
                     return 'Insira o NIF do paciente';
                   }
                   return null;
@@ -415,9 +415,9 @@ class _UpdatePatientState extends State<UpdatePatient> {
               TextFormField(
                 enabled: isLoading == false,
                 keyboardType: TextInputType.number,
-                controller: SNSController,
-                validator: (SNS) {
-                  if (SNS == null || SNS.isEmpty) {
+                controller: snsController,
+                validator: (sns) {
+                  if (sns == null || sns.isEmpty) {
                     return 'Insira o SNS do paciente';
                   }
                   return null;
@@ -460,9 +460,9 @@ class _UpdatePatientState extends State<UpdatePatient> {
                     ),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Cancelar',
-                  style: const TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 18),
                 ),
               ),
             ),
@@ -489,8 +489,8 @@ class _UpdatePatientState extends State<UpdatePatient> {
                       addressController.text,
                       postalcodeController.text,
                       townController.text,
-                      NIFController.text,
-                      SNSController.text,
+                      nifController.text,
+                      snsController.text,
                     ).then((success) {
                       if (success == true) {
                         Navigator.of(widget.context).pop();
