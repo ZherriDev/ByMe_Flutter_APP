@@ -312,7 +312,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               filled: true,
                               fillColor:
                                   Theme.of(context).colorScheme.secondary,
-                              prefixIcon: Icon(Icons.badge_rounded),
+                              prefixIcon:
+                                  Icon(Icons.medical_information_rounded),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(20),
@@ -322,7 +323,11 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             items: _specialties.map((String specialty) {
                               return DropdownMenuItem<String>(
                                 value: specialty,
-                                child: Text(specialty),
+                                child: Text(
+                                  specialty,
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal),
+                                ),
                               );
                             }).toList(),
                             onChanged: (newValue) {
@@ -356,7 +361,11 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             items: _sexes.map((String sex) {
                               return DropdownMenuItem<String>(
                                 value: sex,
-                                child: Text(sex),
+                                child: Text(
+                                  sex,
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.normal),
+                                ),
                               );
                             }).toList(),
                             onChanged: (newValue) {

@@ -1,3 +1,4 @@
+import 'package:byme_flutter_app/pages/extra/definitions/about_page.dart';
 import 'package:byme_flutter_app/pages/extra/profile/credentials_page.dart';
 import 'package:byme_flutter_app/pages/extra/patients/module_page.dart';
 import 'package:byme_flutter_app/pages/extra/profile/personal_info.dart';
@@ -90,14 +91,12 @@ class _InsideAppState extends State<InsideApp> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
-            backgroundColor: Colors.white,
             body: Center(
               child: CircularProgressIndicator(),
             ),
           );
         } else if (snapshot.hasError || snapshot.data == null) {
           return Scaffold(
-            backgroundColor: Colors.white,
             body: Center(
               child: Text('Erro ao carregar dados do utilizador'),
             ),
@@ -146,6 +145,9 @@ class _InsideAppState extends State<InsideApp> {
                 ),
                 ModulePage(moduleId: moduleId, pageController: _pageController),
                 SessionsPage(pageController: _pageController),
+                AboutPage(
+                  pageController: _pageController,
+                ),
               ],
             ),
             bottomNavigationBar: CurvedNavigationBar(

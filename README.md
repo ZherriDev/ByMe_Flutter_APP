@@ -1,10 +1,10 @@
-# byme_flutter_app
+# ByMe Flutter Application
 
-ℹ️ Sobre o Projeto
+## About the Project
 
-Este projeto foi desenvolvido juntamente com meus colegas @zherriDev e @Alan7225 durante o nosso estágio na empresa ByMe - Information Technology, Lda.
+This project was developed together with my colleagues @ZherriDev and @Alan7225 during our internship at the company ByMe - Information Technology, Lda. in Portugal.
 
-O objetivo é auxiliar o trabalho de médicos, permitindo que eles gerenciem seus pacientes e consultas. A aplicação oferece uma interface intuitiva e funcionalidades que facilitam o dia a dia do profissional, otimizando seu tempo e aprimorando a qualidade do atendimento.
+The objective is to assist the work of doctors, allowing them to manage their patients and consultations. The application offers an intuitive interface and features that make the professional's day-to-day life easier, optimizing their time and improving the quality of service.
 
-## Getting Started
+## Layout
 

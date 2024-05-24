@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:byme_flutter_app/utils/patients/confirm_transfer.dart';
 import 'package:byme_flutter_app/utils/user/get_doctors_data.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +23,14 @@ class TransferPatient extends StatefulWidget {
 class _TransferPatientState extends State<TransferPatient> {
   final _formKey = GlobalKey<FormState>();
   final search = TextEditingController();
-  Future<Map<String, dynamic>?>? _futureDoctors = getDoctorsData(null);
+  Future<Map<String, dynamic>?> futureDoctors = getDoctorsData(null);
+  String? query;
+
+  void fetchDoctorsData(String? query) async {
+    setState(() {
+      futureDoctors = getDoctorsData(query);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +40,22 @@ class _TransferPatientState extends State<TransferPatient> {
         child: Form(
           key: _formKey,
           child: TextFormField(
+            onChanged: (value) {
+              if (value.isEmpty) {
+                setState(() {
+                  query = null;
+                });
+              } else {
+                setState(() {
+                  query = value;
+                });
+              }
+              fetchDoctorsData(query);
+            },
             controller: search,
             decoration: InputDecoration(
               filled: true,
               fillColor: Theme.of(context).colorScheme.tertiary,
-              suffixIcon: IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
-                  setState(() {
-                    _futureDoctors = getDoctorsData(
-                        search.text.isNotEmpty ? search.text : null);
-                  });
-                },
-              ),
               label: const Text('Pesquisar doutor'),
               hintText: 'Pesquise por um doutor',
               border: OutlineInputBorder(
@@ -57,16 +69,16 @@ class _TransferPatientState extends State<TransferPatient> {
       content: Container(
         height: 400,
         child: FutureBuilder<Map<String, dynamic>?>(
-          future: _futureDoctors,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
+          future: futureDoctors,
+          builder: (context, futureSnapshot) {
+            if (futureSnapshot.connectionState == ConnectionState.waiting) {
               return Scaffold(
                 backgroundColor: Colors.transparent,
                 body: Center(
                   child: CircularProgressIndicator(),
                 ),
               );
-            } else if (snapshot.hasError || snapshot.data == null) {
+            } else if (futureSnapshot.hasError || futureSnapshot.data == null) {
               return Scaffold(
                 backgroundColor: Colors.transparent,
                 body: Center(
@@ -74,7 +86,7 @@ class _TransferPatientState extends State<TransferPatient> {
                 ),
               );
             } else {
-              List<dynamic> doctors = snapshot.data?['doctors'];
+              List<dynamic> doctors = futureSnapshot.data?['doctors'];
 
               if (doctors.length >= 1)
                 return Container(

@@ -1,6 +1,7 @@
 import 'package:byme_flutter_app/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatefulWidget {
   final PageController pageController;
@@ -13,6 +14,16 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  void helpAndSupport() async {
+    final Uri url = Uri.parse('mailto:helpdesk@byme.pt');
+    launchUrl(url).onError(
+      (error, stackTrace) {
+        print("Url is not valid!");
+        return false;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -48,7 +59,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 height: 10,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: helpAndSupport,
                 child: Container(
                   padding: EdgeInsets.all(30),
                   width: MediaQuery.of(context).size.width - 40,
@@ -73,7 +84,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 height: 10,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () => widget.pageController.jumpToPage(10),
                 child: Container(
                   padding: EdgeInsets.all(30),
                   width: MediaQuery.of(context).size.width - 40,
