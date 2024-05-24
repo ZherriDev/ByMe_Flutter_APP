@@ -1,6 +1,6 @@
 # ByMe Flutter Application
 
-## About the Project
+## ℹ️ About the Project
 
 This project was developed together with my colleagues @ZherriDev and @Alan7225 during our internship at the company ByMe - Information Technology, Lda. in Portugal.
 
