@@ -27,7 +27,7 @@ class _SessionAlertDialogState extends State<SessionAlertDialog> {
   @override
   Widget build(BuildContext context) {
     DateFormat formater = DateFormat('EEE, dd MMM yyyy HH:mm:ss zzz');
-
+    late bool _iscurrentSession = widget.index == 0;
     DateTime date = formater.parse(widget.sessions[widget.index]['date_time']);
     int day = date.day;
     String monthName = DateFormat('MMMM', 'pt_BR').format(date);
@@ -105,21 +105,33 @@ class _SessionAlertDialogState extends State<SessionAlertDialog> {
         ),
       ),
       actions: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButtomEndSession(
-              sessionId: widget.sessions[widget.index]['session_id'],
-              setState: widget.setState,
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        )
+        _iscurrentSession
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('OK'),
+                  ),
+                ],
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButtomEndSession(
+                    sessionId: widget.sessions[widget.index]['session_id'],
+                    setState: widget.setState,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('OK'),
+                  ),
+                ],
+              )
       ],
     );
   }
