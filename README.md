@@ -8,3 +8,14 @@ The objective is to assist the work of doctors, allowing them to manage their pa
 
 ## Layout
 
+
+## Installation
+
+1. Download the APK from the following link: https://drive.google.com/file/d/1pB2nOKJEe4tJ0NIzXU5GCPWQzY-LxAj_/view?usp=drive_link
+2. Open the downloaded APK file and follow the instructions to install the app.
+3. Open the App.
+
+If you encounter any issues or have any feedback, please report them to me.
+
+
+
