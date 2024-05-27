@@ -1,4 +1,5 @@
-# ByMe Flutter Application
+# ByMe Flutter Application [![My Skills](https://skillicons.dev/icons?i=flutter)](https://skillicons.dev)
+
 
 ## ℹ️ About the Project
 
