@@ -22,11 +22,11 @@ The objective is to assist the work of doctors, allowing them to manage their pa
 ## 📱 Layout
 | ☀ Light Mode ☀ |
 | ---------- |
-|<img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/f5e924df-d7e0-48f7-8f45-8f9c34eb9f78" width="200px"/> &nbsp; <img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/fc345966-777f-4a50-b714-b7dc77c529e9" width="200px"/> &nbsp; <img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/8add8495-1658-48cc-acbd-844690ef1615" width="200px"/> &nbsp; <img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/49f85b5c-f244-4abb-b48f-962949a3d4d1" width="200px"/>|
+|<img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/f5e924df-d7e0-48f7-8f45-8f9c34eb9f78" width="180px"/> &nbsp; <img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/fc345966-777f-4a50-b714-b7dc77c529e9" width="180px"/> &nbsp; <img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/8add8495-1658-48cc-acbd-844690ef1615" width="180px"/> &nbsp; <img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/49f85b5c-f244-4abb-b48f-962949a3d4d1" width="180px"/>|
 
 | 🌙 Dark Mode 🌙 |
 | --------- |
-|<img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/aa12f42b-d8eb-4efb-810c-9374fc7c2a56" width="200px"/> &nbsp; <img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/fdff42e5-eb41-4b59-94d2-b514fee98d2a" width="200px"/> &nbsp; <img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/f147a967-7e4a-42d6-957c-fa99e2b131fc" width="200px"/> &nbsp; <img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/110848c8-962b-4e8a-928c-0e595f48e860" width="200px"/>|
+|<img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/aa12f42b-d8eb-4efb-810c-9374fc7c2a56" width="180px"/> &nbsp; <img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/fdff42e5-eb41-4b59-94d2-b514fee98d2a" width="180px"/> &nbsp; <img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/f147a967-7e4a-42d6-957c-fa99e2b131fc" width="180px"/> &nbsp; <img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/110848c8-962b-4e8a-928c-0e595f48e860" width="180px"/>|
 
 
 ## ⬇️ Installation
