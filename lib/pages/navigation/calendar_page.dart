@@ -67,7 +67,6 @@ class _CalendarPageState extends State<CalendarPage> {
           );
         } else {
           List<dynamic>? appointmentsData = snapshot.data;
-        
 
           Map<DateTime, List<Appointments>> appointments = {};
 
