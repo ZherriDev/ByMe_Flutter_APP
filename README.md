@@ -1,6 +1,6 @@
 # ByMe Flutter Application 
 
-[![My Skills](https://skillicons.dev/icons?i=flutter,dart)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=flutter,dart,figma)](https://skillicons.dev)
 
 ## ℹ About the Project
 
@@ -8,12 +8,15 @@ This project was developed together with my colleagues @ZherriDev and @Alan7225 
 
 The objective is to assist the work of doctors, allowing them to manage their patients and consultations. The application offers an intuitive interface and features that make the professional's day-to-day life easier, optimizing their time and improving the quality of service.
 
-##  Authors
+##  ✏️ Authors
 
 - [@RaveDev](https://github.com/Ravejaja)
 - [@ZherriDev](https://github.com/ZherriDev)
 
-
+## Tools/Frameworks
+- [Flutter](https://flutter.dev)
+- [Firebase](https://firebase.google.com/?hl=pt)
+- [Figma](https://figma.com)
 
 
 
