@@ -18,17 +18,14 @@ Future<Map<String, dynamic>?> getUserData(String token, int doctorId) async {
         final Map<String, dynamic> userData = jsonDecode(response.body);
         return userData;
       case 400:
-        print('Dados Incorretos');
-        break;
+        return null;
       case 401:
-        print('Token Inválido');
         return {'error': true};
       case 500:
-        print('Erro no servidor');
-        break;
+        return null;
     }
   } catch (error) {
-    print('Error: $error');
+    throw 'Error: $error';
   }
   return null;
 }

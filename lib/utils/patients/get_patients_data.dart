@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 Future<Map<String, dynamic>?> getPatientsData(search, order, state) async {
-  var url;
+  Uri url;
   final userStorage = await readToken();
   String token = userStorage?['token'];
   int doctorId = userStorage?['doctor_id'];
@@ -41,17 +41,14 @@ Future<Map<String, dynamic>?> getPatientsData(search, order, state) async {
         final Map<String, dynamic> patientsData = jsonDecode(response.body);
         return patientsData;
       case 400:
-        print('Dados Incorretos');
-        break;
+        return null;
       case 401:
-        print('Token Inválido');
-        break;
+        return null;
       case 500:
-        print('Erro no servidor');
-        break;
+        return null;
     }
   } catch (error) {
-    print('Error: $error');
+    throw 'Error: $error';
   }
   return null;
 }

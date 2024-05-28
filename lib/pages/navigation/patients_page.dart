@@ -35,13 +35,18 @@ class _PatientsPageState extends State<PatientsPage> {
 
   Widget iconList(state) {
     if (state == 'In Treatment') {
-      return Icon(Icons.healing);
+      return const Icon(Icons.healing);
     } else if (state == 'Awaiting Treatment') {
-      return Icon(Icons.access_time);
+      return const Icon(Icons.access_time);
     } else if (state == 'Completed Treatment') {
-      return Icon(Icons.check_circle);
+      return const Icon(Icons.check_circle);
     }
-    return Icon(Icons.circle);
+    return const Icon(Icons.circle);
+  }
+
+  Future<Map<String, dynamic>?> fetchPatientsData(
+      String? search, order, state) async {
+    return await getPatientsData(search, order, state);
   }
 
   @override
@@ -50,157 +55,156 @@ class _PatientsPageState extends State<PatientsPage> {
       setState(() {});
     }
 
-    return FutureBuilder<Map<String, dynamic>?>(
-      future: getPatientsData(
-          search.text.isNotEmpty ? search.text : null, order, state),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (snapshot.hasError || snapshot.data == null) {
-          return Center(
-            child: Text('Erro ao carregar dados'),
-          );
-        } else {
-          List<dynamic> patients = snapshot.data?['patients'];
-
-          return Container(
-            height: MediaQuery.of(context).size.height,
-            child: Stack(
-              children: [
-                SingleChildScrollView(
-                  child: Container(
-                    padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
-                    child: Column(
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.only(left: 14, right: 14, bottom: 14),
+              child: Column(
+                children: [
+                  Container(
+                    height: 5,
+                  ),
+                  Form(
+                    key: _formKey1,
+                    child: Row(
                       children: [
-                        Container(
-                          height: 5,
-                        ),
-                        Form(
-                          key: _formKey1,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: DropdownButtonFormField<String>(
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor:
-                                        Theme.of(context).colorScheme.secondary,
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  ),
-                                  value: state,
-                                  items: _state.map((String state) {
-                                    return DropdownMenuItem<String>(
-                                      value: state,
-                                      child: iconList(state),
-                                    );
-                                  }).toList(),
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      state = newValue!;
-                                    });
-                                  },
-                                ),
+                        Expanded(
+                          flex: 1,
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor:
+                                  Theme.of(context).colorScheme.secondary,
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              Container(
-                                width: 5,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: DropdownButtonFormField<String>(
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor:
-                                        Theme.of(context).colorScheme.secondary,
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  ),
-                                  value: order,
-                                  items: _order.map((String order) {
-                                    return DropdownMenuItem<String>(
-                                      value: order,
-                                      child: Text(
-                                        order,
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      order = newValue!;
-                                    });
-                                  },
-                                ),
-                              ),
-                              Container(
-                                width: 5,
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: TextFormField(
-                                  controller: search,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor:
-                                        Theme.of(context).colorScheme.secondary,
-                                    suffixIcon: IconButton(
-                                      icon: Icon(Icons.search),
-                                      onPressed: () => reloadPage(),
-                                    ),
-                                    label: const Text('Pesquisar paciente'),
-                                    hintText: 'Pesquise por um paciente',
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
+                            value: state,
+                            items: _state.map((String state) {
+                              return DropdownMenuItem<String>(
+                                value: state,
+                                child: iconList(state),
+                              );
+                            }).toList(),
+                            onChanged: (newValue) {
+                              setState(() {
+                                state = newValue!;
+                              });
+                            },
                           ),
                         ),
                         Container(
-                          height: 10,
+                          width: 5,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.healing),
-                            Text('Em tratamento'),
-                            Container(
-                              width: 10,
+                        Expanded(
+                          flex: 1,
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor:
+                                  Theme.of(context).colorScheme.secondary,
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
-                            Icon(Icons.access_time),
-                            Text('Aguardando tratamento'),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.check_circle),
-                            Text('Tratamento Concluído'),
-                          ],
+                            value: order,
+                            items: _order.map((String order) {
+                              return DropdownMenuItem<String>(
+                                value: order,
+                                child: Text(
+                                  order,
+                                  style: const TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (newValue) {
+                              setState(() {
+                                order = newValue!;
+                              });
+                            },
+                          ),
                         ),
                         Container(
-                          height: 10,
+                          width: 5,
                         ),
-                        if (patients.length >= 1)
-                          Container(
+                        Expanded(
+                          flex: 2,
+                          child: TextFormField(
+                            onChanged: (value) => reloadPage(),
+                            controller: search,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor:
+                                  Theme.of(context).colorScheme.secondary,
+                              label: const Text('Pesquisar paciente'),
+                              hintText: 'Pesquise por um paciente',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.healing),
+                      const Text('Em tratamento'),
+                      Container(
+                        width: 10,
+                      ),
+                      const Icon(Icons.access_time),
+                      const Text('Aguardando tratamento'),
+                    ],
+                  ),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.check_circle),
+                      Text('Tratamento concluído'),
+                    ],
+                  ),
+                  Container(
+                    height: 10,
+                  ),
+                  FutureBuilder<Map<String, dynamic>?>(
+                    future: fetchPatientsData(
+                        search.text.isNotEmpty ? search.text : null,
+                        order,
+                        state),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (snapshot.hasError || snapshot.data == null) {
+                        return const Center(
+                          child: Text('Erro ao carregar dados'),
+                        );
+                      } else {
+                        List<dynamic> patients = snapshot.data?['patients'];
+
+                        if (patients.isNotEmpty) {
+                          return SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height - 425,
                             child: ListView.builder(
                                 itemCount: patients.length,
                                 itemBuilder: (context, index) {
-                                  int patient_id =
+                                  int patientId =
                                       patients[index]['patient_id'];
                                   String image =
                                       'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg';
@@ -211,11 +215,11 @@ class _PatientsPageState extends State<PatientsPage> {
 
                                   return ListTile(
                                     onTap: () {
-                                      widget.patientPageID(patient_id);
+                                      widget.patientPageID(patientId);
                                       widget.pageController.jumpToPage(6);
                                     },
                                     leading: CircleAvatar(
-                                      backgroundColor: Color(0xff672D6F),
+                                      backgroundColor: const Color(0xff672D6F),
                                       backgroundImage: NetworkImage(image),
                                     ),
                                     title: Text(name),
@@ -223,43 +227,45 @@ class _PatientsPageState extends State<PatientsPage> {
                                     trailing: Text(processnumber),
                                   );
                                 }),
-                          )
-                        else
-                          Container(
-                              width: MediaQuery.of(context).size.width - 40,
-                              height: MediaQuery.of(context).size.height - 425,
-                              child: Center(
-                                child: Text('Nenhum paciente encontrado'),
-                              )),
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  right: 15,
-                  bottom: 10,
-                  child: FloatingActionButton(
-                    shape: CircleBorder(),
-                    backgroundColor: Color(0xff672D6F),
-                    child: Icon(
-                      Icons.person_add,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return InsertPatient(
-                                context: context, reloadPage: reloadPage);
-                          });
+                          );
+                        } else {
+                          return SizedBox(
+                            width: MediaQuery.of(context).size.width - 40,
+                            height: MediaQuery.of(context).size.height - 425,
+                            child: const Center(
+                              child: Text('Nenhum paciente encontrado'),
+                            ),
+                          );
+                        }
+                      }
                     },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          );
-        }
-      },
+          ),
+          Positioned(
+            right: 15,
+            bottom: 10,
+            child: FloatingActionButton(
+              shape: const CircleBorder(),
+              backgroundColor: const Color(0xff672D6F),
+              child: const Icon(
+                Icons.person_add,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return InsertPatient(
+                          context: context, reloadPage: reloadPage);
+                    });
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

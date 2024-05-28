@@ -55,7 +55,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   late String _sex;
   late String _currentImage;
   final _formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
+  final bool _isLoading = false;
   final FirebaseStorage storage = FirebaseStorage.instance;
 
   @override
@@ -81,8 +81,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
   }
 
   Future<XFile?> getImage() async {
-    final ImagePicker _picker = ImagePicker();
-    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    XFile? image = await picker.pickImage(source: ImageSource.gallery);
     return image;
   }
 
@@ -96,8 +96,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
       String downloadUrl = await snapshot.ref.getDownloadURL();
       return downloadUrl;
     } on FirebaseException catch (e) {
-      print('Erro ao fazer upload: ${e.code}');
-      throw e;
+      throw 'Erro ao fazer upload: ${e.code}';
     }
   }
 
@@ -106,10 +105,10 @@ class _PersonalInfoState extends State<PersonalInfo> {
     if (file != null) {
       String downloadUrl = await upload(file.path);
 
-      int _phoneValue = int.parse(_phoneController.text);
+      int phoneValue = int.parse(_phoneController.text);
       updateImage(
         _nameController.text,
-        _phoneValue,
+        phoneValue,
         _birthdateController.text,
         _addressController.text,
         _speciality,
@@ -129,11 +128,11 @@ class _PersonalInfoState extends State<PersonalInfo> {
       future: fetchUserData('all', getDate(), null, null, null),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (snapshot.hasError || snapshot.data == null) {
-          return Center(
+          return const Center(
             child: Text('Erro ao carregar dados'),
           );
         } else {
@@ -166,7 +165,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Stack(
                   children: [
@@ -176,10 +175,10 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         onPressed: () {
                           widget.pageController.jumpToPage(3);
                         },
-                        icon: Icon(Icons.arrow_back),
+                        icon: const Icon(Icons.arrow_back),
                       ),
                     ),
-                    Center(
+                    const Center(
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -197,13 +196,13 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Expanded(
                 child: SingleChildScrollView(
                   child: Container(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         top: 10, bottom: 10, left: 20, right: 20),
                     width: 400,
                     child: Form(
@@ -211,7 +210,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       child: Column(
                         children: [
                           ChangeImage(pickAndUploadImage: pickAndUploadImage),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           TextFormField(
@@ -228,15 +227,15 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               filled: true,
                               fillColor:
                                   Theme.of(context).colorScheme.secondary,
-                              labelStyle: TextStyle(fontSize: 13),
-                              prefixIcon: Icon(Icons.person),
+                              labelStyle: const TextStyle(fontSize: 13),
+                              prefixIcon: const Icon(Icons.person),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           TextFormField(
@@ -253,15 +252,15 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               filled: true,
                               fillColor:
                                   Theme.of(context).colorScheme.secondary,
-                              labelStyle: TextStyle(fontSize: 13),
-                              prefixIcon: Icon(Icons.phone),
+                              labelStyle: const TextStyle(fontSize: 13),
+                              prefixIcon: const Icon(Icons.phone),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           TextFormField(
@@ -276,15 +275,15 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               filled: true,
                               fillColor:
                                   Theme.of(context).colorScheme.secondary,
-                              labelStyle: TextStyle(fontSize: 13),
-                              prefixIcon: Icon(Icons.calendar_today),
+                              labelStyle: const TextStyle(fontSize: 13),
+                              prefixIcon: const Icon(Icons.calendar_today),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           TextFormField(
@@ -295,15 +294,15 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               filled: true,
                               fillColor:
                                   Theme.of(context).colorScheme.secondary,
-                              labelStyle: TextStyle(fontSize: 13),
-                              prefixIcon: Icon(Icons.location_on),
+                              labelStyle: const TextStyle(fontSize: 13),
+                              prefixIcon: const Icon(Icons.location_on),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           DropdownButtonFormField<String>(
@@ -313,7 +312,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               fillColor:
                                   Theme.of(context).colorScheme.secondary,
                               prefixIcon:
-                                  Icon(Icons.medical_information_rounded),
+                                  const Icon(Icons.medical_information_rounded),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(20),
@@ -326,7 +325,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                 child: Text(
                                   specialty,
                                   style:
-                                      TextStyle(fontWeight: FontWeight.normal),
+                                      const TextStyle(fontWeight: FontWeight.normal),
                                 ),
                               );
                             }).toList(),
@@ -342,7 +341,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               return null;
                             },
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           DropdownButtonFormField<String>(
@@ -351,7 +350,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                               filled: true,
                               fillColor:
                                   Theme.of(context).colorScheme.secondary,
-                              prefixIcon: Icon(Icons.face),
+                              prefixIcon: const Icon(Icons.face),
                               border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(20),
@@ -364,7 +363,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                 child: Text(
                                   sex,
                                   style:
-                                      TextStyle(fontWeight: FontWeight.normal),
+                                      const TextStyle(fontWeight: FontWeight.normal),
                                 ),
                               );
                             }).toList(),
@@ -406,17 +405,17 @@ class _PersonalInfoState extends State<PersonalInfo> {
     );
   }
 
-  Future<void> _selectDate(_birthdate) async {
-    DateTime? _picked = await showDatePicker(
+  Future<void> _selectDate(birthdate) async {
+    DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(1950),
       lastDate: DateTime(2025),
     );
 
-    if (_picked != null) {
+    if (picked != null) {
       setState(() {
-        _birthdate.text = DateFormat('yyyy-MM-dd').format(_picked);
+        birthdate.text = DateFormat('yyyy-MM-dd').format(picked);
       });
     }
   }

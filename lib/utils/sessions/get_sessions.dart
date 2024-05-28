@@ -23,16 +23,14 @@ Future<Map<String, dynamic>?> getUserSessions() async {
         final Map<String, dynamic> userSessions = jsonDecode(response.body);
         return userSessions;
       case 400:
-        print('Dados Incorretos');
-        break;
+        return null;
       case 401:
-        print('Token Inválido');
+        return null;
       case 500:
-        print('Erro no servidor');
-        break;
+        return null;
     }
   } catch (error) {
-    print('Error: $error');
+    throw 'Error: $error';
   }
   return null;
 }

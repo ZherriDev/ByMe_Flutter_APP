@@ -5,7 +5,7 @@ import 'dart:convert';
 Future<bool> updateSession(sessionId) async {
   final Map<String, dynamic>? tokenId = await readToken();
   final String token = tokenId?['token'];
-  bool _success = false;
+  bool success = false;
 
   var url =
       Uri.parse('https://api-py-byme.onrender.com/sessions/update_session');
@@ -23,18 +23,16 @@ Future<bool> updateSession(sessionId) async {
 
     switch (response.statusCode) {
       case 200:
-        _success = true;
+        success = true;
       case 400:
-        print('Dados Incorretos');
         break;
       case 401:
-        print('Token Inválido');
+        break;
       case 500:
-        print('Erro no servidor');
         break;
     }
   } catch (error) {
-    print('Error: $error');
+    throw 'Error: $error';
   }
-  return _success;
+  return success;
 }

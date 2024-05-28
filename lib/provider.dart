@@ -8,22 +8,22 @@ class UIProvider extends ChangeNotifier {
   late SharedPreferences storage;
 
   final darkTheme = ThemeData(
-      primaryColor: Color(0xff672D6F),
+      primaryColor: const Color(0xff672D6F),
       brightness: Brightness.dark,
       colorScheme: ColorScheme.dark(
-        background: Color(0xFF1e1e1e),
-        secondary: Color(0xFF353535),
+        background: const Color(0xFF1e1e1e),
+        secondary: const Color(0xFF353535),
         primary: Colors.white,
         tertiary: Colors.grey[700]?.withOpacity(0.3),
       ),
       useMaterial3: true);
 
   final lightTheme = ThemeData(
-      primaryColor: Color(0xff672D6F),
+      primaryColor: const Color(0xff672D6F),
       brightness: Brightness.light,
       colorScheme: ColorScheme.light(
         background: Colors.white,
-        secondary: Color(0xFFe9e9e9),
+        secondary: const Color(0xFFe9e9e9),
         primary: Colors.black,
         tertiary: Colors.grey[400]?.withOpacity(0.3),
       ),

@@ -107,18 +107,18 @@ class _AddModuleState extends State<AddModule> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         width: MediaQuery.of(context).size.width,
         height: 50,
         decoration: BoxDecoration(
-            color: Color(0xff672D6F), borderRadius: BorderRadius.circular(10)),
-        child: Text(
+            color: const Color(0xff672D6F), borderRadius: BorderRadius.circular(10)),
+        child: const Text(
           'Novo Módulo',
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.white),
         ),
       ),
-      content: Container(
+      content: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: 315,
         child: Form(
@@ -159,7 +159,7 @@ class _AddModuleState extends State<AddModule> {
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.tertiary,
-                  prefixIcon: Icon(Icons.abc),
+                  prefixIcon: const Icon(Icons.abc),
                   label: const Text('Módulo'),
                   hintText: 'Escolha o módulo',
                   border: OutlineInputBorder(
@@ -173,7 +173,7 @@ class _AddModuleState extends State<AddModule> {
                     value: module,
                     child: Text(
                       module,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.normal),
                     ),
                   );
@@ -197,7 +197,7 @@ class _AddModuleState extends State<AddModule> {
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.tertiary,
-                  prefixIcon: Icon(Icons.info),
+                  prefixIcon: const Icon(Icons.info),
                   label: const Text('Estado'),
                   hintText: 'Estado do módulo',
                   border: OutlineInputBorder(
@@ -211,7 +211,7 @@ class _AddModuleState extends State<AddModule> {
                     value: status,
                     child: Text(
                       status,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.normal),
                     ),
                   );
@@ -254,9 +254,9 @@ class _AddModuleState extends State<AddModule> {
                     ),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Cancelar',
-                  style: const TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 18),
                 ),
               ),
             ),

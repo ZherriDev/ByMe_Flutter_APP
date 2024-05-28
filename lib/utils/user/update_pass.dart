@@ -7,9 +7,8 @@ Future<bool> updatePass(String oldPassword, String newPassword) async {
   final userStorage = await readToken();
   String token = userStorage?['token'];
   int doctorId = userStorage?['doctor_id'];
-  bool _succes = false;
+  bool succes = false;
   var url = Uri.parse('https://api-py-byme.onrender.com/auth/change_password');
-  ;
   var body = {
     "doctor_id": doctorId,
     "old_password": oldPassword,
@@ -33,22 +32,18 @@ Future<bool> updatePass(String oldPassword, String newPassword) async {
 
     switch (response.statusCode) {
       case 200:
-        _succes = true;
+        succes = true;
       case 400:
-        print('Requisição Inválida');
         break;
       case 401:
-        print('Token Inválido');
         break;
       case 500:
-        print('Erro no servidor');
         break;
       case 405:
-        print('Método não permitido');
         break;
     }
   } catch (error) {
-    print('Error: $error');
+    throw 'Error: $error';
   }
-  return _succes;
+  return succes;
 }

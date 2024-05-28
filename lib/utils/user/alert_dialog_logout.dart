@@ -2,6 +2,8 @@ import "package:byme_flutter_app/utils/token/logout.dart";
 import "package:flutter/material.dart";
 
 class AlertDialogLogout extends StatefulWidget {
+  const AlertDialogLogout({super.key});
+  
   @override
   State<AlertDialogLogout> createState() => _AlertDialogLogoutState();
 }
@@ -17,10 +19,10 @@ class _AlertDialogLogoutState extends State<AlertDialogLogout> {
         height: 150,
         child: Image.asset('assets/images/warning.png'),
       ),
-      content: Text(
+      content: const Text(
         'Tens a certeza que queres terminar sessão?',
         textAlign: TextAlign.center,
-        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       actions: [
         Row(
@@ -31,7 +33,7 @@ class _AlertDialogLogoutState extends State<AlertDialogLogout> {
                 setState(() {
                   _isLoading = true;
                 });
-                LogOut().then((success) => {
+                logOut().then((success) => {
                       if (success)
                         {
                           setState(() {
@@ -46,7 +48,7 @@ class _AlertDialogLogoutState extends State<AlertDialogLogout> {
                           }),
                           Navigator.of(context).pop(),
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
+                            const SnackBar(
                               content: Text(
                                 'Não foi possível terminar a sessão',
                                 style: TextStyle(color: Colors.white),
@@ -58,15 +60,15 @@ class _AlertDialogLogoutState extends State<AlertDialogLogout> {
                         }
                     });
               },
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.red,
+              ),
               child: _isLoading
-                  ? CircularProgressIndicator()
+                  ? const CircularProgressIndicator()
                   : const Text(
                       'Terminar Sessão',
                       style: TextStyle(color: Colors.white),
                     ),
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.red,
-              ),
             ),
             TextButton(
               onPressed: () {

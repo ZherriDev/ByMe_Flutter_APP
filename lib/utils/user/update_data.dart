@@ -8,10 +8,9 @@ Future<bool> updateData(
   final userStorage = await readToken();
   String token = userStorage?['token'];
   int doctorId = userStorage?['doctor_id'];
-  bool _succes = false;
+  bool succes = false;
    var url = Uri.parse(
       'https://api-py-byme.onrender.com/doctor/update_doctor');
-  ;
   var body = {
     "doctor_id": doctorId,
     "fullname": name,
@@ -39,20 +38,17 @@ Future<bool> updateData(
 
     switch (response.statusCode) {
       case 200:
-        _succes = true;
+        succes = true;
       case 400:
-        print('Requisição Inválida');
         break;
       case 401:
-        print('Token Inválido');
         break;
       case 500:
-        print('Erro no servidor');
         break;
     }
   } catch (error) {
-    print('Error: $error');
-    _succes = false;
+    succes = false;
+    throw 'Error: $error';
   }
-  return _succes;
+  return succes;
 }

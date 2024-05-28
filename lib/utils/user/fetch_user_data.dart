@@ -17,7 +17,6 @@ Future<Map<String, dynamic>?> fetchUserData(String query, String date, search, o
 
     return data;
   } catch (e) {
-    print('Erro ao obter dados do utilizador: $e');
-    return null;
+    throw 'Erro ao obter dados do utilizador: $e';
   }
 }

@@ -10,24 +10,25 @@ class SessionAlertDialog extends StatefulWidget {
   final List<dynamic> sessions;
   final void Function() setState;
 
-  SessionAlertDialog({
+  const SessionAlertDialog({
+    Key? key, 
     required this.isAndroid,
     required this.androidImage,
     required this.iOSImage,
     required this.index,
     required this.sessions,
     required this.setState,
-  });
+  }) : super(key: key);
 
   @override
-  _SessionAlertDialogState createState() => _SessionAlertDialogState();
+  State<SessionAlertDialog> createState() => _SessionAlertDialogState();
 }
 
 class _SessionAlertDialogState extends State<SessionAlertDialog> {
   @override
   Widget build(BuildContext context) {
     DateFormat formater = DateFormat('EEE, dd MMM yyyy HH:mm:ss zzz');
-    late bool _iscurrentSession = widget.index == 0;
+    late bool iscurrentSession = widget.index == 0;
     DateTime date = formater.parse(widget.sessions[widget.index]['date_time']);
     int day = date.day;
     String monthName = DateFormat('MMMM', 'pt_BR').format(date);
@@ -48,11 +49,11 @@ class _SessionAlertDialogState extends State<SessionAlertDialog> {
                       backgroundColor: Colors.transparent,
                     ),
               widget.isAndroid
-                  ? Text(
+                  ? const Text(
                       'Dispositivo Android',
                       style: TextStyle(fontSize: 20),
                     )
-                  : Text(
+                  : const Text(
                       'Dispositivo IOS',
                       style: TextStyle(fontSize: 20),
                     ),
@@ -60,14 +61,14 @@ class _SessionAlertDialogState extends State<SessionAlertDialog> {
           )
         ],
       ),
-      content: Container(
+      content: SizedBox(
         height: 100,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                Text(
+                const Text(
                   'Nome do Dispositivo: ',
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
@@ -76,7 +77,7 @@ class _SessionAlertDialogState extends State<SessionAlertDialog> {
             ),
             Row(
               children: [
-                Text(
+                const Text(
                   'Endereço IP: ',
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
@@ -85,16 +86,16 @@ class _SessionAlertDialogState extends State<SessionAlertDialog> {
             ),
             Row(
               children: [
-                Text(
+                const Text(
                   'Data de Início: ',
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
-                Text('${day} de ${monthName}'),
+                Text('$day de $monthName'),
               ],
             ),
             Row(
               children: [
-                Text(
+                const Text(
                   'Localização: ',
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
@@ -105,7 +106,7 @@ class _SessionAlertDialogState extends State<SessionAlertDialog> {
         ),
       ),
       actions: [
-        _iscurrentSession
+        iscurrentSession
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -113,7 +114,7 @@ class _SessionAlertDialogState extends State<SessionAlertDialog> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text('OK'),
+                    child: const Text('OK'),
                   ),
                 ],
               )
@@ -128,7 +129,7 @@ class _SessionAlertDialogState extends State<SessionAlertDialog> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text('OK'),
+                    child: const Text('OK'),
                   ),
                 ],
               )
@@ -140,7 +141,7 @@ class _SessionAlertDialogState extends State<SessionAlertDialog> {
 class IconButtomEndSession extends StatefulWidget {
   final int sessionId;
   final void Function() setState;
-  const IconButtomEndSession({required this.sessionId, required this.setState});
+  const IconButtomEndSession({Key? key, required this.sessionId, required this.setState}) : super(key: key);
 
   @override
   State<IconButtomEndSession> createState() => _IconButtomEndSessionState();
@@ -163,7 +164,7 @@ class _IconButtomEndSessionState extends State<IconButtomEndSession> {
                     Navigator.of(context).pop(),
                     widget.setState(),
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         content: Text(
                           'Sessão terminada com sucesso',
                           style: TextStyle(color: Colors.white),
@@ -180,7 +181,7 @@ class _IconButtomEndSessionState extends State<IconButtomEndSession> {
                     }),
                     Navigator.of(context).pop(),
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         content: Text(
                           'Não foi possível terminar a sessão',
                           style: TextStyle(color: Colors.white),
@@ -193,15 +194,15 @@ class _IconButtomEndSessionState extends State<IconButtomEndSession> {
               });
         });
       },
-      child: _isLoading
-          ? CircularProgressIndicator()
-          : Text(
-              'Terminar Sessão',
-              style: TextStyle(color: Colors.white),
-            ),
       style: TextButton.styleFrom(
         backgroundColor: Colors.red,
       ),
+      child: _isLoading
+          ? const CircularProgressIndicator()
+          : const Text(
+              'Terminar Sessão',
+              style: TextStyle(color: Colors.white),
+            ),
     );
   }
 }

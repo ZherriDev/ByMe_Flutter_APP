@@ -303,7 +303,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               style: TextStyle(
                                   color: Theme.of(context).colorScheme.primary,
                                   fontSize: 16),
-                              children: [
+                              children: const [
                             TextSpan(
                                 text: "Concordo com os ",
                                 style:

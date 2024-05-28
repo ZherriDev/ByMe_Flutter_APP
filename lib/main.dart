@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
             );
           }
           if (app.hasError) {
-            return Text('Error');
+            return const Text('Error');
           } else {
             return const Center(child: CircularProgressIndicator());
           }

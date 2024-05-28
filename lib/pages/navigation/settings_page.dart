@@ -18,8 +18,7 @@ class _SettingsPageState extends State<SettingsPage> {
     final Uri url = Uri.parse('mailto:helpdesk@byme.pt');
     launchUrl(url).onError(
       (error, stackTrace) {
-        print("Url is not valid!");
-        return false;
+        throw "Url is not valid!";
       },
     );
   }
@@ -27,7 +26,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
+      padding: const EdgeInsets.only(left: 14, right: 14, bottom: 14),
       child: Consumer<UIProvider>(
         builder: (context, UIProvider notifier, child) {
           return Column(
@@ -35,7 +34,7 @@ class _SettingsPageState extends State<SettingsPage> {
               GestureDetector(
                 onTap: () => notifier.changeTheme(),
                 child: Container(
-                  padding: EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(30),
                   width: MediaQuery.of(context).size.width - 40,
                   height: 80,
                   decoration: BoxDecoration(
@@ -48,7 +47,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           notifier.isDark ? Icons.light_mode : Icons.dark_mode),
                       Text(
                         notifier.isDark ? 'Modo Claro' : 'Modo Escuro',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       )
                     ],
@@ -61,13 +60,13 @@ class _SettingsPageState extends State<SettingsPage> {
               GestureDetector(
                 onTap: helpAndSupport,
                 child: Container(
-                  padding: EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(30),
                   width: MediaQuery.of(context).size.width - 40,
                   height: 80,
                   decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(20)),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Icon(Icons.support_agent),
@@ -86,13 +85,13 @@ class _SettingsPageState extends State<SettingsPage> {
               GestureDetector(
                 onTap: () => widget.pageController.jumpToPage(10),
                 child: Container(
-                  padding: EdgeInsets.all(30),
+                  padding: const EdgeInsets.all(30),
                   width: MediaQuery.of(context).size.width - 40,
                   height: 80,
                   decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(20)),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Icon(Icons.info),

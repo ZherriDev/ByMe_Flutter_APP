@@ -26,8 +26,8 @@ class _InsertPatientState extends State<InsertPatient> {
   final addressController = TextEditingController();
   final postalcodeController = TextEditingController();
   final townController = TextEditingController();
-  final NIFController = TextEditingController();
-  final SNSController = TextEditingController();
+  final nifController = TextEditingController();
+  final snsController = TextEditingController();
   String status = "Aguardando tratamento";
   bool isLoading = false;
   String message = '';
@@ -119,18 +119,18 @@ class _InsertPatientState extends State<InsertPatient> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         width: MediaQuery.of(context).size.width,
         height: 50,
         decoration: BoxDecoration(
-            color: Color(0xff672D6F), borderRadius: BorderRadius.circular(10)),
-        child: Text(
+            color: const Color(0xff672D6F), borderRadius: BorderRadius.circular(10)),
+        child: const Text(
           'Novo Paciente',
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.white),
         ),
       ),
-      content: Container(
+      content: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: 400,
         child: Form(
@@ -217,7 +217,7 @@ class _InsertPatientState extends State<InsertPatient> {
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.tertiary,
-                  prefixIcon: Icon(Icons.face),
+                  prefixIcon: const Icon(Icons.face),
                   label: const Text('Sexo'),
                   hintText: 'Sexo do paciente',
                   border: OutlineInputBorder(
@@ -231,7 +231,7 @@ class _InsertPatientState extends State<InsertPatient> {
                     value: sex,
                     child: Text(
                       sex,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.normal),
                     ),
                   );
@@ -380,9 +380,9 @@ class _InsertPatientState extends State<InsertPatient> {
               TextFormField(
                 enabled: isLoading == false,
                 keyboardType: TextInputType.number,
-                controller: NIFController,
-                validator: (NIF) {
-                  if (NIF == null || NIF.isEmpty) {
+                controller: nifController,
+                validator: (nif) {
+                  if (nif == null || nif.isEmpty) {
                     return 'Insira o NIF do paciente';
                   }
                   return null;
@@ -405,9 +405,9 @@ class _InsertPatientState extends State<InsertPatient> {
               TextFormField(
                 enabled: isLoading == false,
                 keyboardType: TextInputType.number,
-                controller: SNSController,
-                validator: (SNS) {
-                  if (SNS == null || SNS.isEmpty) {
+                controller: snsController,
+                validator: (sns) {
+                  if (sns == null || sns.isEmpty) {
                     return 'Insira o SNS do paciente';
                   }
                   return null;
@@ -431,7 +431,7 @@ class _InsertPatientState extends State<InsertPatient> {
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.tertiary,
-                  prefixIcon: Icon(Icons.info),
+                  prefixIcon: const Icon(Icons.info),
                   label: const Text('Estado'),
                   hintText: 'Estado do paciente',
                   border: OutlineInputBorder(
@@ -445,7 +445,7 @@ class _InsertPatientState extends State<InsertPatient> {
                     value: status,
                     child: Text(
                       status,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.normal),
                     ),
                   );
@@ -488,9 +488,9 @@ class _InsertPatientState extends State<InsertPatient> {
                     ),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Cancelar',
-                  style: const TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 18),
                 ),
               ),
             ),
@@ -516,8 +516,8 @@ class _InsertPatientState extends State<InsertPatient> {
                             addressController.text,
                             postalcodeController.text,
                             townController.text,
-                            NIFController.text,
-                            SNSController.text,
+                            nifController.text,
+                            snsController.text,
                             status)
                         .then((success) {
                       if (success == true) {

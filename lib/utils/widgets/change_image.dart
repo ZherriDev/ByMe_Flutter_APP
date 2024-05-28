@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class ChangeImage extends StatefulWidget {
   final void Function() pickAndUploadImage;
-  ChangeImage({
+  const ChangeImage({
+    Key? key,
     required this.pickAndUploadImage,
-  });
+  }) : super(key: key);
 
   @override
   State<ChangeImage> createState() => _ChangeImageState();
@@ -16,16 +17,16 @@ class _ChangeImageState extends State<ChangeImage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 20, right: 20),
+      padding: const EdgeInsets.only(left: 20, right: 20),
       child: Row(
         children: [
-          Expanded(
+          const Expanded(
               flex: 6,
               child: Text(
                 'Mudar Imagem de Perfil',
               )),
           _isLoadingImage
-              ? Center(
+              ? const Center(
                   child: SizedBox(
                     child: CircularProgressIndicator(),
                   ),
@@ -37,7 +38,7 @@ class _ChangeImageState extends State<ChangeImage> {
                     });
                     widget.pickAndUploadImage();
                   },
-                  icon: Icon(Icons.add_a_photo)),
+                  icon: const Icon(Icons.add_a_photo)),
         ],
       ),
     );

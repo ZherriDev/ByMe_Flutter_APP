@@ -58,11 +58,11 @@ class _CalendarPageState extends State<CalendarPage> {
       future: getAppointmentsClassData('all', getDate()),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (snapshot.hasError || snapshot.data == null) {
-          return Center(
+          return const Center(
             child: Text('Erro ao carregar dados'),
           );
         } else {
@@ -96,12 +96,13 @@ class _CalendarPageState extends State<CalendarPage> {
             }
           }
 
-          return Container(
+          return SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Stack(
               children: [
                 SingleChildScrollView(
-                  padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
+                  padding:
+                      const EdgeInsets.only(left: 14, right: 14, bottom: 14),
                   child: Center(
                     child: TableCalendarWidget(
                       appointments: appointments,
@@ -115,8 +116,8 @@ class _CalendarPageState extends State<CalendarPage> {
                   right: 15,
                   bottom: 10,
                   child: FloatingActionButton(
-                    shape: CircleBorder(),
-                    backgroundColor: Color(0xff672D6F),
+                    shape: const CircleBorder(),
+                    backgroundColor: const Color(0xff672D6F),
                     onPressed: () {
                       showDialog(
                           context: context,
@@ -128,7 +129,7 @@ class _CalendarPageState extends State<CalendarPage> {
                             );
                           });
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.add,
                       color: Colors.white,
                     ),
@@ -150,17 +151,19 @@ class TableCalendarWidget extends StatefulWidget {
   final PageController pageController;
 
   const TableCalendarWidget(
-      {required this.appointments,
+      {Key? key,
+      required this.appointments,
       required this.patientPageID,
       required this.reloadPage,
-      required this.pageController});
+      required this.pageController})
+      : super(key: key);
 
   @override
   State<TableCalendarWidget> createState() => _TableCalendarWidgetState();
 }
 
 class _TableCalendarWidgetState extends State<TableCalendarWidget> {
-  DateTime _today = DateTime.now();
+  final DateTime _today = DateTime.now();
   DateTime? _selectedDay;
   DateTime? _focusedDay;
   late ValueNotifier<List<Appointments>> _selectedEvents;
@@ -175,11 +178,12 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    if (!isSameDay(_selectedDay, selectedDay))
+    if (!isSameDay(_selectedDay, selectedDay)) {
       setState(() {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
       });
+    }
     _selectedEvents.value = _getEventsForDay(_selectedDay!);
   }
 
@@ -196,12 +200,12 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
       children: [
         TableCalendar(
           calendarStyle: CalendarStyle(
-              todayTextStyle: TextStyle(color: Colors.white),
+              todayTextStyle: const TextStyle(color: Colors.white),
               todayDecoration: BoxDecoration(
                   color: const Color(0xff672D6F).withOpacity(0.5),
                   shape: BoxShape.circle),
-              selectedDecoration: BoxDecoration(
-                  color: const Color(0xff672D6F), shape: BoxShape.circle)),
+              selectedDecoration: const BoxDecoration(
+                  color: Color(0xff672D6F), shape: BoxShape.circle)),
           headerStyle: HeaderStyle(
             formatButtonVisible: true,
             titleCentered: true,
@@ -213,7 +217,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
           locale: "pt_BR",
           focusedDay: _focusedDay!,
           firstDay: _today,
-          lastDay: _today.add(Duration(days: 90)),
+          lastDay: _today.add(const Duration(days: 90)),
           selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
           onDaySelected: _onDaySelected,
           eventLoader: _getEventsForDay,
@@ -228,14 +232,14 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
           },
           calendarFormat: _calendarFormat,
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         ValueListenableBuilder<List<Appointments>>(
             valueListenable: _selectedEvents,
             builder: (context, value, _) {
               if (value.isEmpty) {
-                return Center(
+                return const Center(
                   child: Text('Não há consultas para este dia'),
                 );
               } else {
@@ -249,26 +253,26 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
                   minusHeight = 455;
                 }
 
-                return Container(
+                return SizedBox(
                   height: MediaQuery.of(context).size.height - minusHeight,
                   width: MediaQuery.of(context).size.width,
                   child: ListView.builder(
                       itemCount: value.length,
                       itemBuilder: (context, index) {
-                        int appointment_id = value[index].appointmentId;
-                        int patient_id = value[index].patientId;
+                        int appointmentId = value[index].appointmentId;
+                        int patientId = value[index].patientId;
                         String patientName = value[index].patientName;
                         String time = value[index].time;
 
                         return ListTile(
                           onTap: () {
-                            widget.patientPageID(patient_id);
+                            widget.patientPageID(patientId);
                             widget.pageController.jumpToPage(6);
                           },
                           title: Text(patientName),
                           subtitle: Text(
                             time,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           trailing: IconButton(
                             onPressed: () {
@@ -278,12 +282,12 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
                                     return DeleteAppointment(
                                       reloadPage: widget.reloadPage,
                                       context: context,
-                                      appointmentId: appointment_id,
+                                      appointmentId: appointmentId,
                                       pageController: widget.pageController,
                                     );
                                   });
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.close,
                               size: 25,
                               color: Colors.red,

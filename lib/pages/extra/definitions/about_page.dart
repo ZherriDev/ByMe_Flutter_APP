@@ -7,10 +7,10 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       child: Column(
         children: [
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Stack(
               children: [
@@ -20,10 +20,10 @@ class AboutPage extends StatelessWidget {
                     onPressed: () {
                       pageController.jumpToPage(4);
                     },
-                    icon: Icon(Icons.arrow_back),
+                    icon: const Icon(Icons.arrow_back),
                   ),
                 ),
-                Center(
+                const Center(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -44,9 +44,9 @@ class AboutPage extends StatelessWidget {
           Container(
             height: 20,
           ),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width - 40,
-            child: Text(
+            child: const Text(
               'O objetivo da aplicação é auxiliar o trabalho de '
               'médicos, permitindo-os que gerenciem seus '
               'pacientes e consultas. Ela oferece uma '

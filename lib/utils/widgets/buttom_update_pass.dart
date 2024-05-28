@@ -12,12 +12,13 @@ class UpdatePass extends StatefulWidget {
   final TextEditingController confirmnewpassController;
 
   const UpdatePass({
+    Key? key,
     required this.formKey,
     required this.oldpassController,
     required this.newpassController,
     required this.confirmnewpassController,
     required this.showSuccessPopUp,
-  });
+  }) : super(key: key);
 
   @override
   State<UpdatePass> createState() => _UpdatePassState();
@@ -31,11 +32,10 @@ class _UpdatePassState extends State<UpdatePass> {
     final userStorage = await readToken();
     String token = userStorage?['token'];
     int doctorId = userStorage?['doctor_id'];
-    bool _succes = false;
+    bool succes = false;
 
     var url =
         Uri.parse('https://api-py-byme.onrender.com/auth/change_password');
-    ;
     var body = {
       "doctor_id": doctorId,
       "old_password": oldPassword,
@@ -58,7 +58,7 @@ class _UpdatePassState extends State<UpdatePass> {
       switch (response.statusCode) {
         case 200:
           clearToken();
-          _succes = true;
+          succes = true;
         case 400:
           setState(() {
             _errorMessage = 'Requisição Inválida';
@@ -76,19 +76,16 @@ class _UpdatePassState extends State<UpdatePass> {
             _errorMessage = 'Algo correu mal';
           });
           break;
-        case 405:
-          print('Método não permitido');
-          break;
       }
     } catch (error) {
-      print('Error: $error');
+      throw 'Error: $error';
     }
-    return _succes;
+    return succes;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 100,
       child: ElevatedButton(
         onPressed: () {

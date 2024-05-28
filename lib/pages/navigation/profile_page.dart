@@ -1,8 +1,6 @@
 import 'package:byme_flutter_app/utils/user/alert_dialog_logout.dart';
 import 'package:byme_flutter_app/utils/user/fetch_user_data.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class DoctorProfile extends StatefulWidget {
   final PageController pageController;
@@ -31,11 +29,11 @@ class _DoctorProfileState extends State<DoctorProfile> {
         future: fetchUserData('all', getDate(), null, null, null),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError || snapshot.data == null) {
-            return Center(
+            return const Center(
               child: Text('Erro ao carregar dados'),
             );
           } else {
@@ -55,19 +53,19 @@ class _DoctorProfileState extends State<DoctorProfile> {
                     Text(
                       snapshot.data?['user']['doctor']['fullname'],
                       style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                          const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.business_rounded),
+                        const Icon(Icons.business_rounded),
                         Text(snapshot.data?['user']['doctor']['hospital']),
                       ],
                     ),
                   ],
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -85,7 +83,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               'Consultas agendadas',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -95,7 +93,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                             Text(
                               '$appointmentsAll',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
@@ -103,7 +101,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 60),
+                    const SizedBox(width: 60),
                     GestureDetector(
                       onTap: () {
                         widget.pageController.jumpToPage(2);
@@ -117,7 +115,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               'Pacientes',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -127,7 +125,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                             Text(
                               '$patientsAll',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
@@ -137,12 +135,12 @@ class _DoctorProfileState extends State<DoctorProfile> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 Container(
                   padding:
-                      EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                      const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
                   height: 250,
                   width: 340,
                   child: Column(
@@ -153,7 +151,9 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           onTap: () {
                             widget.pageController.jumpToPage(5);
                           },
-                          child: Container(
+                          child: const SizedBox(
+                            width: double.infinity,
+                            height: double.infinity,
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -172,8 +172,6 @@ class _DoctorProfileState extends State<DoctorProfile> {
                                 Icon(Icons.chevron_right),
                               ],
                             ),
-                            width: double.infinity,
-                            height: double.infinity,
                           ),
                         ),
                       ),
@@ -188,7 +186,9 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           onTap: () {
                             widget.pageController.jumpToPage(7);
                           },
-                          child: Container(
+                          child: const SizedBox(
+                            width: double.infinity,
+                            height: double.infinity,
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -207,8 +207,6 @@ class _DoctorProfileState extends State<DoctorProfile> {
                                 Icon(Icons.chevron_right)
                               ],
                             ),
-                            width: double.infinity,
-                            height: double.infinity,
                           ),
                         ),
                       ),
@@ -223,7 +221,9 @@ class _DoctorProfileState extends State<DoctorProfile> {
                           onTap: () {
                             widget.pageController.jumpToPage(9);
                           },
-                          child: Container(
+                          child: const SizedBox(
+                            width: double.infinity,
+                            height: double.infinity,
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -242,8 +242,6 @@ class _DoctorProfileState extends State<DoctorProfile> {
                                 Icon(Icons.chevron_right)
                               ],
                             ),
-                            width: double.infinity,
-                            height: double.infinity,
                           ),
                         ),
                       ),
@@ -259,10 +257,12 @@ class _DoctorProfileState extends State<DoctorProfile> {
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return AlertDialogLogout();
+                                  return const AlertDialogLogout();
                                 });
                           },
-                          child: Container(
+                          child: const SizedBox(
+                            width: double.infinity,
+                            height: double.infinity,
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -281,8 +281,6 @@ class _DoctorProfileState extends State<DoctorProfile> {
                                 Icon(Icons.chevron_right)
                               ],
                             ),
-                            width: double.infinity,
-                            height: double.infinity,
                           ),
                         ),
                       ),

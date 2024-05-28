@@ -56,13 +56,13 @@ class _PatientPageState extends State<PatientPage>
         future: fetchPatientData(widget.patientId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
+            return const Scaffold(
               body: Center(
                 child: CircularProgressIndicator(),
               ),
             );
           } else if (snapshot.hasError || snapshot.data == null) {
-            return Scaffold(
+            return const Scaffold(
               body: Center(
                 child: Text('Erro ao carregar dados do utilizador'),
               ),
@@ -71,24 +71,24 @@ class _PatientPageState extends State<PatientPage>
             List<dynamic> modules = snapshot.data?['modules']['modules'];
             Map<String, dynamic> patient = snapshot.data?['patient']['patient'];
 
-            return Container(
+            return SizedBox(
               height: MediaQuery.of(context).size.height,
               child: Stack(
                 children: [
                   SingleChildScrollView(
-                    padding: EdgeInsets.only(left: 14, right: 14, bottom: 14),
+                    padding: const EdgeInsets.only(left: 14, right: 14, bottom: 14),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
+                            SizedBox(
                               width: MediaQuery.of(context).size.width,
                               child: Text(
                                 patient['name'],
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -103,7 +103,7 @@ class _PatientPageState extends State<PatientPage>
                           height: 10,
                         ),
                         Container(
-                          padding: EdgeInsets.only(bottom: 5),
+                          padding: const EdgeInsets.only(bottom: 5),
                           width: MediaQuery.of(context).size.width - 40,
                           decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.secondary,
@@ -115,9 +115,9 @@ class _PatientPageState extends State<PatientPage>
                                 width: MediaQuery.of(context).size.width,
                                 height: 30,
                                 decoration: BoxDecoration(
-                                    color: Color(0xff672D6F),
+                                    color: const Color(0xff672D6F),
                                     borderRadius: BorderRadius.circular(20)),
-                                child: Center(
+                                child: const Center(
                                   child: Text(
                                     'Local de Morada',
                                     style: TextStyle(
@@ -130,7 +130,7 @@ class _PatientPageState extends State<PatientPage>
                               Text(
                                 '${patient["address"]} - ${patient["postalcode"]} - ${patient["town"]}',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
                               )
                             ],
@@ -140,7 +140,7 @@ class _PatientPageState extends State<PatientPage>
                           height: 10,
                         ),
                         Container(
-                          padding: EdgeInsets.only(bottom: 5),
+                          padding: const EdgeInsets.only(bottom: 5),
                           width: MediaQuery.of(context).size.width - 40,
                           decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.secondary,
@@ -152,9 +152,9 @@ class _PatientPageState extends State<PatientPage>
                                 width: MediaQuery.of(context).size.width,
                                 height: 30,
                                 decoration: BoxDecoration(
-                                    color: Color(0xff672D6F),
+                                    color: const Color(0xff672D6F),
                                     borderRadius: BorderRadius.circular(20)),
-                                child: Center(
+                                child: const Center(
                                   child: Text(
                                     'E-mail',
                                     style: TextStyle(
@@ -167,7 +167,7 @@ class _PatientPageState extends State<PatientPage>
                               Text(
                                 patient["email"],
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
                               )
                             ],
@@ -177,7 +177,7 @@ class _PatientPageState extends State<PatientPage>
                           height: 10,
                         ),
                         Container(
-                          padding: EdgeInsets.only(bottom: 5),
+                          padding: const EdgeInsets.only(bottom: 5),
                           width: MediaQuery.of(context).size.width - 40,
                           decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.secondary,
@@ -189,9 +189,9 @@ class _PatientPageState extends State<PatientPage>
                                 width: MediaQuery.of(context).size.width,
                                 height: 30,
                                 decoration: BoxDecoration(
-                                    color: Color(0xff672D6F),
+                                    color: const Color(0xff672D6F),
                                     borderRadius: BorderRadius.circular(20)),
-                                child: Center(
+                                child: const Center(
                                   child: Text(
                                     'Nº Telefone',
                                     style: TextStyle(
@@ -204,7 +204,7 @@ class _PatientPageState extends State<PatientPage>
                               Text(
                                 '+351${patient["telephone"]}',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
                               )
                             ],
@@ -213,35 +213,35 @@ class _PatientPageState extends State<PatientPage>
                         Container(
                           height: 10,
                         ),
-                        if (modules.length >= 1)
-                          Container(
+                        if (modules.isNotEmpty)
+                          SizedBox(
                             width: MediaQuery.of(context).size.width - 40,
                             height: MediaQuery.of(context).size.height - 570,
                             child: ListView.builder(
                                 itemCount: modules.length,
                                 itemBuilder: (context, index) {
-                                  int module_id = modules[index]['module_id'];
+                                  int moduleId = modules[index]['module_id'];
                                   String episode = modules[index]['episode'];
                                   String module = modules[index]['module'];
                                   String status = modules[index]['status'];
 
                                   return GestureDetector(
                                     onTap: () {
-                                      widget.modulePageID(module_id);
+                                      widget.modulePageID(moduleId);
                                       widget.pageController.jumpToPage(8);
                                     },
                                     child: Container(
                                       width: MediaQuery.of(context).size.width,
                                       margin:
-                                          EdgeInsets.symmetric(vertical: 10),
-                                      padding: EdgeInsets.all(10),
+                                          const EdgeInsets.symmetric(vertical: 10),
+                                      padding: const EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         color: Theme.of(context)
                                             .colorScheme
                                             .secondary,
                                         borderRadius: BorderRadius.circular(20),
                                       ),
-                                      child: Container(
+                                      child: SizedBox(
                                         height: 80,
                                         child: Column(
                                           crossAxisAlignment:
@@ -249,7 +249,7 @@ class _PatientPageState extends State<PatientPage>
                                           children: [
                                             Text(
                                               'Módulo $module',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             Flexible(
@@ -266,7 +266,7 @@ class _PatientPageState extends State<PatientPage>
                                                       : status == "Paused"
                                                           ? 'Pausado'
                                                           : status,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             )
                                           ],
@@ -277,10 +277,10 @@ class _PatientPageState extends State<PatientPage>
                                 }),
                           )
                         else
-                          Container(
+                          SizedBox(
                               width: MediaQuery.of(context).size.width - 40,
                               height: MediaQuery.of(context).size.height - 570,
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                     'O paciente ainda não possui módulos adicionados'),
                               ))
@@ -291,12 +291,12 @@ class _PatientPageState extends State<PatientPage>
                       right: 15,
                       bottom: 10,
                       child: SpeedDial(
-                        backgroundColor: Color(0xff672D6F),
+                        backgroundColor: const Color(0xff672D6F),
                         foregroundColor: Colors.white,
                         animatedIcon: AnimatedIcons.menu_close,
                         children: [
                           SpeedDialChild(
-                              shape: CircleBorder(),
+                              shape: const CircleBorder(),
                               onTap: () {
                                 showDialog(
                                     context: context,
@@ -308,12 +308,12 @@ class _PatientPageState extends State<PatientPage>
                                       );
                                     });
                               },
-                              backgroundColor: Color(0xff672D6F),
+                              backgroundColor: const Color(0xff672D6F),
                               foregroundColor: Colors.white,
                               label: 'Adicionar módulo',
-                              child: Icon(Icons.document_scanner)),
+                              child: const Icon(Icons.document_scanner)),
                           SpeedDialChild(
-                              shape: CircleBorder(),
+                              shape: const CircleBorder(),
                               onTap: () {
                                 showDialog(
                                     context: context,
@@ -325,12 +325,12 @@ class _PatientPageState extends State<PatientPage>
                                       );
                                     });
                               },
-                              backgroundColor: Color(0xff672D6F),
+                              backgroundColor: const Color(0xff672D6F),
                               foregroundColor: Colors.white,
                               label: 'Excluir paciente',
-                              child: Icon(Icons.delete_forever)),
+                              child: const Icon(Icons.delete_forever)),
                           SpeedDialChild(
-                              shape: CircleBorder(),
+                              shape: const CircleBorder(),
                               onTap: () {
                                 showDialog(
                                     context: context,
@@ -342,12 +342,12 @@ class _PatientPageState extends State<PatientPage>
                                       );
                                     });
                               },
-                              backgroundColor: Color(0xff672D6F),
+                              backgroundColor: const Color(0xff672D6F),
                               foregroundColor: Colors.white,
                               label: 'Transferir paciente',
-                              child: Icon(Icons.transfer_within_a_station)),
+                              child: const Icon(Icons.transfer_within_a_station)),
                           SpeedDialChild(
-                              shape: CircleBorder(),
+                              shape: const CircleBorder(),
                               onTap: () {
                                 showDialog(
                                     context: context,
@@ -360,12 +360,12 @@ class _PatientPageState extends State<PatientPage>
                                       );
                                     });
                               },
-                              backgroundColor: Color(0xff672D6F),
+                              backgroundColor: const Color(0xff672D6F),
                               foregroundColor: Colors.white,
                               label: 'Alterar estado do paciente',
-                              child: Icon(Icons.change_circle)),
+                              child: const Icon(Icons.change_circle)),
                           SpeedDialChild(
-                              shape: CircleBorder(),
+                              shape: const CircleBorder(),
                               onTap: () {
                                 showDialog(
                                     context: context,
@@ -377,10 +377,10 @@ class _PatientPageState extends State<PatientPage>
                                           reloadPage: reloadPage);
                                     });
                               },
-                              backgroundColor: Color(0xff672D6F),
+                              backgroundColor: const Color(0xff672D6F),
                               foregroundColor: Colors.white,
                               label: 'Editar paciente',
-                              child: Icon(Icons.edit_square)),
+                              child: const Icon(Icons.edit_square)),
                         ],
                       )),
                 ],

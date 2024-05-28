@@ -40,7 +40,7 @@ class LandingPage extends StatelessWidget {
                                     color:
                                         Theme.of(context).colorScheme.primary,
                                     fontSize: 16),
-                                children: [
+                                children: const [
                                   TextSpan(
                                       text: 'A Solução Completa para ',
                                       style: TextStyle(
