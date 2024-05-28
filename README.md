@@ -12,7 +12,7 @@ This was our first experience having contact with slightly more complex projects
 the back-end is found in this organization's repository:
 [ByMe_Flask RESTful API](https://github.com/byme-internship-project/ByMe_Flask_RESTful_API)
 
-The objective is to assist the work of doctors, allowing them to manage their patients and consultations. The application offers an intuitive interface and features that make the professional's day-to-day life easier, optimizing their time and improving the quality of service.
+The objective is to assist the work of doctors, allowing them to manage their patients and appointments. The application offers an intuitive interface and features that make the professional's day-to-day life easier, optimizing their time and improving the quality of service.
 
 ## ✏️ Authors
 
