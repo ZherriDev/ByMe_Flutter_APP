@@ -1,41 +1,39 @@
 # ByMe Flutter Application 
-
-[![My Skills](https://skillicons.dev/icons?i=flutter,dart,figma)](https://skillicons.dev)
+[![Flutter](https://skillicons.dev/icons?i=flutter)](https://en.wikipedia.org/wiki/Flutter_(software))
+[![Dart](https://skillicons.dev/icons?i=dart)](https://en.wikipedia.org/wiki/Dart_(programming_language))
+[![Figma](https://skillicons.dev/icons?i=figma)](https://en.wikipedia.org/wiki/Figma)
+[![Firebase](https://skillicons.dev/icons?i=firebase)](https://en.wikipedia.org/wiki/Firebase)
 
 ## ℹ About the Project
 
-This project was developed together with my colleagues @ZherriDev and @Alan7225 during our internship at the company ByMe - Information Technology, Lda. in Portugal.
+This project was developed during our internship at the company ByMe - Information Technology, Lda. based in Porto, Portugal.
+
+This was our first experience having contact with slightly more complex projects like this. This Flutter App is just the front-end of the project, 
+the back-end is found in this organization's repository:
+[ByMe_Flask RESTful API](https://github.com/byme-internship-project/ByMe_Flask_RESTful_API)
 
 The objective is to assist the work of doctors, allowing them to manage their patients and consultations. The application offers an intuitive interface and features that make the professional's day-to-day life easier, optimizing their time and improving the quality of service.
 
-##  ✏️ Authors
+## ✏️ Authors
 
-- [@RaveDev](https://github.com/Ravejaja)
-- [@ZherriDev](https://github.com/ZherriDev)
+- [RaveDev](https://github.com/Ravejaja)
+- [ZherriDev](https://github.com/ZherriDev)
 
-## Tools/Frameworks
-- [Flutter](https://flutter.dev)
-- [Firebase](https://firebase.google.com/?hl=pt)
-- [Figma](https://figma.com)
+## 📱 Layout
+| ☀ Light Mode ☀ |
+| ---------- |
+|<img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/f5e924df-d7e0-48f7-8f45-8f9c34eb9f78" width="190px"/><img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/fc345966-777f-4a50-b714-b7dc77c529e9" width="190px"/><img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/8add8495-1658-48cc-acbd-844690ef1615" width="190px"/><img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/49f85b5c-f244-4abb-b48f-962949a3d4d1" width="190px"/><img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/2fc7f308-3654-4d94-a4df-ecdcdd83fa88" width="190px"/>|
 
-
-
-## Layout
-| | | | |
-| --- | --- | --- | --- |
-| <img src="https://github.com/byme-internship-flutter-app/ByMe_Flutter_APP/assets/154023627/cf2eb08b-ceb3-4758-a50d-f73c032fff48" width="200"> | <img src="https://github.com/byme-internship-flutter-app/ByMe_Flutter_APP/assets/154023627/5a9ff95c-daf7-41dd-b37c-b2d6f54bb991" width="200"> | <img src="https://github.com/byme-internship-flutter-app/ByMe_Flutter_APP/assets/154023627/971eb07a-e082-4b74-88e4-5f137c865b47" width="200"> | <img src="https://github.com/byme-internship-flutter-app/ByMe_Flutter_APP/assets/154023627/989a96f1-03c9-4540-9e63-8c1924ecafae" width="200">
+| 🌙 Dark Mode 🌙 |
+| --------- |
+|<img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/aa12f42b-d8eb-4efb-810c-9374fc7c2a56" width="190px"/><img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/fdff42e5-eb41-4b59-94d2-b514fee98d2a" width="190px"/><img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/f147a967-7e4a-42d6-957c-fa99e2b131fc" width="190px"/><img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/110848c8-962b-4e8a-928c-0e595f48e860" width="190px"/><img src="https://github.com/byme-internship-project/ByMe_Flutter_APP/assets/165341887/828855a1-8043-4c66-a697-9f30226c55c9" width="190px"/>|
 
 
-##  Installation
+## ⬇️ Installation
 
 1. Download the APK from the following link: https://drive.google.com/file/d/1pB2nOKJEe4tJ0NIzXU5GCPWQzY-LxAj_/view?usp=drive_link
 2. Open the downloaded APK file and follow the instructions to install the app.
 3. Open the App.
 
-If you encounter any issues or have any feedback, please report them to me.
-
-
-
-
-
-
+## ❗Support
+Please [create a new issue](https://github.com/byme-internship-project/ByMe_Flutter_APP/issues/new) if you have a suggestion or if you found a problem.
