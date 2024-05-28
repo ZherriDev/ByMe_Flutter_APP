@@ -67,15 +67,11 @@ class _CalendarPageState extends State<CalendarPage> {
           );
         } else {
           List<dynamic>? appointmentsData = snapshot.data;
-          if (appointmentsData == null || appointmentsData.isEmpty) {
-            return Center(
-              child: Text('Nenhuma consulta encontrada'),
-            );
-          }
+        
 
           Map<DateTime, List<Appointments>> appointments = {};
 
-          for (var appointment in appointmentsData) {
+          for (var appointment in appointmentsData!) {
             int appointmentId = appointment['appointment_id'];
             int patientId = appointment['patient_id'];
             String patientName = appointment['patient_data']['name'];
