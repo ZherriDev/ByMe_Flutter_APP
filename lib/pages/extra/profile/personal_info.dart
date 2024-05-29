@@ -105,12 +105,32 @@ class _PersonalInfoState extends State<PersonalInfo> {
     if (file != null) {
       String downloadUrl = await upload(file.path);
 
-      int phoneValue = int.parse(_phoneController.text);
+      int? phoneValue;
+      if (_phoneController.text.isNotEmpty) {
+        phoneValue = int.parse(_phoneController.text);
+      } else {
+        phoneValue = null;
+      }
+
+      String? address;
+      if (_addressController.text.isNotEmpty) {
+        address = _addressController.text;
+      } else {
+        address = null;
+      }
+
+      String? birthdate;
+      if (_birthdateController.text.isNotEmpty) {
+        birthdate = _birthdateController.text;
+      } else {
+        birthdate = null;
+      }
+
       updateImage(
         _nameController.text,
         phoneValue,
-        _birthdateController.text,
-        _addressController.text,
+        birthdate,
+        address,
         _speciality,
         downloadUrl,
         _sex,
@@ -217,7 +237,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         top: 10, bottom: 10, left: 20, right: 20),
                     width: 400,
                     child: Form(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       key: _formKey,
                       child: Column(
                         children: [
@@ -254,13 +273,15 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             enabled: _isLoading == false,
                             validator: (phone) {
                               if (phone == null || phone.isEmpty) {
-                                return 'Insira seu número de telefone';
+                                return 'Insira seu número de Telemóvel';
                               }
                               return null;
                             },
                             controller: _phoneController,
+                            keyboardType: TextInputType.number,
                             decoration: InputDecoration(
-                              labelText: 'Número de Telemóvel',
+                              hintText: 'Número de Telemóvel',
+                              labelText: 'Telemóvel',
                               filled: true,
                               fillColor:
                                   Theme.of(context).colorScheme.secondary,
@@ -289,6 +310,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             },
                             controller: _birthdateController,
                             decoration: InputDecoration(
+                              hintText: 'Sua Data de Nascimento',
                               labelText: 'Data de Nascimento',
                               filled: true,
                               fillColor:
@@ -307,7 +329,14 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           TextFormField(
                             enabled: _isLoading == false,
                             controller: _addressController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Insira sua Morada';
+                              }
+                              return null;
+                            },
                             decoration: InputDecoration(
+                              hintText: 'Insira sua Morada',
                               labelText: 'Morada',
                               filled: true,
                               fillColor:
@@ -364,6 +393,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           ),
                           DropdownButtonFormField<String>(
                             decoration: InputDecoration(
+                              hintText: 'Insira seu sexo',
                               labelText: 'Sexo',
                               filled: true,
                               fillColor:
@@ -424,7 +454,11 @@ class _PersonalInfoState extends State<PersonalInfo> {
   }
 
   Future<void> _selectDate(birthdate) async {
-    DateTime date = DateTime.parse(birthdate.text);
+    DateTime date = DateTime.now();
+    if (birthdate.text != "") {
+      date = DateTime.parse(birthdate.text);
+    }
+
     DateTime? picked = await showDatePicker(
       context: context,
       initialDate: date,
