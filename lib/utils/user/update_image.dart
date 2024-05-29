@@ -2,8 +2,8 @@ import 'package:byme_flutter_app/utils/token/read_token.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-Future<bool> updateImage(String name, int phone, String birthdate,
-    String address, String speciality, String photo, String? sex) async {
+Future<bool> updateImage(String name, int? phone, String? birthdate,
+    String? address, String speciality, String photo, String? sex) async {
   final userStorage = await readToken();
   String token = userStorage?['token'];
   int doctorId = userStorage?['doctor_id'];
@@ -37,10 +37,13 @@ Future<bool> updateImage(String name, int phone, String birthdate,
       case 200:
         succes = true;
       case 400:
+        print('Error: ${response.body}');
         break;
       case 401:
+        print('Error: ${response.statusCode}');
         break;
       case 500:
+        print('Error: ${response.statusCode}');
         break;
     }
   } catch (error) {
