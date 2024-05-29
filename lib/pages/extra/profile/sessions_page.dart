@@ -167,7 +167,7 @@ class _SessionsPageState extends State<SessionsPage> {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  currentSession(index)
+                                  currentSessionFunction(index)
                                 ],
                               ),
                               trailing: Text(sessions[index]['ip_address']),
@@ -190,7 +190,7 @@ class _SessionsPageState extends State<SessionsPage> {
         });
   }
 
-  Widget currentSession(index) {
+  Widget currentSessionFunction(index) {
     if (index == 0) {
       return Row(
         children: [

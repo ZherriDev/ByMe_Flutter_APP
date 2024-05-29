@@ -1,6 +1,7 @@
 import 'package:byme_flutter_app/utils/appointment/add_appointment.dart';
 import 'package:byme_flutter_app/utils/patients/get_patients_data.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AddAppointment extends StatefulWidget {
   final BuildContext context;
@@ -34,6 +35,21 @@ class _AddAppointmentState extends State<AddAppointment> {
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<void> _selectDate(dateController) async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1920),
+      lastDate: DateTime(2025),
+    );
+
+    if (picked != null) {
+      setState(() {
+        dateController.text = DateFormat('yyyy-MM-dd').format(picked);
+      });
+    }
   }
 
   @override
@@ -151,7 +167,10 @@ class _AddAppointmentState extends State<AddAppointment> {
                         TextFormField(
                           enabled: isLoading == false,
                           controller: date,
-                          keyboardType: TextInputType.datetime,
+                          readOnly: true,
+                          onTap: () {
+                              _selectDate(date);
+                          },
                           validator: (date) {
                             if (date == null || date.isEmpty) {
                               return 'Insira a data da consulta';

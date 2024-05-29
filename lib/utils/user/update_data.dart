@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 Future<bool> updateData(
-    String name, int phone, String birthdate, String address, String speciality, String photo, String sex) async {
+    String name, int phone, String birthdate, String address, String speciality, String photo, String? sex) async {
  
   final userStorage = await readToken();
   String token = userStorage?['token'];
