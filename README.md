@@ -31,7 +31,7 @@ The objective is to assist the work of doctors, allowing them to manage their pa
 
 ## ⬇️ Installation
 
-1. Download the APK from the following link: https://drive.google.com/file/d/1SwA2ZvVH1xBquHANsE-DGNOwUA-md6wg/view?usp=drive_link
+1. Download the APK from the following link: https://drive.google.com/file/d/1Txr-l3eq_RtUd6MRErgILaoepWVtP5ch/view?usp=drive_link
 2. Open the downloaded APK file and follow the instructions to install the app.
 3. Open the App.
 
