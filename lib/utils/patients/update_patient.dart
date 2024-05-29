@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 class UpdatePatient extends StatefulWidget {
   final BuildContext context;
   final int patientId;
@@ -57,6 +59,22 @@ class _UpdatePatientState extends State<UpdatePatient> {
     townController = TextEditingController(text: widget.patient['town']);
     nifController = TextEditingController(text: '${widget.patient['nif']}');
     snsController = TextEditingController(text: '${widget.patient['sns']}');
+  }
+
+  Future<void> _selectDate(birthdate) async {
+    DateTime patientDate = DateTime.parse(birthdate.text);
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: patientDate,
+      firstDate: DateTime(1920),
+      lastDate: DateTime(2025),
+    );
+
+    if (picked != null) {
+      setState(() {
+        birthdate.text = DateFormat('yyyy-MM-dd').format(picked);
+      });
+    }
   }
 
   Future<bool?> updatePatient(patientId, name, telephone, email, sex, birthdate,
@@ -133,7 +151,8 @@ class _UpdatePatientState extends State<UpdatePatient> {
         width: MediaQuery.of(context).size.width,
         height: 50,
         decoration: BoxDecoration(
-            color: const Color(0xff672D6F), borderRadius: BorderRadius.circular(10)),
+            color: const Color(0xff672D6F),
+            borderRadius: BorderRadius.circular(10)),
         child: const Text(
           'Editar Paciente',
           textAlign: TextAlign.center,
@@ -264,7 +283,10 @@ class _UpdatePatientState extends State<UpdatePatient> {
               TextFormField(
                 enabled: isLoading == false,
                 controller: birthdateController,
-                keyboardType: TextInputType.number,
+                readOnly: true,
+                onTap: () {
+                  _selectDate(birthdateController);
+                },
                 validator: (birthdate) {
                   if (birthdate == null || birthdate.isEmpty) {
                     return 'Insira a data de nascimento do paciente';

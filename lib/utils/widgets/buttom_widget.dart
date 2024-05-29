@@ -6,9 +6,11 @@ class SaveButton extends StatefulWidget {
   final TextEditingController phoneController;
   final TextEditingController birthdateController;
   final TextEditingController addressController;
+
+
   final String speciality;
   final String currentImage;
-  final String sex;
+  final String? sex;
   final Future<bool> Function(
     String name,
     int phone,
@@ -16,13 +18,14 @@ class SaveButton extends StatefulWidget {
     String address,
     String speciality,
     String currentImage,
-    String sex,
+    String? sex,
   ) updateData;
   final void Function(String message) showSuccessPopUp;
   final String buttonText;
 
   const SaveButton({
     Key? key,
+  
     required this.formKey,
     required this.nameController,
     required this.phoneController,
@@ -39,6 +42,7 @@ class SaveButton extends StatefulWidget {
   @override
   State<SaveButton> createState() => _SaveButtonState();
 }
+
 
 class _SaveButtonState extends State<SaveButton> {
   bool _isLoading = false;

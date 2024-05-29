@@ -52,7 +52,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   late TextEditingController _birthdateController;
   late TextEditingController _addressController;
   late String _speciality;
-  late String _sex;
+  late String? _sex;
   late String _currentImage;
   final _formKey = GlobalKey<FormState>();
   final bool _isLoading = false;
@@ -141,12 +141,22 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 snapshot.data?['user']['doctor']['fullname'] ?? '';
           }
           if (_phoneController.text.isEmpty) {
-            _phoneController.text =
-                snapshot.data?['user']['doctor']['telephone'].toString() ?? '';
+            if (snapshot.data?['user']['doctor']['telephone'] == null) {
+              _phoneController.text = '';
+            } else {
+              _phoneController.text =
+                  snapshot.data?['user']['doctor']['telephone'].toString() ??
+                      '';
+            }
           }
           if (_birthdateController.text.isEmpty) {
-            _birthdateController.text =
-                snapshot.data?['user']['doctor']['birthdate'].toString() ?? '';
+            if (snapshot.data?['user']['doctor']['birthdate'] == null) {
+              _birthdateController.text = '';
+            } else {
+              _birthdateController.text =
+                  snapshot.data?['user']['doctor']['birthdate'].toString() ??
+                      '';
+            }
           }
           if (_addressController.text.isEmpty) {
             _addressController.text =
@@ -155,9 +165,10 @@ class _PersonalInfoState extends State<PersonalInfo> {
           if (_speciality.isEmpty) {
             _speciality = snapshot.data?['user']['doctor']['speciality'] ?? '';
           }
-          if (_sex.isEmpty) {
+          if (_sex == '') {
             _sex = snapshot.data?['user']['doctor']['sex'];
           }
+
           if (_currentImage.isEmpty) {
             _currentImage = snapshot.data?['user']['doctor']['photo'];
           }
@@ -206,6 +217,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                         top: 10, bottom: 10, left: 20, right: 20),
                     width: 400,
                     child: Form(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       key: _formKey,
                       child: Column(
                         children: [
@@ -266,6 +278,12 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           TextFormField(
                             enabled: _isLoading == false,
                             readOnly: true,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Insira sua data de nascimento';
+                              }
+                              return null;
+                            },
                             onTap: () {
                               _selectDate(_birthdateController);
                             },
@@ -324,8 +342,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                 value: specialty,
                                 child: Text(
                                   specialty,
-                                  style:
-                                      const TextStyle(fontWeight: FontWeight.normal),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.normal),
                                 ),
                               );
                             }).toList(),
@@ -362,8 +380,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
                                 value: sex,
                                 child: Text(
                                   sex,
-                                  style:
-                                      const TextStyle(fontWeight: FontWeight.normal),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.normal),
                                 ),
                               );
                             }).toList(),
@@ -374,7 +392,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             },
                             validator: (sex) {
                               if (sex == null) {
-                                return 'Por favor, selecione uma especialidade';
+                                return 'Por favor, selecione um Sexo';
                               }
                               return null;
                             },
@@ -396,7 +414,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 sex: _sex,
                 updateData: updateData,
                 showSuccessPopUp: _showSuccessPopUp,
-                buttonText: 'Salvar Alterações', // Texto do botão definido aqui
+                buttonText: 'Salvar Alterações',
               ),
             ],
           );
@@ -406,10 +424,11 @@ class _PersonalInfoState extends State<PersonalInfo> {
   }
 
   Future<void> _selectDate(birthdate) async {
+    DateTime date = DateTime.parse(birthdate.text);
     DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1950),
+      initialDate: date,
+      firstDate: DateTime(1920),
       lastDate: DateTime(2025),
     );
 

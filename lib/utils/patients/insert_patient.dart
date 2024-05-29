@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 class InsertPatient extends StatefulWidget {
   final BuildContext context;
   final Function() reloadPage;
@@ -38,6 +40,21 @@ class _InsertPatientState extends State<InsertPatient> {
     'Em tratamento',
     'Tratamento concluído'
   ];
+
+  Future<void> _selectDate(birthdate) async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1920),
+      lastDate: DateTime(2025),
+    );
+
+    if (picked != null) {
+      setState(() {
+        birthdate.text = DateFormat('yyyy-MM-dd').format(picked);
+      });
+    }
+  }
 
   Future<bool?> insertPatient(name, telephone, email, sex, birthdate,
       processnumber, address, postalcode, town, nif, sns, status) async {
@@ -253,8 +270,11 @@ class _InsertPatientState extends State<InsertPatient> {
               ),
               TextFormField(
                 enabled: isLoading == false,
+                readOnly: true,
                 controller: birthdateController,
-                keyboardType: TextInputType.number,
+                onTap: () {
+                  _selectDate(birthdateController);
+                },
                 validator: (birthdate) {
                   if (birthdate == null || birthdate.isEmpty) {
                     return 'Insira a data de nascimento do paciente';

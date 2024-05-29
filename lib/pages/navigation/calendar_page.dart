@@ -61,7 +61,7 @@ class _CalendarPageState extends State<CalendarPage> {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (snapshot.hasError || snapshot.data == null) {
+        } else if (snapshot.hasError) {
           return const Center(
             child: Text('Erro ao carregar dados'),
           );
