@@ -14,6 +14,7 @@ class Appointments {
   final String processNumber;
   final DateTime date;
   final String time;
+  final String subject;
 
   Appointments(
       {required this.appointmentId,
@@ -22,7 +23,8 @@ class Appointments {
       required this.processNumber,
       required this.sex,
       required this.date,
-      required this.time});
+      required this.time,
+      required this.subject});
 }
 
 class CalendarPage extends StatefulWidget {
@@ -77,6 +79,7 @@ class _CalendarPageState extends State<CalendarPage> {
             String processNumber = appointment['patient_data']['processnumber'];
             String sex = appointment['patient_data']['sex'];
             String time = appointment['time'];
+            String subject = appointment['subject'];
             DateTime appointmentDate = DateTime.parse(appointment['date']);
 
             Appointments appointmentObj = Appointments(
@@ -86,7 +89,8 @@ class _CalendarPageState extends State<CalendarPage> {
                 processNumber: processNumber,
                 sex: sex,
                 date: appointmentDate,
-                time: time);
+                time: time,
+                subject: subject);
 
             if (appointments.containsKey(appointmentDate)) {
               appointments[appointmentDate]!.add(appointmentObj);
@@ -262,6 +266,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
                         int patientId = value[index].patientId;
                         String patientName = value[index].patientName;
                         String time = value[index].time;
+                        String subject = value[index].subject;
 
                         return ListTile(
                           onTap: () {
@@ -270,7 +275,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
                           },
                           title: Text(patientName),
                           subtitle: Text(
-                            time,
+                            '$time | $subject',
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           trailing: IconButton(
