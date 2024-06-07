@@ -16,8 +16,8 @@ The objective is to assist the work of doctors, allowing them to manage their pa
 
 ## ✏️ Authors
 
-- [RaveDev](https://github.com/Ravejaja)
-- [ZherriDev](https://github.com/ZherriDev)
+- [@RaveDev](https://github.com/Ravejaja)
+- [@ZherriDev](https://github.com/ZherriDev)
 
 ## 📱 Layout
 | ☀ Light Mode ☀ |
