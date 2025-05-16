@@ -7,3 +7,4 @@
 *.html linguist-detectable=false
 *.txt linguist-detectable=false
 *.rc linguist-detectable=false
+CMakeLists.txt linguist-detectable=false
