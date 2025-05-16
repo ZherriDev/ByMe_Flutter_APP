@@ -5,3 +5,5 @@
 *.cmake linguist-detectable=false
 *.swift linguist-detectable=false
 *.html linguist-detectable=false
+*.txt linguist-detectable=false
+*.rc linguist-detectable=false
